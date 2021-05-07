@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import React, { useState } from 'react';
+import { useAuthContextState } from '../../context/authContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,9 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const DesktopContent = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const DesktopContent = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
+  const { isAuthenticated, logout } = useAuthContextState();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -60,7 +62,7 @@ const DesktopContent = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           Dodaj ogłoszenie
         </Button>
       </Link>
-      {isLoggedIn ? (
+      {isAuthenticated() ? (
         <IconButton
           aria-controls="navigation-menu"
           aria-haspopup="true"
@@ -98,7 +100,14 @@ const DesktopContent = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <MenuItem onClick={handleClose}>Edytuj profil</MenuItem>
         </Link>
         <Link to="/" className="logout">
-          <MenuItem onClick={handleClose}>Wyloguj</MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              logout();
+            }}
+          >
+            Wyloguj
+          </MenuItem>
         </Link>
       </Menu>
     </Hidden>

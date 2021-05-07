@@ -31,7 +31,7 @@ const Header = ({ children }: { children: React.ReactNode }) => {
         className={!matches ? classes.appBar : undefined}
       >
         <Toolbar className={classes.toolbar}>
-          <DesktopContent isLoggedIn />
+          <DesktopContent />
           <MobileContent />
         </Toolbar>
       </AppBar>
