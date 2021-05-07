@@ -53,7 +53,7 @@ const MobileContent = () => {
     <Hidden smUp>
       <Container className={classes.buttonGroup}>
         {buttonsData.map((el) => (
-          <Link to={el.to} className={classes.link}>
+          <Link key={el.to} to={el.to} className={classes.link}>
             <IconButton
               classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
               aria-label={el.aria}
