@@ -2,7 +2,9 @@ import { Container, createStyles, Hidden, IconButton, makeStyles, Theme } from '
 import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import PersonIcon from '@material-ui/icons/Person';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import Navigation from '../../components/navigation';
+import MenuIcon from '@material-ui/icons/Menu';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,10 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const buttonsData = [
   {
-    to: '/my-advertisements',
-    label: 'Dodane',
-    icon: <EventNoteIcon fontSize="large" />,
-    aria: 'Twoje przedmioty',
+    label: 'Menu',
+    icon: <MenuIcon fontSize="large" />,
+    aria: 'Otwórz menu',
   },
   {
     to: '/create-advertisement',
@@ -47,23 +48,42 @@ const buttonsData = [
 ];
 
 const MobileContent = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
 
   return (
     <Hidden smUp>
       <Container className={classes.buttonGroup}>
-        {buttonsData.map((el) => (
-          <Link key={el.to} to={el.to} className={classes.link}>
-            <IconButton
-              classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
-              aria-label={el.aria}
-            >
-              {el.icon}
-              <p>{el.label}</p>
-            </IconButton>
-          </Link>
-        ))}
+        {buttonsData.map((el) => {
+          return el.to ? (
+            <Link key={el.to} to={el.to} className={classes.link}>
+              <IconButton
+                classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
+                aria-label={el.aria}
+              >
+                {el.icon}
+                <p>{el.label}</p>
+              </IconButton>
+            </Link>
+          ) : (
+            <div className={classes.link}>
+              <IconButton
+                classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
+                aria-label={el.aria}
+                onClick={handleClick}
+              >
+                {el.icon}
+                <p>{el.label}</p>
+              </IconButton>
+            </div>
+          );
+        })}
       </Container>
+      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="mobile" />
     </Hidden>
   );
 };
