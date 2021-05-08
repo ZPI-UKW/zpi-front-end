@@ -1,6 +1,7 @@
-import { createStyles, makeStyles, Menu, MenuItem, Theme } from '@material-ui/core';
+import { createStyles, Divider, makeStyles, Menu, MenuItem, Theme } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { useAuthContextState } from '../context/authContext';
+import Transition from './transition';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .logout': {
         color: theme.palette.error.main,
       },
+    },
+    paper: {
+      width: '100%',
+      maxWidth: '100%',
+      left: 0,
+      right: 0,
     },
   })
 );
@@ -45,6 +52,9 @@ const Navigation = ({
       open={Boolean(anchorEl)}
       onClose={handleClose}
       className={classes.menu}
+      TransitionComponent={type === 'mobile' ? Transition : undefined}
+      PopoverClasses={type === 'mobile' ? { paper: classes.paper } : undefined}
+      marginThreshold={0}
       getContentAnchorEl={null}
       anchorOrigin={{
         vertical: 'bottom',
@@ -63,16 +73,19 @@ const Navigation = ({
         </Link>
       ) : null}
       {isAuthenticated() ? (
-        <Link to="/" className="logout">
-          <MenuItem
-            onClick={() => {
-              handleClose();
-              logout();
-            }}
-          >
-            Wyloguj
-          </MenuItem>
-        </Link>
+        <div>
+          <Divider />
+          <Link to="/" className="logout">
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                logout();
+              }}
+            >
+              Wyloguj
+            </MenuItem>
+          </Link>
+        </div>
       ) : null}
     </Menu>
   );

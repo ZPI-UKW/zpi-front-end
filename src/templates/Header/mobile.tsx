@@ -60,7 +60,7 @@ const MobileContent = () => {
       <Container className={classes.buttonGroup}>
         {buttonsData.map((el) => {
           return el.to ? (
-            <Link key={el.to} to={el.to} className={classes.link}>
+            <Link key={el.label} to={el.to} className={classes.link}>
               <IconButton
                 classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
                 aria-label={el.aria}
@@ -70,7 +70,7 @@ const MobileContent = () => {
               </IconButton>
             </Link>
           ) : (
-            <div className={classes.link}>
+            <div key={el.label} className={classes.link}>
               <IconButton
                 classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
                 aria-label={el.aria}
