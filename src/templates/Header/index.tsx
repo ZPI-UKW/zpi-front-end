@@ -19,24 +19,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header = ({ children }: { children: React.ReactNode }) => {
+const Header = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
   return (
-    <>
-      <AppBar
-        position={matches ? 'static' : 'fixed'}
-        className={!matches ? classes.appBar : undefined}
-      >
-        <Toolbar className={classes.toolbar}>
-          <DesktopContent />
-          <MobileContent />
-        </Toolbar>
-      </AppBar>
-      {children}
-    </>
+    <AppBar
+      position={matches ? 'static' : 'fixed'}
+      className={!matches ? classes.appBar : undefined}
+    >
+      <Toolbar className={classes.toolbar}>
+        <DesktopContent />
+        <MobileContent />
+      </Toolbar>
+    </AppBar>
   );
 };
 
