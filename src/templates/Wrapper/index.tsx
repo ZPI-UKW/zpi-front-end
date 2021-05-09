@@ -1,13 +1,15 @@
-import Styled from './styles';
 import Header from '../Header';
 import { ReactNode } from 'react';
+import useStyles from './styles';
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
+  const classes = useStyles();
+
   return (
-    <Styled.Wrapper>
+    <main className={classes.wrapper}>
       <Header />
       {children}
-    </Styled.Wrapper>
+    </main>
   );
 };
 

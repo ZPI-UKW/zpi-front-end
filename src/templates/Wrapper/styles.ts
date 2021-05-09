@@ -1,14 +1,15 @@
-import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core';
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
-`;
+const useStyles = makeStyles((theme) => ({
+  wrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr',
+    [theme.breakpoints.down('xs')]: {
+      gridTemplateRows: '1fr',
+    },
+  },
+}));
 
-const Styled = {
-  Wrapper,
-};
-
-export default Styled;
+export default useStyles;
