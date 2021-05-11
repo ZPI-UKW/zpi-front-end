@@ -9,14 +9,16 @@ import {
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { useState } from 'react';
+import { useStyles } from './styles';
 
 const PasswordField = ({ helperText, error, ...props }: { helperText: string; error: boolean }) => {
   const [isShown, setIsShown] = useState(false);
+  const classes = useStyles();
 
   const toggleVisibility = () => setIsShown((prevState) => !prevState);
 
   return (
-    <FormControl>
+    <FormControl classes={{ root: classes.passwordInput }}>
       <InputLabel htmlFor="password" className={error ? 'Mui-error' : ''}>
         Hasło
       </InputLabel>

@@ -1,4 +1,4 @@
-import { Button, createStyles, makeStyles, Theme, withStyles } from '@material-ui/core';
+import { Button, createStyles, makeStyles, TextField, Theme, withStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +27,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 500,
       cursor: 'pointer',
     },
+    passwordInput: {
+      height: '7rem',
+    },
   })
 );
 
@@ -49,3 +52,9 @@ export const StyledButton = withStyles((theme: Theme) => ({
     },
   },
 }))(Button);
+
+export const StyledTextField = withStyles((theme: Theme) => ({
+  root: {
+    height: '7rem',
+  },
+}))(TextField);

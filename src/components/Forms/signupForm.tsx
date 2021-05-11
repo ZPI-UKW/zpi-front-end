@@ -3,8 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import { forwardRef } from 'react';
 import { SignupSchema } from '../../validation/AuthSchema';
 import { SetContentType } from '../AuthDialog/types';
-import StyledTextField from '../TextField';
-import { StyledButton, useStyles } from './styles';
+import { StyledButton, useStyles, StyledTextField } from './styles';
 import PasswordField from './passwordField';
 
 const SignupForm = (
