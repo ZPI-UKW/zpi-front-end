@@ -24,22 +24,20 @@ const DialogContent = ({ contentType, setContentType }: DialogContentProps) => {
       <FormWrapper
         animate={
           contentType === 'signin'
-            ? { x: 0, opacity: 1, position: 'relative' }
-            : { x: '-100%', opacity: 0 }
+            ? { x: 0, opacity: 1, position: 'relative', y: 0 }
+            : { x: '-100%', opacity: 0, y: 0 }
         }
-        exit={{ x: '-100%', opacity: 0 }}
         transition={{ duration: 0.2 }}
       >
         <SigninForm setContentType={setContentType} ref={signInRef} />
       </FormWrapper>
       <FormWrapper
-        initial={{ x: '100%', opacity: 0 }}
+        initial={{ x: '100%', opacity: 0, y: 0 }}
         animate={
           contentType === 'signup'
-            ? { x: 0, opacity: 1, position: 'relative' }
-            : { x: '100%', opacity: 0 }
+            ? { x: 0, opacity: 1, position: 'relative', y: 0 }
+            : { x: '100%', opacity: 0, y: 0 }
         }
-        exit={{ x: '100%', opacity: 0 }}
         transition={{ duration: 0.2 }}
       >
         <SignupForm setContentType={setContentType} ref={signUpRef} />
