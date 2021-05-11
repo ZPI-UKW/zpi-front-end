@@ -1,6 +1,6 @@
 import { useRect } from '../../hooks/useRect';
-import SigninForm from '../AuthForms/signinForm';
-import SignupForm from '../AuthForms/signupForm';
+import SigninForm from '../Forms/signinForm';
+import SignupForm from '../Forms/signupForm';
 import { StyledDialogContent, FormWrapper } from './styles';
 import { DialogContentProps } from './types';
 

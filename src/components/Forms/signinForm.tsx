@@ -4,6 +4,7 @@ import { forwardRef } from 'react';
 import { SigninSchema } from '../../validation/AuthSchema';
 import { SetContentType } from '../AuthDialog/types';
 import StyledTextField from '../TextField';
+import PasswordField from './passwordField';
 import { StyledButton, useStyles } from './styles';
 
 const SigninForm = (
@@ -30,10 +31,8 @@ const SigninForm = (
             helperText={touched.email && errors.email}
           />
           <Field
-            label="Hasło"
             name="password"
-            type="password"
-            as={StyledTextField}
+            as={PasswordField}
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />

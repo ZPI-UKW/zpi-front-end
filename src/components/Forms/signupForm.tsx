@@ -5,6 +5,7 @@ import { SignupSchema } from '../../validation/AuthSchema';
 import { SetContentType } from '../AuthDialog/types';
 import StyledTextField from '../TextField';
 import { StyledButton, useStyles } from './styles';
+import PasswordField from './passwordField';
 
 const SignupForm = (
   { setContentType }: { setContentType: SetContentType },
@@ -30,9 +31,8 @@ const SignupForm = (
             helperText={touched.email && errors.email}
           />
           <Field
-            label="Hasło"
             name="password"
-            as={StyledTextField}
+            as={PasswordField}
             error={touched.password && Boolean(errors.password)}
             helperText={touched.password && errors.password}
           />
