@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { useState } from 'react';
 import { useAuthContextState } from '../../context/authContext';
+import { NavigationProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MobileContent = () => {
+const MobileContent = ({ handleDialogOpen }: NavigationProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { isAuthenticated } = useAuthContextState();
   const classes = useStyles();
@@ -75,6 +76,7 @@ const MobileContent = () => {
             <IconButton
               classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
               aria-label="Zaloguj się do serwisu"
+              onClick={handleDialogOpen}
             >
               <PersonAddIcon fontSize="large" />
               <p>Zaloguj</p>

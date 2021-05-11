@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import React, { useState } from 'react';
 import { useAuthContextState } from '../../context/authContext';
 import Navigation from '../../components/navigation';
+import { NavigationProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const DesktopContent = () => {
+const DesktopContent = ({ handleDialogOpen }: NavigationProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
   const { isAuthenticated } = useAuthContextState();
@@ -50,7 +51,7 @@ const DesktopContent = () => {
           <MenuIcon fontSize="large" />
         </IconButton>
       ) : (
-        <Button variant="contained" className={classes.button}>
+        <Button variant="contained" className={classes.button} onClick={handleDialogOpen}>
           Zaloguj się
         </Button>
       )}
