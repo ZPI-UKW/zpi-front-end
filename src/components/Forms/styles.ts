@@ -35,7 +35,7 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 export const StyledButton = withStyles((theme: Theme) => ({
   root: {
-    width: '75%',
+    width: '55%',
     minWidth: '14rem',
     margin: '0 auto',
     marginTop: '4rem',
@@ -45,7 +45,7 @@ export const StyledButton = withStyles((theme: Theme) => ({
     },
   },
   label: {
-    fontSize: '1.1rem',
+    fontSize: '1.2rem',
 
     [theme.breakpoints.up('sm')]: {
       fontSize: '1.2rem',
