@@ -1,5 +1,5 @@
+import React from 'react';
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -10,6 +10,7 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { CardProps } from './types';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
@@ -46,16 +47,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ProductCard = ({ variant, title, price, images, location }: CardProps) => {
+const ProductCard = ({ variant, title, price, images, location, _id }: CardProps) => {
   const classes = useStyles();
+
+  const handleIconButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+  };
 
   return (
     <Card elevation={8}>
       <CardActionArea>
         <CardMedia image={images[0]} className={classes.media}>
-          <IconButton className={classes.editIcon}>
-            <EditIcon />
-          </IconButton>
+          <Link to={`/edit-advertisement/${_id}`}>
+            <IconButton onMouseDown={handleIconButton} className={classes.editIcon}>
+              <EditIcon />
+            </IconButton>
+          </Link>
         </CardMedia>
         <CardContent>
           <Typography className={classes.title} variant="h5" component="h2" noWrap>
