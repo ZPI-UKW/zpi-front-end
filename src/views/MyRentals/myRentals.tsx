@@ -2,7 +2,7 @@ import { Box } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Card from '../../components/ProductCard/card';
 import { Annoucements, annoucements as ann } from '../../data/annoucements';
-import { CardsContainer } from './styles';
+import { CardsContainer } from '../../components/CardsContainer/cardsContainer';
 
 const MyRentals = () => {
   const [annoucements, setAnnoucements] = useState<Annoucements[]>([]);
