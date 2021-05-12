@@ -59,11 +59,13 @@ const ProductCard = ({ variant, title, price, images, location, _id }: CardProps
       <CardActionArea>
         <Link to={`/category/examplecategory/${_id}`}>
           <CardMedia image={images[0]} className={classes.media}>
-            <Link to={`/edit-advertisement/${_id}`}>
-              <IconButton onMouseDown={handleIconButton} className={classes.editIcon}>
-                <EditIcon />
-              </IconButton>
-            </Link>
+            {variant === 'your' ? (
+              <Link to={`/edit-advertisement/${_id}`}>
+                <IconButton onMouseDown={handleIconButton} className={classes.editIcon}>
+                  <EditIcon />
+                </IconButton>
+              </Link>
+            ) : null}
           </CardMedia>
           <CardContent>
             <Typography
