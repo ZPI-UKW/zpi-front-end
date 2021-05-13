@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { ContextState, UserData } from './types';
 
 const userData: UserData = {
+  _id: '',
   email: '',
   name: '',
   surname: '',
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const history = useHistory();
 
   const [authState, setAuthState] = useState({
+    _id: '1',
     email: 'janusz@o2.pl',
     name: 'Janusz',
     surname: 'Kowalski',

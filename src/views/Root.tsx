@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../templates/Header';
 import MainTemplate from '../templates/Main';
+import MyAnnoucements from './MyAnnoucements/myAnnoucements';
+import MyRentals from './MyRentals/myRentals';
 
 const Root = () => (
   <Router>
@@ -13,17 +15,17 @@ const Root = () => (
           <Route path="/create-advertisement">
             <h1>Create advertisement</h1>
           </Route>
-          <Route path="/edit-advertisement">
+          <Route path="/edit-advertisement/:addId">
             <h1>Edit advertisement</h1>
           </Route>
           <Route path="/profile">
             <h1>Profile</h1>
           </Route>
           <Route path="/my-advertisements">
-            <h1>My advertisement</h1>
+            <MyAnnoucements />
           </Route>
           <Route path="/my-rentals">
-            <h1>My rentals</h1>
+            <MyRentals />
           </Route>
           <Route exact path="/category/:categoryName">
             <h1>Category name like vehicles or books</h1>
