@@ -1,6 +1,7 @@
 import { Grid, Container, InputAdornment, Typography, TextField } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
+import Category from '../../components/Category';
 import useStyles from './styles';
 import { data } from '../../components/Category/categories.data';
 import { category, categoryData } from '../../components/Category/category.interface';
@@ -56,9 +57,34 @@ const Main = () => {
         </Grid>
       </Container>
       <Container className={classes.container} maxWidth={false}>
-        <Typography variant="h4" component="h2">
-          Kategorie
-        </Typography>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+          className={classes.grid}
+        >
+          <Typography variant="h2" component="h2" className={classes.secondHeading}>
+            Kategorie
+          </Typography>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            className={classes.categoryGrid}
+            spacing={2}
+          >
+            {categories &&
+              categories.map((item: category) => {
+                return (
+                  <Grid item>
+                    <Category name={item.name} icon={item.key} />
+                  </Grid>
+                );
+              })}
+          </Grid>
+        </Grid>
       </Container>
     </Grid>
   );
