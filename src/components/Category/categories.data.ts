@@ -4,39 +4,39 @@ export const data: categoryData = {
   categories: [
     {
       name: 'Pojazdy',
-      key: 'cars',
+      icon: 'cars',
     },
     {
       name: 'Elektronika',
-      key: 'electronics',
+      icon: 'electronics',
     },
     {
       name: 'Narzędzia',
-      key: 'tools',
+      icon: 'tools',
     },
     {
       name: 'Moda',
-      key: 'fashion',
+      icon: 'fashion',
     },
     {
       name: 'Książki',
-      key: 'books',
+      icon: 'books',
     },
     {
       name: 'Sport',
-      key: 'sport',
+      icon: 'sport',
     },
     {
       name: 'Muzyka',
-      key: 'music',
+      icon: 'music',
     },
     {
       name: 'Nieruchomości',
-      key: 'estate',
+      icon: 'estate',
     },
     {
       name: 'Filmy',
-      key: 'movies',
+      icon: 'movies',
     },
   ],
 };

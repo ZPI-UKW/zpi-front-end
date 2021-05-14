@@ -79,7 +79,7 @@ const Main = () => {
               categories.map((item: category) => {
                 return (
                   <Grid item>
-                    <Category name={item.name} icon={item.key} />
+                    <Category name={item.name} icon={item.icon} />
                   </Grid>
                 );
               })}
