@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     textAlign: 'center',
   },
-  categoryGrid: {
-    width: '100%',
-  },
 }));
 
 export default useStyles;
