@@ -1,9 +1,21 @@
 import { Grid, Container, InputAdornment, Typography, TextField } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
+import { useEffect, useState } from 'react';
 import useStyles from './styles';
+import { data } from '../../components/Category/categories.data';
+import { category, categoryData } from '../../components/Category/category.interface';
+
+const getData = (data: categoryData): category[] => {
+  return data.categories;
+};
 
 const Main = () => {
   const classes = useStyles();
+
+  const [categories, setCategories] = useState<category[] | null>(null);
+
+  useEffect(() => setCategories(getData(data)), []);
+  console.log(categories);
 
   return (
     <Grid
