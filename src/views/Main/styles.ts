@@ -29,6 +29,16 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '4rem',
     },
   },
+  secondHeading: {
+    color: colors.grey[900],
+    fontWeight: 400,
+    marginBlock: theme.spacing(1),
+    width: '100%',
+    textAlign: 'center',
+  },
+  categoryGrid: {
+    width: '100%',
+  },
 }));
 
 export default useStyles;
