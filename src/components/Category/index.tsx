@@ -13,6 +13,7 @@ import {
 import { iconName } from './icon.types';
 import useStyle from './styles';
 import randomColor from 'randomcolor';
+import { category } from './category.interface';
 
 const icons: any = {
   cars: DirectionsCarOutlined,
@@ -31,7 +32,7 @@ const getIcon = (key: iconName): JSX.Element | null => {
   return Icon ? <Icon fontSize="large" /> : null;
 };
 
-const Category = ({ name, icon }: { name: string; icon: iconName }) => {
+const Category = ({ name, icon }: category) => {
   const color = randomColor({ luminosity: 'light' });
 
   const classes = useStyle({ bgColor: color });
