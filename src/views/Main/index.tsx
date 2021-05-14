@@ -67,18 +67,11 @@ const Main = () => {
           <Typography variant="h2" component="h2" className={classes.secondHeading}>
             Kategorie
           </Typography>
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-            className={classes.categoryGrid}
-            spacing={2}
-          >
+          <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
             {categories &&
               categories.map((item: category) => {
                 return (
-                  <Grid item>
+                  <Grid item xs={12} sm={6} md={4}>
                     <Category name={item.name} icon={item.icon} />
                   </Grid>
                 );
