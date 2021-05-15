@@ -32,6 +32,17 @@ const Main = () => {
     return matches ? 2 : 4;
   };
 
+  const renderCategories = (categories: category[] | null): JSX.Element[] | null => {
+    return (
+      categories &&
+      categories.map((item: category, index: number) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <Category name={item.name} icon={item.icon} />
+        </Grid>
+      ))
+    );
+  };
+
   return (
     <Grid
       container
@@ -89,14 +100,7 @@ const Main = () => {
             spacing={setSpacing(matches)}
             className={classes.categoryGrid}
           >
-            {categories &&
-              categories.map((item: category) => {
-                return (
-                  <Grid item xs={12} sm={6} md={4}>
-                    <Category name={item.name} icon={item.icon} />
-                  </Grid>
-                );
-              })}
+            {renderCategories(categories)}
           </Grid>
         </Grid>
       </Container>
