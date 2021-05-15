@@ -29,11 +29,11 @@ const icons: any = {
 
 const getIcon = (key: iconName): JSX.Element | null => {
   const Icon = icons[key];
-  return Icon ? <Icon fontSize="large" /> : null;
+  return Icon ? <Icon fontSize="inherit" /> : null;
 };
 
 const Category = ({ name, icon }: category) => {
-  const color = randomColor({ luminosity: 'light' });
+  const color = randomColor({ luminosity: 'bright' });
 
   const classes = useStyle({ bgColor: color });
 

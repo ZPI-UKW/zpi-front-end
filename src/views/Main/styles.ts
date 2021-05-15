@@ -12,7 +12,12 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     paddingInline: theme.spacing(2),
   },
-  searchContainer: { backgroundColor: '#9CA3AF' },
+  searchContainer: {
+    backgroundColor: '#9CA3AF',
+    [theme.breakpoints.down('xs')]: {
+      height: '300px',
+    },
+  },
   searchInput: {
     width: '90%',
     backgroundColor: colors.grey[50],
@@ -32,9 +37,15 @@ const useStyles = makeStyles((theme) => ({
   secondHeading: {
     color: colors.grey[900],
     fontWeight: 400,
-    marginBlock: theme.spacing(1),
     width: '100%',
     textAlign: 'center',
+    marginBlock: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      marginBlock: theme.spacing(4),
+    },
+  },
+  categoryGrid: {
+    marginBlockStart: theme.spacing(),
   },
 }));
 

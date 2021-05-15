@@ -1,4 +1,10 @@
-import { Grid, Container, InputAdornment, Typography, TextField } from '@material-ui/core';
+import {
+  Grid,
+  Container,
+  InputAdornment,
+  Typography,
+  TextField,
+} from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 import Category from '../../components/Category';
@@ -16,14 +22,14 @@ const Main = () => {
   const [categories, setCategories] = useState<category[] | null>(null);
 
   useEffect(() => setCategories(getData(data)), []);
-  console.log(categories);
+
 
   return (
     <Grid
       container
-      direction="column"
-      justify="center"
-      alignItems="center"
+      direction="row"
+      justify="flex-start"
+      alignContent="flex-start"
       className={classes.grid}
     >
       <Container className={`${classes.container} ${classes.searchContainer}`} maxWidth={false}>
@@ -61,13 +67,19 @@ const Main = () => {
           container
           direction="row"
           justify="flex-start"
-          alignItems="center"
+          alignContent="flex-start"
           className={classes.grid}
         >
           <Typography variant="h2" component="h2" className={classes.secondHeading}>
             Kategorie
           </Typography>
-          <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            className={classes.categoryGrid}
+          >
             {categories &&
               categories.map((item: category) => {
                 return (
