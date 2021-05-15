@@ -4,6 +4,9 @@ import {
   InputAdornment,
   Typography,
   TextField,
+  useTheme,
+  useMediaQuery,
+  GridSpacing,
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
@@ -18,11 +21,16 @@ const getData = (data: categoryData): category[] => {
 
 const Main = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('xs'));
 
   const [categories, setCategories] = useState<category[] | null>(null);
 
   useEffect(() => setCategories(getData(data)), []);
 
+  const setSpacing = (matches: boolean): GridSpacing => {
+    return matches ? 2 : 4;
+  };
 
   return (
     <Grid
@@ -78,6 +86,7 @@ const Main = () => {
             direction="row"
             justify="flex-start"
             alignItems="center"
+            spacing={setSpacing(matches)}
             className={classes.categoryGrid}
           >
             {categories &&
