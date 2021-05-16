@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../templates/Header';
 import MainTemplate from '../templates/Main';
+import CreateAnnoucements from './CreateAnnoucements';
 import MyAnnoucements from './MyAnnoucements/myAnnoucements';
 import MyRentals from './MyRentals/myRentals';
 
@@ -13,7 +14,7 @@ const Root = () => (
             <h1>Home</h1>
           </Route>
           <Route path="/create-advertisement">
-            <h1>Create advertisement</h1>
+            <CreateAnnoucements />
           </Route>
           <Route path="/edit-advertisement/:addId">
             <h1>Edit advertisement</h1>
