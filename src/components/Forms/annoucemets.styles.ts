@@ -17,8 +17,7 @@ export const StyledTextField = withStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: '30rem',
-    height: '7rem',
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2.5),
 
     '& *': {
       fontSize: '1.7rem',

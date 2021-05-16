@@ -17,7 +17,7 @@ const Root = () => (
             <CreateAnnoucements />
           </Route>
           <Route path="/edit-advertisement/:addId">
-            <h1>Edit advertisement</h1>
+            <CreateAnnoucements />
           </Route>
           <Route path="/profile">
             <h1>Profile</h1>

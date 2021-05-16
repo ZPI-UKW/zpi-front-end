@@ -1,26 +1,75 @@
 import { Grid } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { useAuthContextState } from '../../context/authContext';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { StyledButton, StyledTextField, useStyles } from './annoucemets.styles';
+import { useEffect, useState } from 'react';
+import { annoucements } from '../../data/annoucements';
+
+const initial = {
+  title: '',
+  location: '',
+  phone: '',
+  email: '',
+  description: '',
+  costs: {
+    day: 0,
+    week: 0,
+    month: 0,
+  },
+};
+
+interface RouteParams {
+  addId: string;
+}
 
 const AnnoucementForm = () => {
   const classes = useStyles();
+  const [initialValues, setInitialValues] = useState(initial);
   const { userInfo } = useAuthContextState();
+  const { pathname } = useLocation();
+  const params = useParams<RouteParams>();
+  const history = useHistory();
+
+  useEffect(() => {
+    const user = {
+      email: userInfo.email,
+      name: userInfo.name,
+      phone: userInfo.phonenumber,
+    };
+
+    if (pathname === '/create-advertisement') {
+      setInitialValues({
+        ...initialValues,
+        ...user,
+      });
+    } else {
+      const { addId } = params;
+      const annoucement = annoucements.find((el) => el._id === addId);
+
+      if (annoucement === undefined) {
+        history.push('/');
+        return;
+      }
+
+      const { title, description, costs, location, email, phone } = annoucement;
+
+      setInitialValues({
+        ...user,
+        title,
+        description,
+        costs,
+        location,
+        email,
+        phone,
+      });
+    }
+  }, [pathname, params, history, userInfo]);
 
   return (
     <Formik
-      initialValues={{
-        name: userInfo.name || '',
-        location: '',
-        phone: userInfo.phonenumber || '',
-        email: userInfo.email || '',
-        description: '',
-        costs: {
-          day: 0,
-          week: 0,
-          month: 0,
-        },
-      }}
+      enableReinitialize
+      initialValues={initialValues}
       onSubmit={(values) => console.log(values)}
     >
       {({ touched, errors }) => (
@@ -30,10 +79,10 @@ const AnnoucementForm = () => {
               <div className={classes.flexWrapper}>
                 <Field
                   label="Nazwa"
-                  name="name"
+                  name="title"
                   as={StyledTextField}
-                  error={touched.name && Boolean(errors.name)}
-                  helperText={touched.name && errors.name}
+                  error={touched.title && Boolean(errors.title)}
+                  helperText={touched.title && errors.title}
                 />
                 <Field
                   label="Lokalizacja"
@@ -59,6 +108,8 @@ const AnnoucementForm = () => {
                 <Field
                   label="Opis"
                   name="description"
+                  multiline
+                  rows={4}
                   as={StyledTextField}
                   error={touched.description && Boolean(errors.description)}
                   helperText={touched.description && errors.description}
