@@ -1,10 +1,11 @@
 import { Grid } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../../context/authContext';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { StyledButton, StyledTextField, useStyles } from './annoucemets.styles';
+import { StyledButton, StyledTextField, useStyles } from './styles';
 import { useEffect, useState } from 'react';
-import { annoucements } from '../../data/annoucements';
+import { annoucements } from '../../../data/annoucements';
+import RouteParams from './types';
 
 const initial = {
   title: '',
@@ -18,10 +19,6 @@ const initial = {
     month: 0,
   },
 };
-
-interface RouteParams {
-  addId: string;
-}
 
 const AnnoucementForm = () => {
   const classes = useStyles();
