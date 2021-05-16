@@ -1,11 +1,12 @@
 import { Grid } from '@material-ui/core';
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import { useAuthContextState } from '../../../context/authContext';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { StyledButton, StyledTextField, useStyles } from './styles';
+import { StyledButton, useStyles } from './styles';
 import { useEffect, useState } from 'react';
 import { annoucements } from '../../../data/annoucements';
-import RouteParams from './types';
+import { RouteParams } from './types';
+import TextFields from './annoucement.textfields';
 
 const initial = {
   title: '',
@@ -61,6 +62,7 @@ const AnnoucementForm = () => {
         phone,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, params, history, userInfo]);
 
   return (
@@ -74,64 +76,7 @@ const AnnoucementForm = () => {
           <Grid container>
             <Grid item xs={12} md={6}>
               <div className={classes.flexWrapper}>
-                <Field
-                  label="Nazwa"
-                  name="title"
-                  as={StyledTextField}
-                  error={touched.title && Boolean(errors.title)}
-                  helperText={touched.title && errors.title}
-                />
-                <Field
-                  label="Lokalizacja"
-                  name="location"
-                  as={StyledTextField}
-                  error={touched.location && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
-                />
-                <Field
-                  label="Telefon kontaktowy"
-                  name="phone"
-                  as={StyledTextField}
-                  error={touched.phone && Boolean(errors.phone)}
-                  helperText={touched.phone && errors.phone}
-                />
-                <Field
-                  label="Email"
-                  name="email"
-                  as={StyledTextField}
-                  error={touched.email && Boolean(errors.email)}
-                  helperText={touched.email && errors.email}
-                />
-                <Field
-                  label="Opis"
-                  name="description"
-                  multiline
-                  rows={4}
-                  as={StyledTextField}
-                  error={touched.description && Boolean(errors.description)}
-                  helperText={touched.description && errors.description}
-                />
-                <Field
-                  label="Cena za 1 dzień"
-                  name="costs.day"
-                  as={StyledTextField}
-                  error={touched.costs?.day && Boolean(errors.costs?.day)}
-                  helperText={touched.costs?.day && errors.costs?.day}
-                />
-                <Field
-                  label="Cena za 1 tydzień (7 dni)"
-                  name="costs.week"
-                  as={StyledTextField}
-                  error={touched.costs?.week && Boolean(errors.costs?.week)}
-                  helperText={touched.costs?.week && errors.costs?.week}
-                />
-                <Field
-                  label="Cena za 1 miesiąc (30 dni)"
-                  name="costs.month"
-                  as={StyledTextField}
-                  error={touched.costs?.month && Boolean(errors.costs?.month)}
-                  helperText={touched.costs?.month && errors.costs?.month}
-                />
+                <TextFields touched={touched} errors={errors} />
               </div>
             </Grid>
             <Grid item xs={12} md={6}>
