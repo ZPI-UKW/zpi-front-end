@@ -15,6 +15,7 @@ import { CardProps } from './types';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,9 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ProductCard = ({ variant, title, price, images, location, _id }: CardProps) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const handleIconButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    history.push(`/edit-advertisement/${_id}`);
   };
 
   return (
@@ -60,11 +63,9 @@ const ProductCard = ({ variant, title, price, images, location, _id }: CardProps
         <Link to={`/category/examplecategory/${_id}`}>
           <CardMedia image={images[0]} className={classes.media}>
             {variant === 'your' ? (
-              <Link to={`/edit-advertisement/${_id}`}>
-                <IconButton onMouseDown={handleIconButton} className={classes.editIcon}>
-                  <EditIcon />
-                </IconButton>
-              </Link>
+              <IconButton onMouseDown={handleIconButton} className={classes.editIcon}>
+                <EditIcon />
+              </IconButton>
             ) : null}
           </CardMedia>
           <CardContent>
