@@ -4,66 +4,22 @@ import { useAuthContextState } from '../../../context/authContext';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { StyledButton, useStyles } from './styles';
 import { useEffect, useState } from 'react';
-import { annoucements } from '../../../data/annoucements';
-import { RouteParams } from './types';
+import { Initial, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
-
-const initial = {
-  title: '',
-  location: '',
-  phone: '',
-  email: '',
-  description: '',
-  costs: {
-    day: 0,
-    week: 0,
-    month: 0,
-  },
-};
+import { initial, routeType } from './annoucement.util';
 
 const AnnoucementForm = () => {
   const classes = useStyles();
-  const [initialValues, setInitialValues] = useState(initial);
+  const [initialValues, setInitialValues] = useState<Initial>(initial);
   const { userInfo } = useAuthContextState();
   const { pathname } = useLocation();
   const params = useParams<RouteParams>();
   const history = useHistory();
 
   useEffect(() => {
-    const user = {
-      email: userInfo.email,
-      name: userInfo.name,
-      phone: userInfo.phonenumber,
-    };
-
-    if (pathname === '/create-advertisement') {
-      setInitialValues({
-        ...initialValues,
-        ...user,
-      });
-    } else {
-      const { addId } = params;
-      const annoucement = annoucements.find((el) => el._id === addId);
-
-      if (annoucement === undefined) {
-        history.push('/');
-        return;
-      }
-
-      const { title, description, costs, location, email, phone } = annoucement;
-
-      setInitialValues({
-        ...user,
-        title,
-        description,
-        costs,
-        location,
-        email,
-        phone,
-      });
-    }
+    routeType(pathname, initialValues, params, userInfo, setInitialValues, history);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, params, history, userInfo]);
+  }, [pathname, params]);
 
   return (
     <Formik
