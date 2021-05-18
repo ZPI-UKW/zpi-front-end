@@ -6,6 +6,7 @@ import { Area } from 'react-easy-crop/types';
 import DialogTitle from '../../DialogTitle';
 import { getCroppedImg } from './annoucement.util';
 import { StyledButton, StyledDialogContent } from './styles';
+import { CropperDialogProps } from './types';
 
 const CropperDialog = ({
   open,
@@ -13,13 +14,8 @@ const CropperDialog = ({
   currentImage,
   images,
   setFieldValue,
-}: {
-  open: boolean;
-  closeModal: () => void;
-  currentImage: string | null;
-  images: string[];
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
-}) => {
+  setErrors,
+}: CropperDialogProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -39,7 +35,7 @@ const CropperDialog = ({
         setFieldValue('images', [...images, croppedImage]);
       }
     } catch (e) {
-      console.error(e);
+      setErrors({ images: 'Wystąpił błąd podczas zapisywania zdjęcia' });
     }
     closeModal();
   };

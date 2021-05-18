@@ -19,6 +19,15 @@ export interface Initial {
   images: string[];
 }
 
+export interface CropperDialogProps {
+  open: boolean;
+  closeModal: () => void;
+  currentImage: string | null;
+  images: string[];
+  setFieldValue: (field: string, value: any) => void;
+  setErrors: (errors: FormikErrors<Initial>) => void;
+}
+
 export interface FieldsProps {
   touched: FormikTouched<Initial>;
   errors: FormikErrors<Initial>;

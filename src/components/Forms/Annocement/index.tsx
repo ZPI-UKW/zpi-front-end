@@ -100,6 +100,7 @@ const AnnoucementForm = () => {
                 currentImage={currentImage}
                 setFieldValue={setFieldValue}
                 images={values.images}
+                setErrors={setErrors}
               />
             </Grid>
           </Grid>
