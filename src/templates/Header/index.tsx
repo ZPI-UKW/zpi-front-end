@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header = ({ children }: { children: React.ReactNode }) => {
+const Header = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -55,7 +55,6 @@ const Header = ({ children }: { children: React.ReactNode }) => {
         isDialogOpen={isDialogOpen}
         handleClose={handleDialogClose}
       />
-      {children}
     </>
   );
 };

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from '../templates/Header';
+import Wrapper from '../templates/Wrapper';
 import MainTemplate from '../templates/Main';
+import Main from './Main';
 import MyAnnoucements from './MyAnnoucements/myAnnoucements';
 import MyRentals from './MyRentals/myRentals';
 
@@ -8,9 +9,9 @@ const Root = () => (
   <Router>
     <MainTemplate>
       <Switch>
-        <Header>
+        <Wrapper>
           <Route exact path="/">
-            <h1>Home</h1>
+            <Main />
           </Route>
           <Route path="/create-advertisement">
             <h1>Create advertisement</h1>
@@ -33,7 +34,7 @@ const Root = () => (
           <Route exact path="/category/:categoryName/:adId">
             <h1>Category name like vehicles or books and advertisement Id</h1>
           </Route>
-        </Header>
+        </Wrapper>
       </Switch>
     </MainTemplate>
   </Router>
