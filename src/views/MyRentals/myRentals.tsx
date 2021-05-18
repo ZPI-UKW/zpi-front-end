@@ -1,8 +1,9 @@
-import { Box } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import Card from '../../components/ProductCard/card';
 import { Annoucements, annoucements as ann } from '../../data/annoucements';
 import { CardsContainer } from '../../components/CardsContainer/cardsContainer';
+import ViewTitle from '../../components/ViewTitle';
+import ViewContainer from '../../components/ViewContainer';
 
 const MyRentals = () => {
   const [annoucements, setAnnoucements] = useState<Annoucements[]>([]);
@@ -12,7 +13,8 @@ const MyRentals = () => {
   }, []);
 
   return (
-    <Box display="flex" justifyContent="center">
+    <ViewContainer>
+      <ViewTitle>Moje wypozyczenia</ViewTitle>
       <CardsContainer>
         {annoucements.map((el) => (
           <Card
@@ -27,7 +29,7 @@ const MyRentals = () => {
           />
         ))}
       </CardsContainer>
-    </Box>
+    </ViewContainer>
   );
 };
 

@@ -5,6 +5,8 @@ import { Annoucements, annoucements as ann } from '../../data/annoucements';
 import { CardsContainer } from '../../components/CardsContainer/cardsContainer';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
+import ViewTitle from '../../components/ViewTitle';
+import ViewContainer from '../../components/ViewContainer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +39,8 @@ const MyAnnoucements = () => {
   }, []);
 
   return (
-    <Box display="flex" justifyContent="center">
+    <ViewContainer>
+      <ViewTitle>Moje ogłoszenia</ViewTitle>
       <CardsContainer>
         {annoucements.map((el) => (
           <Card
@@ -60,7 +63,7 @@ const MyAnnoucements = () => {
           </Box>
         </Link>
       </CardsContainer>
-    </Box>
+    </ViewContainer>
   );
 };
 
