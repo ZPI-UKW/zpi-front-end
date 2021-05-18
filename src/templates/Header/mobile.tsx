@@ -2,7 +2,12 @@ import { Container, createStyles, Hidden, IconButton, makeStyles, Theme } from '
 import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import PersonIcon from '@material-ui/icons/Person';
-import EventNoteIcon from '@material-ui/icons/EventNote';
+import Navigation from '../../components/navigation';
+import MenuIcon from '@material-ui/icons/Menu';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { useState } from 'react';
+import { useAuthContextState } from '../../context/authContext';
+import { NavigationProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,45 +30,61 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const buttonsData = [
-  {
-    to: '/my-advertisements',
-    label: 'Dodane',
-    icon: <EventNoteIcon fontSize="large" />,
-    aria: 'Twoje przedmioty',
-  },
-  {
-    to: '/create-advertisement',
-    label: 'Dodaj',
-    icon: <AddCircleOutlineIcon fontSize="large" />,
-    aria: 'Dodaj nowe ogłoszenie',
-  },
-  {
-    to: '/profile',
-    label: 'Profil',
-    icon: <PersonIcon fontSize="large" />,
-    aria: 'Edytuj profil',
-  },
-];
-
-const MobileContent = () => {
+const MobileContent = ({ handleDialogOpen }: NavigationProps) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { isAuthenticated } = useAuthContextState();
   const classes = useStyles();
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(e.currentTarget);
+  };
 
   return (
     <Hidden smUp>
       <Container className={classes.buttonGroup}>
-        {buttonsData.map((el) => (
-          <Link key={el.to} to={el.to} className={classes.link}>
+        <div className={classes.link}>
+          <IconButton
+            classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
+            aria-label="Otwórz menu"
+            onClick={handleClick}
+          >
+            <MenuIcon fontSize="large" />
+            <p>Menu</p>
+          </IconButton>
+        </div>
+        <Link to="/create-advertisement" className={classes.link}>
+          <IconButton
+            classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
+            aria-label="Dodaj ogłoszenie"
+          >
+            <AddCircleOutlineIcon fontSize="large" />
+            <p>Dodaj</p>
+          </IconButton>
+        </Link>
+        {isAuthenticated() ? (
+          <Link to="/create-advertisement" className={classes.link}>
             <IconButton
               classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
-              aria-label={el.aria}
+              aria-label="Przejdź do profilu"
             >
-              {el.icon}
-              <p>{el.label}</p>
+              <PersonIcon fontSize="large" />
+              <p>Profil</p>
             </IconButton>
           </Link>
-        ))}
+        ) : (
+          <div className={classes.link}>
+            <IconButton
+              classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
+              aria-label="Zaloguj się do serwisu"
+              onClick={handleDialogOpen}
+            >
+              <PersonAddIcon fontSize="large" />
+              <p>Zaloguj</p>
+            </IconButton>
+          </div>
+        )}
       </Container>
+      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="mobile" />
     </Hidden>
   );
 };
