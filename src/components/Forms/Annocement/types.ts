@@ -16,6 +16,7 @@ export interface Initial {
     week: number;
     month: number;
   };
+  images: string[];
 }
 
 export interface FieldsProps {

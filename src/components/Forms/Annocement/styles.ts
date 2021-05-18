@@ -1,4 +1,4 @@
-import { Button, makeStyles, TextField, withStyles } from '@material-ui/core';
+import { Button, DialogContent, makeStyles, TextField, withStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
   flexWrapper: {
@@ -11,6 +11,9 @@ export const useStyles = makeStyles((theme) => ({
       alignItems: 'flex-start',
     },
   },
+  img: {
+    width: "30rem",
+  }
 }));
 
 export const StyledTextField = withStyles((theme) => ({
@@ -30,3 +33,13 @@ export const StyledButton = withStyles(() => ({
     fontSize: '1.5rem',
   },
 }))(Button);
+
+export const StyledDialogContent = withStyles((theme) => ({
+  root: {
+    overflow: 'hidden',
+    display: 'flex',
+    position: 'relative',
+    height: '30rem',
+    width: '50rem',
+  },
+}))(DialogContent);
