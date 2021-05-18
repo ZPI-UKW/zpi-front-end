@@ -1,5 +1,4 @@
 import { FormikErrors } from 'formik';
-import { AreaHTMLAttributes } from 'react';
 import { Area } from 'react-easy-crop/types';
 import { annoucements } from '../../../data/annoucements';
 import { RouteTypeFunc, Initial } from './types';
@@ -82,12 +81,11 @@ const readFile = (file: File | Blob): Promise<string> =>
 export const onFileChange = async (
   e: React.ChangeEvent<HTMLInputElement>,
   setErrors: (errors: FormikErrors<Initial>) => void,
-  images: string[],
   openModal: () => void,
   setCurrentImage: (file: string) => void
 ) => {
   setErrors({ images: '' });
-  if (e.target.files && e.target.files.length > 0 && images.length < 3) {
+  if (e.target.files && e.target.files.length > 0) {
     const file = e.target.files[0];
     try {
       const imageUrl = await readFile(file);

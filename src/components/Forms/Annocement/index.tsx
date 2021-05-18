@@ -1,14 +1,15 @@
-import { Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import AddIcon from '@material-ui/icons/Add';
 import { Form, Formik } from 'formik';
-import { useAuthContextState } from '../../../context/authContext';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { StyledButton, useStyles } from './styles';
 import { useEffect, useRef, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useAuthContextState } from '../../../context/authContext';
+import { StyledButton, useStyles } from './styles';
 import { Initial, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { initial, onFileChange, routeType } from './annoucement.util';
 import CropperDialog from './annoucement.cropper';
-import AddIcon from '@material-ui/icons/Add';
 
 const AnnoucementForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +68,7 @@ const AnnoucementForm = () => {
                     name="image"
                     ref={fileInputRef}
                     onChange={(e) => {
-                      onFileChange(e, setErrors, values.images, openModal, handleSetCurrentImage);
+                      onFileChange(e, setErrors, openModal, handleSetCurrentImage);
                     }}
                     accept="image/*"
                     aria-describedby="image_error"
@@ -86,7 +87,7 @@ const AnnoucementForm = () => {
                   setCurrentImage(null);
                   if (fileInputRef.current?.value) fileInputRef.current.value = '';
                 }}
-                image={currentImage}
+                currentImage={currentImage}
                 setFieldValue={setFieldValue}
                 images={values.images}
               />
