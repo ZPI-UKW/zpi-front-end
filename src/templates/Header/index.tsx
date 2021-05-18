@@ -40,20 +40,22 @@ const Header = () => {
   };
 
   return (
-    <AppBar
-      position={matches ? 'static' : 'fixed'}
-      className={!matches ? classes.appBar : undefined}
-    >
-      <Toolbar className={classes.toolbar}>
+    <>
+      <AppBar
+        position={matches ? 'static' : 'fixed'}
+        className={!matches ? classes.appBar : undefined}
+      >
+        <Toolbar className={classes.toolbar}>
           <DesktopContent handleDialogOpen={handleDialogOpen} />
           <MobileContent handleDialogOpen={handleDialogOpen} />
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
       <AuthDialog
         contentType="signin"
         isDialogOpen={isDialogOpen}
         handleClose={handleDialogClose}
       />
+    </>
   );
 };
 
