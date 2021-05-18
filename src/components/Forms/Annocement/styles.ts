@@ -11,9 +11,37 @@ export const useStyles = makeStyles((theme) => ({
       alignItems: 'flex-start',
     },
   },
+  imagesContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   img: {
-    width: "30rem",
-  }
+    width: '30rem',
+    padding: `${theme.spacing()}px 0`,
+  },
+  fileInputContainer: {
+    position: 'relative',
+    width: '30rem',
+    height: '18.5rem',
+    backgroundColor: theme.palette.grey[300],
+    margin: `${theme.spacing()}px 0`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    '& > svg': {
+      fontSize: '4.5rem',
+    },
+  },
+  fileInput: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    cursor: 'pointer',
+    opacity: 0,
+  },
 }));
 
 export const StyledTextField = withStyles((theme) => ({

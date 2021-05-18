@@ -8,6 +8,7 @@ import { Initial, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { initial, onFileChange, routeType } from './annoucement.util';
 import CropperDialog from './annoucement.cropper';
+import AddIcon from '@material-ui/icons/Add';
 
 const AnnoucementForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +24,6 @@ const AnnoucementForm = () => {
   const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
   const handleSetCurrentImage = (image: string) => setCurrentImage(image);
-  const setImage = (imageUrl: string) => {};
 
   useEffect(() => {
     routeType(pathname, initialValues, params, userInfo, setInitialValues, history);
@@ -45,23 +45,40 @@ const AnnoucementForm = () => {
               </div>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography variant="h5" component="h3">
+              <Typography variant="h4" component="h3">
                 Galeria zdjęć (max 3)
               </Typography>
-              {values.images &&
-                values.images.map((el) => <img src={el} className={classes.img} alt="" />)}
+              <Typography variant="subtitle1" component="p">
+                Maksymalny rozmiar zdjęcia to 1MB
+              </Typography>
+              <div className={classes.imagesContainer}>
+                {values.images &&
+                  values.images.map((el) => <img src={el} className={classes.img} alt="" />)}
+              </div>
               {values.images.length < 3 ? (
-                <input
-                  type="file"
-                  name="image"
-                  ref={fileInputRef}
-                  onChange={(e) => {
-                    onFileChange(e, setErrors, values.images, openModal, handleSetCurrentImage);
-                  }}
-                  accept="image/*"
-                />
+                <div className={classes.fileInputContainer}>
+                  <AddIcon color="disabled" />
+                  <Typography variant="h5" component="p" color="textSecondary">
+                    Dodaj zdjęcie
+                  </Typography>
+                  <input
+                    className={classes.fileInput}
+                    type="file"
+                    name="image"
+                    ref={fileInputRef}
+                    onChange={(e) => {
+                      onFileChange(e, setErrors, values.images, openModal, handleSetCurrentImage);
+                    }}
+                    accept="image/*"
+                    aria-describedby="image_error"
+                  />
+                </div>
               ) : null}
-              {errors.images}
+              {errors.images ? (
+                <Typography variant="h5" component="p" color="error" role="alert" id="image_error">
+                  {errors.images}
+                </Typography>
+              ) : null}
               <CropperDialog
                 open={isModalOpen}
                 closeModal={() => {
