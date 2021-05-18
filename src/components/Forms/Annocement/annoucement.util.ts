@@ -60,6 +60,17 @@ export const routeType: RouteTypeFunc = (
   }
 };
 
+export const deleteImage = (
+  index: number,
+  images: string[],
+  setFieldValue: (field: string, value: any) => void
+) => {
+  setFieldValue(
+    'images',
+    images.filter((el, i) => i !== index)
+  );
+};
+
 const readFile = (file: File | Blob): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();

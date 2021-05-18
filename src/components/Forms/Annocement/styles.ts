@@ -15,10 +15,12 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  img: {
+  imgWrapper: {
     width: '30rem',
-    padding: `${theme.spacing()}px 0`,
+    margin: `${theme.spacing()}px 0`,
+    position: 'relative',
   },
+  img: { width: '100%' },
   fileInputContainer: {
     position: 'relative',
     width: '30rem',
@@ -41,6 +43,18 @@ export const useStyles = makeStyles((theme) => ({
     height: '100%',
     cursor: 'pointer',
     opacity: 0,
+  },
+  deleteIcon: {
+    position: 'absolute',
+    top: '1rem',
+    right: '1rem',
+    width: '3.5rem',
+    height: '3.5rem',
+    background: theme.palette.grey[50],
+    color: theme.palette.error.main,
+    '& svg': {
+      fontSize: '2rem',
+    },
   },
 }));
 

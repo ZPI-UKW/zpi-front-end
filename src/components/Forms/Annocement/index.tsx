@@ -1,6 +1,8 @@
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
@@ -8,7 +10,7 @@ import { useAuthContextState } from '../../../context/authContext';
 import { StyledButton, useStyles } from './styles';
 import { Initial, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
-import { initial, onFileChange, routeType } from './annoucement.util';
+import { initial, onFileChange, routeType, deleteImage } from './annoucement.util';
 import CropperDialog from './annoucement.cropper';
 
 const AnnoucementForm = () => {
@@ -54,7 +56,17 @@ const AnnoucementForm = () => {
               </Typography>
               <div className={classes.imagesContainer}>
                 {values.images &&
-                  values.images.map((el) => <img src={el} className={classes.img} alt="" />)}
+                  values.images.map((el, i) => (
+                    <div className={classes.imgWrapper} key={el}>
+                      <img src={el} alt="" className={classes.img} />
+                      <IconButton
+                        onClick={() => deleteImage(i, values.images, setFieldValue)}
+                        className={classes.deleteIcon}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  ))}
               </div>
               {values.images.length < 3 ? (
                 <div className={classes.fileInputContainer}>
