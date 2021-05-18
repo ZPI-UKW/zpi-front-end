@@ -42,12 +42,10 @@ const AnnoucementForm = () => {
       {({ values, touched, errors, setFieldValue, setErrors }) => (
         <Form>
           <Grid container>
-            <Grid item xs={12} md={6}>
-              <div className={classes.flexWrapper}>
-                <TextFields touched={touched} errors={errors} />
-              </div>
+            <Grid item xs={12} md={6} className={classes.flexWrapper}>
+              <TextFields touched={touched} errors={errors} />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} className={classes.flexWrapper}>
               <Typography variant="h4" component="h3">
                 Galeria zdjęć (max 3)
               </Typography>
