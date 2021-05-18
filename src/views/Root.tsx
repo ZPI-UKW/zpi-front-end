@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../templates/Header';
 import MainTemplate from '../templates/Main';
 import AnnoucementForm from './AnnoucementForm';
-import MyAnnoucements from './MyAnnoucements/myAnnoucements';
+import MyAnnoucements from './MyAnnoucements';
 import MyRentals from './MyRentals/myRentals';
 
 const Root = () => (
