@@ -52,20 +52,6 @@ const AnnoucementForm = () => {
               <Typography variant="subtitle1" component="p">
                 Maksymalny rozmiar zdjęcia to 1MB
               </Typography>
-              <div className={classes.imagesContainer}>
-                {values.images &&
-                  values.images.map((el, i) => (
-                    <div className={classes.imgWrapper} key={el}>
-                      <img src={el} alt="" className={classes.img} />
-                      <IconButton
-                        onClick={() => deleteImage(i, values.images, setFieldValue)}
-                        className={classes.deleteIcon}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </div>
-                  ))}
-              </div>
               {values.images.length < 3 ? (
                 <div className={classes.fileInputContainer}>
                   <AddIcon color="disabled" />
@@ -85,6 +71,21 @@ const AnnoucementForm = () => {
                   />
                 </div>
               ) : null}
+              <div className={classes.imagesContainer}>
+                {values.images
+                  ? values.images.map((el, i) => (
+                      <div className={classes.imgWrapper} key={el}>
+                        <img src={el} alt="" className={classes.img} />
+                        <IconButton
+                          onClick={() => deleteImage(i, values.images, setFieldValue)}
+                          className={classes.deleteIcon}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+                    ))
+                  : null}
+              </div>
               {errors.images ? (
                 <Typography variant="h5" component="p" color="error" role="alert" id="image_error">
                   {errors.images}
