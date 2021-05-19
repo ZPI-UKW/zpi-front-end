@@ -37,6 +37,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    height: 100vh;
   }
 
   button,
@@ -47,6 +49,11 @@ const GlobalStyles = createGlobalStyle`
   
   a {
     text-decoration: none;
+  }
+
+  #root {
+    width: 100%;
+    height: 100%;
   }
 `;
 export default GlobalStyles;
