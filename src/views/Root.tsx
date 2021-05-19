@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Wrapper from '../templates/Wrapper';
 import MainTemplate from '../templates/Main';
+import AnnoucementForm from './AnnoucementForm';
 import Main from './Main';
-import MyAnnoucements from './MyAnnoucements/myAnnoucements';
+import MyAnnoucements from './MyAnnoucements';
 import MyRentals from './MyRentals/myRentals';
 
 const Root = () => (
@@ -14,10 +15,10 @@ const Root = () => (
             <Main />
           </Route>
           <Route path="/create-advertisement">
-            <h1>Create advertisement</h1>
+            <AnnoucementForm />
           </Route>
           <Route path="/edit-advertisement/:addId">
-            <h1>Edit advertisement</h1>
+            <AnnoucementForm />
           </Route>
           <Route path="/profile">
             <h1>Profile</h1>

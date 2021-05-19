@@ -1,7 +1,7 @@
 import { Dialog, useMediaQuery, useTheme } from '@material-ui/core';
 import { useState } from 'react';
-import DialogContent from './dialogContent';
-import DialogTitle from './dialogTitle';
+import DialogTitle from '../DialogTitle';
+import DialogContent from './dialog.content';
 import { DialogProps } from './types';
 
 const AuthDialog = ({ isDialogOpen, handleClose }: DialogProps) => {
