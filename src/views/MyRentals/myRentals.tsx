@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Card from '../../components/ProductCard/card';
 import { Annoucements, annoucements as ann } from '../../data/annoucements';
-import { CardsContainer } from '../../components/CardsContainer/cardsContainer';
+import CardsContainer from '../../components/CardsContainer';
 import ViewTitle from '../../components/ViewTitle';
 import ViewContainer from '../../components/ViewContainer';
 
