@@ -22,18 +22,16 @@ const MyAnnoucements = () => {
       <CardsContainer>
         {!matches && <AddAnnoucementButton />}
         {annoucements.map((el) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
-            <Card
-              variant="your"
-              key={el._id}
-              title={el.title}
-              price={el.costs.day}
-              _id={el._id}
-              images={el.images}
-              categoryId={el.categoryId}
-              location={el.location}
-            />
-          </Grid>
+          <Card
+            variant="your"
+            key={el._id}
+            title={el.title}
+            price={el.costs.day}
+            _id={el._id}
+            images={el.images}
+            categoryId={el.categoryId}
+            location={el.location}
+          />
         ))}
       </CardsContainer>
     </ViewContainer>
