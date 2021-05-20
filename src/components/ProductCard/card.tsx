@@ -16,6 +16,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
 import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       top: '0.75rem',
       right: '0.75rem',
-      background: theme.palette.grey[50],
+      background: fade(theme.palette.grey[50], 0.75),
+      backdropFilter: 'blur(4px)',
     },
     title: {
       fontWeight: 700,
