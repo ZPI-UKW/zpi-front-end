@@ -14,6 +14,7 @@ import Category from '../../components/Category';
 import useStyles from './styles';
 import { data } from '../../components/Category/categories.data';
 import { category, categoryData } from '../../components/Category/category.interface';
+import { Link } from 'react-router-dom';
 
 const getData = (data: categoryData): category[] => {
   return data.categories;
@@ -37,7 +38,9 @@ const Main = () => {
       categories &&
       categories.map((item: category, index: number) => (
         <Grid item xs={12} sm={6} md={4} key={index}>
-          <Category name={item.name} icon={item.icon} />
+          <Link to={`/search/category/${item.name}`}>
+            <Category name={item.name} icon={item.icon} />
+          </Link>
         </Grid>
       ))
     );
