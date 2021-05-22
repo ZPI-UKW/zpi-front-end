@@ -1,4 +1,5 @@
 import { ApolloError, ServerError, ServerParseError } from '@apollo/client';
+import { SetContentType } from '../../AuthDialog/types';
 
 export interface QueryData {
   login: {
@@ -25,4 +26,10 @@ export interface CustomApolloError extends Omit<ApolloError, 'networkError'> {
 export interface DataControlProps {
   data: QueryData | undefined;
   error: ApolloError | undefined;
+  closeModal: () => void;
+}
+
+export interface SignInFormProps {
+  setContentType: SetContentType;
+  closeModal: () => void;
 }

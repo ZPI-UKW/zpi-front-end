@@ -3,15 +3,14 @@ import { Field, Form, Formik } from 'formik';
 import { forwardRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { SigninSchema } from '../../../validation/AuthSchema';
-import { SetContentType } from '../../AuthDialog/types';
 import PasswordField from '../passwordField';
 import { StyledButton, useStyles, StyledTextField } from '../styles';
 import { LOGIN } from '../../../graphql/auth';
-import { QueryData, QueryVars } from './types';
+import { QueryData, QueryVars, SignInFormProps } from './types';
 import DataControl from './signin.datacontrol';
 
 const SigninForm = (
-  { setContentType }: { setContentType: SetContentType },
+  { setContentType, closeModal }: SignInFormProps,
   ref: React.Ref<unknown> | undefined
 ) => {
   const classes = useStyles();
@@ -48,7 +47,7 @@ const SigninForm = (
             <StyledButton type="submit" color="primary" variant="contained">
               Zaloguj się
             </StyledButton>
-            <DataControl data={data} error={error} />
+            <DataControl data={data} error={error} closeModal={closeModal} />
             <Box className={classes.box}>
               <Typography className={classes.message}>Nie masz konta?</Typography>
               <Link component="p" className={classes.link} onClick={() => setContentType('signup')}>

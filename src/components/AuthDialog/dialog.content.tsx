@@ -4,7 +4,7 @@ import SignupForm from '../Forms/signupForm';
 import { StyledDialogContent, FormWrapper } from './styles';
 import { DialogContentProps } from './types';
 
-const DialogContent = ({ contentType, setContentType }: DialogContentProps) => {
+const DialogContent = ({ contentType, setContentType, closeModal }: DialogContentProps) => {
   const [signInSize, signInRef] = useRect();
   const [signUpSize, signUpRef] = useRect();
 
@@ -29,7 +29,7 @@ const DialogContent = ({ contentType, setContentType }: DialogContentProps) => {
         }
         transition={{ duration: 0.2 }}
       >
-        <SigninForm setContentType={setContentType} ref={signInRef} />
+        <SigninForm setContentType={setContentType} ref={signInRef} closeModal={closeModal} />
       </FormWrapper>
       <FormWrapper
         initial={{ x: '100%', opacity: 0, y: 0 }}
