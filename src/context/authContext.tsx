@@ -6,7 +6,7 @@ const userData: UserData = {
   _id: '',
   email: '',
   name: '',
-  surname: '',
+  lastname: '',
   phonenumber: '',
 };
 
@@ -34,13 +34,7 @@ const removeLocalStorageItem = (itemName: string) => {
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const history = useHistory();
 
-  const [authState, setAuthState] = useState({
-    _id: '1',
-    email: 'janusz@o2.pl',
-    name: 'Janusz',
-    surname: 'Kowalski',
-    phonenumber: '432742815',
-  });
+  const [authState, setAuthState] = useState(userData);
 
   const setAuthInfo = (data: UserData) => {
     setAuthState({ ...data });
@@ -54,7 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const isAuthenticated = () => {
-    if (!authState.email || !authState.name || !authState.surname || !authState.phonenumber) {
+    if (!authState.email || !authState.name || !authState.lastname || !authState.phonenumber) {
       Object.keys(authState).forEach((el) => removeLocalStorageItem(el[0]));
       return false;
     }
