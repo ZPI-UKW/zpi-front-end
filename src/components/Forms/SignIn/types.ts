@@ -27,6 +27,7 @@ export interface DataControlProps {
   data: QueryData | undefined;
   error: ApolloError | undefined;
   closeModal: () => void;
+  handleSuccess: () => void;
 }
 
 export interface SignInFormProps {

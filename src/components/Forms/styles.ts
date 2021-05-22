@@ -1,4 +1,5 @@
 import { Button, createStyles, makeStyles, TextField, Theme, withStyles } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +30,26 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     passwordInput: {
       height: '7rem',
+    },
+    buttonWrapper: {
+      marginTop: '4rem',
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      '& > button': {
+        margin: 0,
+      },
+    },
+    buttonProgress: {
+      position: 'absolute',
+    },
+    buttonSuccess: {
+      backgroundColor: green[500],
+      '&:hover': {
+        backgroundColor: green[700],
+      },
     },
   })
 );

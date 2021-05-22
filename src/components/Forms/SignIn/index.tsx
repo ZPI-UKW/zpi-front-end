@@ -1,6 +1,6 @@
-import { Box, Link, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Link, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { SigninSchema } from '../../../validation/AuthSchema';
 import PasswordField from '../passwordField';
@@ -14,9 +14,10 @@ const SigninForm = (
   ref: React.Ref<unknown> | undefined
 ) => {
   const classes = useStyles();
-  const [LoginQuery, { error, data }] = useLazyQuery<QueryData, QueryVars>(LOGIN, {
-    fetchPolicy: 'no-cache',
-  });
+  const [success, setSuccess] = useState(false);
+  const [LoginQuery, { error, data, loading }] = useLazyQuery<QueryData, QueryVars>(LOGIN);
+
+  const handleSuccess = () => setSuccess(true);
 
   return (
     <Formik
@@ -29,8 +30,6 @@ const SigninForm = (
       {({ touched, errors }) => (
         <>
           <Form className={classes.form} ref={ref as React.Ref<HTMLFormElement>}>
-            {data?.login?.userId}
-            {console.log(data)}
             <Field
               label="Email"
               name="email"
@@ -44,10 +43,26 @@ const SigninForm = (
               error={touched.password && Boolean(errors.password)}
               helperText={touched.password && errors.password}
             />
-            <StyledButton type="submit" color="primary" variant="contained">
-              Zaloguj się
-            </StyledButton>
-            <DataControl data={data} error={error} closeModal={closeModal} />
+            <div className={classes.buttonWrapper}>
+              <StyledButton
+                type="submit"
+                color="primary"
+                variant="contained"
+                disabled={loading || success}
+                className={success ? classes.buttonSuccess : undefined}
+              >
+                Zaloguj się
+              </StyledButton>
+              {(loading || success) && (
+                <CircularProgress size={30} className={classes.buttonProgress} />
+              )}
+            </div>
+            <DataControl
+              data={data}
+              error={error}
+              closeModal={closeModal}
+              handleSuccess={handleSuccess}
+            />
             <Box className={classes.box}>
               <Typography className={classes.message}>Nie masz konta?</Typography>
               <Link component="p" className={classes.link} onClick={() => setContentType('signup')}>
