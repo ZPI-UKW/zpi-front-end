@@ -1,5 +1,5 @@
 import { useRect } from '../../hooks/useRect';
-import SigninForm from '../Forms/signinForm';
+import SigninForm from '../Forms/SignIn';
 import SignupForm from '../Forms/signupForm';
 import { StyledDialogContent, FormWrapper } from './styles';
 import { DialogContentProps } from './types';
