@@ -1,22 +1,34 @@
-import { Box, Link, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Link, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import { forwardRef } from 'react';
-import { SignupSchema } from '../../validation/AuthSchema';
-import { SetContentType } from '../AuthDialog/types';
-import { StyledButton, useStyles, StyledTextField } from './styles';
-import PasswordField from './passwordField';
+import { forwardRef, useState } from 'react';
+import { SignupSchema } from '../../../validation/AuthSchema';
+import { SignUpFormProps, QueryData, QueryVars } from './types';
+import { StyledButton, useStyles, StyledTextField } from '../styles';
+import PasswordField from '../passwordField';
+import { useMutation } from '@apollo/client';
+import { REGISTER } from '../../../graphql/auth';
+import DataControl from './signup.datacontrol';
 
-const SignupForm = (
-  { setContentType }: { setContentType: SetContentType },
-  ref: React.Ref<unknown> | undefined
-) => {
+const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown> | undefined) => {
   const classes = useStyles();
+  const [success, setSuccess] = useState(false);
+  const [CreateUser, { data, error, loading }] = useMutation<QueryData, QueryVars>(REGISTER);
+
+  const handleSuccess = (flag: boolean) => setSuccess(flag);
 
   return (
     <Formik
-      initialValues={{ email: '', password: '', name: '', lastname: '', phonenumber: '' }}
-      onSubmit={(values) => {
-        console.log(values);
+      initialValues={{
+        email: 'seba1@wp.pl',
+        password: '123123123',
+        name: 'Sebaa',
+        lastname: 'ZZaaa',
+        phonenumber: '555222777',
+      }}
+      onSubmit={async (values, { setFieldError }) => {
+        try {
+          await CreateUser({ variables: values });
+        } catch {}
       }}
       validationSchema={SignupSchema}
     >
@@ -57,15 +69,31 @@ const SignupForm = (
             error={touched.phonenumber && Boolean(errors.phonenumber)}
             helperText={touched.phonenumber && errors.phonenumber}
           />
-          <StyledButton type="submit" color="primary" variant="contained">
-            Zarejestruj się
-          </StyledButton>
+          <div className={classes.buttonWrapper}>
+            <StyledButton
+              type="submit"
+              color="primary"
+              variant="contained"
+              disabled={loading}
+              className={success ? classes.buttonSuccess : undefined}
+            >
+              Zarejestruj się
+            </StyledButton>
+            {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
+          </div>
+
           <Box className={classes.box}>
             <Typography className={classes.message}>Masz już konto?</Typography>
             <Link component="p" className={classes.link} onClick={() => setContentType('signin')}>
               Zaloguj się
             </Link>
           </Box>
+          <DataControl
+            data={data}
+            error={error}
+            handleSuccess={handleSuccess}
+            setContentType={setContentType}
+          />
         </Form>
       )}
     </Formik>

@@ -11,3 +11,25 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const REGISTER = gql`
+  mutation createUser(
+    $email: String!
+    $password: String!
+    $name: String!
+    $lastname: String!
+    $phonenumber: String!
+  ) {
+    createUser(
+      userInput: {
+        email: $email
+        password: $password
+        name: $name
+        lastname: $lastname
+        phonenumber: $phonenumber
+      }
+    ) {
+      _id
+    }
+  }
+`;

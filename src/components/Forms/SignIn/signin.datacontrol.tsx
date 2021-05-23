@@ -25,8 +25,7 @@ const DataControl = ({ data, error, closeModal, handleSuccess }: DataControlProp
       if (networkError?.result?.errors) setFieldError('email', 'Nieprawidłowe dane logowania.');
       if (networkError?.result?.errors) setFieldError('password', 'Nieprawidłowe dane logowania.');
       else setFieldError('email', 'Wystąpił błąd podczas logowania.');
-    } else setFieldError('email', 'Wystąpił błąd podczas logowania.');
-
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, data]);
 
