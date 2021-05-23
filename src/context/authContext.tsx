@@ -34,22 +34,34 @@ const removeLocalStorageItem = (itemName: string) => {
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const history = useHistory();
 
-  const [authState, setAuthState] = useState(userData);
+  const storage = localStorage.getItem('userData');
+  let userStorage: UserData;
+
+  if (storage) userStorage = JSON.parse(storage) as UserData;
+  else userStorage = userData;
+
+  const [authState, setAuthState] = useState(userStorage);
 
   const setAuthInfo = (data: UserData) => {
     setAuthState({ ...data });
-    Object.entries(data).forEach((el) => setLocalStorageItem(el[0], el[1] || ''));
+    setLocalStorageItem('userData', JSON.stringify(data));
   };
 
   const logout = () => {
     setAuthState(userData);
-    Object.keys(authState).forEach((el) => removeLocalStorageItem(el[0]));
+    removeLocalStorageItem('userData');
     history.push('/');
   };
 
   const isAuthenticated = () => {
-    if (!authState.email || !authState.name || !authState.lastname || !authState.phonenumber) {
-      Object.keys(authState).forEach((el) => removeLocalStorageItem(el[0]));
+    if (
+      !authState._id ||
+      !authState.email ||
+      !authState.name ||
+      !authState.lastname ||
+      !authState.phonenumber
+    ) {
+      removeLocalStorageItem('userData');
       return false;
     }
     return true;
