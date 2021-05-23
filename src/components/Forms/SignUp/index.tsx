@@ -19,11 +19,11 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
   return (
     <Formik
       initialValues={{
-        email: 'seba1@wp.pl',
-        password: '123123123',
-        name: 'Sebaa',
-        lastname: 'ZZaaa',
-        phonenumber: '555222777',
+        email: '',
+        password: '',
+        name: '',
+        lastname: '',
+        phonenumber: '',
       }}
       onSubmit={async (values) => {
         try {
