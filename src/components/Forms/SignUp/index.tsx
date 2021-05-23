@@ -25,7 +25,7 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
         lastname: 'ZZaaa',
         phonenumber: '555222777',
       }}
-      onSubmit={async (values, { setFieldError }) => {
+      onSubmit={async (values) => {
         try {
           await CreateUser({ variables: values });
         } catch {}
