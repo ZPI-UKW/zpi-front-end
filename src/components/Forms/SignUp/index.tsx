@@ -28,7 +28,9 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
       onSubmit={async (values, { setFieldError }) => {
         try {
           await CreateUser({ variables: values });
-        } catch {}
+        } catch {
+          setFieldError('email', 'Wystąpił nieznany błąd.');
+        }
       }}
       validationSchema={SignupSchema}
     >
