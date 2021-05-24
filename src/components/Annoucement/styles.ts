@@ -38,15 +38,29 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     padding: theme.spacing(1.5),
+
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: 0,
+    },
   },
   rentContainer: {
     display: 'flex',
     justifyContent: 'center',
     margin: '1.5rem 0',
+
+    [theme.breakpoints.up('sm')]: {
+      marginTop: 0,
+    },
+
     '& > button': {
       color: theme.palette.grey[50],
       width: '65%',
       fontSize: '1.4rem',
+
+      [theme.breakpoints.up('sm')]: {
+        width: '100%',
+        fontSize: '2rem',
+      },
     },
   },
   paper: {
@@ -69,6 +83,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  description: { marginTop: theme.spacing(1) },
 }));
 
 export default useStyles;

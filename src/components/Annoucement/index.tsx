@@ -7,6 +7,7 @@ import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import { AnnoucementProps } from './types';
 import useStyles from './styles';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 const Annoucement = ({ annoucement }: AnnoucementProps) => {
   const classes = useStyles();
@@ -29,10 +30,16 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
         </Hidden>
       </div>
       <Grid container>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={6} md={8}>
           <img className={classes.image} src={annoucement.images[0]} alt="" />
+          <Hidden xsDown>
+            <Paper className={clsx(classes.paper, classes.description)} elevation={4}>
+              <Typography variant="h4">Opis</Typography>
+              <Typography>{annoucement.description}</Typography>
+            </Paper>
+          </Hidden>
         </Grid>
-        <Grid className={classes.content} item xs={12} sm={4}>
+        <Grid className={classes.content} item xs={12} sm={6} md={4}>
           <Hidden smUp>
             <Typography variant="h3" component="h2">
               {annoucement.title}
@@ -83,10 +90,12 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
               <Typography>{annoucement.costs.month} zł</Typography>
             </div>
           </Paper>
-          <Paper className={classes.paper} elevation={4}>
-            <Typography variant="h4">Opis</Typography>
-            <Typography>{annoucement.description}</Typography>
-          </Paper>
+          <Hidden smUp>
+            <Paper className={classes.paper} elevation={4}>
+              <Typography variant="h4">Opis</Typography>
+              <Typography>{annoucement.description}</Typography>
+            </Paper>
+          </Hidden>
         </Grid>
       </Grid>
     </>
