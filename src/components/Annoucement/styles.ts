@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import hexRgb from 'hex-rgb';
 
 const useStyles = makeStyles((theme) => ({
   titleContainer: {
@@ -28,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   image: {
-    width: ' 100%',
-    minHeight: '30vh',
+    height: '30vh',
     objectFit: 'cover',
 
     [theme.breakpoints.up('sm')]: {
       borderRadius: theme.shape.borderRadius,
+      height: '40rem',
     },
   },
   content: {
@@ -84,6 +85,30 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   description: { marginTop: theme.spacing(1) },
+  sliderControl: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    zIndex: 10,
+    padding: theme.spacing(0.25),
+    background: hexRgb(theme.palette.grey[50], { format: 'css', alpha: 0.5 }),
+
+    '& svg': {
+      fontSize: '3rem',
+
+      [theme.breakpoints.up('sm')]: {
+        fontSize: '4.5rem',
+      },
+    },
+
+    '&.start': {
+      left: theme.spacing(1),
+    },
+
+    '&.end': {
+      right: theme.spacing(1),
+    },
+  },
 }));
 
 export default useStyles;
