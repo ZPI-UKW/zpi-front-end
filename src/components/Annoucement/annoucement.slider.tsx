@@ -31,7 +31,7 @@ const Slider = ({ images }: SliderProps) => {
     >
       {images.map((image) => {
         return (
-          <div>
+          <div key={image}>
             <img className={classes.image} src={image} alt="" />
           </div>
         );
