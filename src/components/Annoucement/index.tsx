@@ -10,6 +10,7 @@ import useStyles from './styles';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import Slider from './annoucement.slider';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 
 const Annoucement = ({ annoucement }: AnnoucementProps) => {
   const classes = useStyles();
@@ -33,7 +34,13 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
       </div>
       <Grid container>
         <Grid item xs={12} sm={7} md={8}>
-          <Slider images={annoucement.images} />
+          <div className={classes.sliderContainer}>
+            {annoucement.images.length > 0 ? (
+              <Slider images={annoucement.images} />
+            ) : (
+              <ImageOutlinedIcon />
+            )}
+          </div>
           <Hidden xsDown>
             <Paper className={clsx(classes.paper, classes.description)} elevation={4}>
               <Typography variant="h4">Opis</Typography>

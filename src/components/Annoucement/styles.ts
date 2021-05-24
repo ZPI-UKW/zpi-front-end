@@ -16,13 +16,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   link: {
-    color: theme.palette.grey[50],
+    color: theme.palette.primary.main,
+
     '& > svg ': {
       fontSize: '1.8rem',
     },
 
     [theme.breakpoints.up('sm')]: {
-      color: theme.palette.primary.main,
       '& > svg ': {
         fontSize: '2.2rem',
       },
@@ -107,6 +107,20 @@ const useStyles = makeStyles((theme) => ({
 
     '&.end': {
       right: theme.spacing(1),
+    },
+  },
+  sliderContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '30vh',
+
+    [theme.breakpoints.up('sm')]: {
+      height: '40rem',
+    },
+
+    '& > svg': {
+      fontSize: '8rem',
     },
   },
 }));
