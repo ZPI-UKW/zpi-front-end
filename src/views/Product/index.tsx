@@ -23,7 +23,7 @@ const Product = () => {
 
   return (
     <Container className={clsx(classes.root, !annoucement && classes.centered)}>
-      {annoucement ? <Annoucement /> : <CircularProgress />}
+      {annoucement ? <Annoucement annoucement={annoucement} /> : <CircularProgress />}
     </Container>
   );
 };
