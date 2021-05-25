@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import { SignupSchema } from '../../../validation/AuthSchema';
 import { SignUpFormProps, QueryData, QueryVars } from './types';
 import { StyledButton, useStyles, StyledTextField } from '../styles';
-import PasswordField from '../passwordField';
+import PasswordField from '../../CustomControls/password.control';
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../../graphql/auth';
 import DataControl from './signup.datacontrol';

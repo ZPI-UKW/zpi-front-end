@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import { forwardRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { SigninSchema } from '../../../validation/AuthSchema';
-import PasswordField from '../passwordField';
+import PasswordField from '../../CustomControls/password.control';
 import { StyledButton, useStyles, StyledTextField } from '../styles';
 import { LOGIN } from '../../../graphql/auth';
 import { QueryData, QueryVars, SignInFormProps } from './types';

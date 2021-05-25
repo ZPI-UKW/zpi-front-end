@@ -9,7 +9,7 @@ import {
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { useState } from 'react';
-import { useStyles } from './styles';
+import { useStyles } from '../Forms/styles';
 
 const PasswordField = ({ helperText, error, ...props }: { helperText: string; error: boolean }) => {
   const [isShown, setIsShown] = useState(false);
