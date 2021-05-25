@@ -3,6 +3,8 @@ import { ThemeProvider } from '@material-ui/styles';
 import { AuthProvider } from '../../context/authContext';
 import GlobalStyles from '../../theme/globalStyles';
 import theme from '../../theme/material-theme';
+import { SnackbarProvider } from 'notistack';
+import useStyles from './styles';
 
 const link = createHttpLink({
   uri: 'http://localhost:8080/graphql',
@@ -14,15 +16,20 @@ const client = new ApolloClient({
   link,
 });
 
-const MainTemplate = ({ children }: { children: React.ReactNode }) => (
-  <ApolloProvider client={client}>
-    <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        {children}
-      </ThemeProvider>
-    </AuthProvider>
-  </ApolloProvider>
-);
+const MainTemplate = ({ children }: { children: React.ReactNode }) => {
+  const classes = useStyles();
+  return (
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
+            <GlobalStyles />
+            {children}
+          </SnackbarProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </ApolloProvider>
+  );
+};
 
 export default MainTemplate;
