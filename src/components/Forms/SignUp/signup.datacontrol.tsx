@@ -12,11 +12,9 @@ const DataControl = ({ data, error, setContentType }: DataControlProps) => {
       if (data !== undefined && error === undefined) {
         enqueueSnackbar('Konto utworzone pomyślnie.', {
           variant: 'success',
-          autoHideDuration: 1000,
+          autoHideDuration: 2000,
         });
-        setTimeout(() => {
-          setContentType('signin');
-        }, 1000);
+        setContentType('signin');
       } else if (error?.networkError) {
         const { networkError } = error as CustomApolloError;
         if (

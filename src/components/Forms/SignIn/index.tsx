@@ -18,9 +18,9 @@ const SigninForm = (
 
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
-      onSubmit={(values) => {
-        LoginQuery({ variables: values });
+      initialValues={{ email: '', loginPassword: '' }}
+      onSubmit={({ email, loginPassword }) => {
+        LoginQuery({ variables: { email, password: loginPassword } });
       }}
       validationSchema={SigninSchema}
     >
@@ -35,10 +35,10 @@ const SigninForm = (
               helperText={touched.email && errors.email}
             />
             <Field
-              name="password"
+              name="loginPassword"
               as={PasswordField}
-              error={touched.password && Boolean(errors.password)}
-              helperText={touched.password && errors.password}
+              error={touched.loginPassword && Boolean(errors.loginPassword)}
+              helperText={touched.loginPassword && errors.loginPassword}
             />
             <div className={classes.buttonWrapper}>
               <StyledButton type="submit" color="primary" variant="contained" disabled={loading}>

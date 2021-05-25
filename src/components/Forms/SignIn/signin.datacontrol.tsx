@@ -19,8 +19,8 @@ const DataControl = ({ data, error, closeModal }: DataControlProps) => {
       ) {
         const { userId, email, lastname, name, phonenumber } = data.login;
         setAuthInfo({ _id: userId, email, lastname, name, phonenumber });
-        enqueueSnackbar('Zalogowano pomyślnie.', { variant: 'success' });
-        setTimeout(() => closeModal(), 1000);
+        enqueueSnackbar('Zalogowano pomyślnie.', { variant: 'success', autoHideDuration: 2000 });
+        closeModal();
       } else if (error !== undefined && error?.networkError) {
         const { networkError } = error as CustomApolloError;
         if (networkError?.result?.errors)
