@@ -8,6 +8,7 @@ import PasswordField from '../../CustomControls/password.control';
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../../graphql/auth';
 import DataControl from './signup.datacontrol';
+import MaskedInput from '../../CustomControls/masked.control';
 
 const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown> | undefined) => {
   const classes = useStyles();
@@ -22,12 +23,12 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
         lastname: '',
         phonenumber: '',
       }}
-      onSubmit={async (values, { setFieldError }) => {
+      onSubmit={async (values) => {
         try {
-          await CreateUser({ variables: values });
-        } catch {
-          setFieldError('email', 'Wystąpił nieznany błąd.');
-        }
+          await CreateUser({
+            variables: { ...values, phonenumber: values.phonenumber.replace(/[^\d]/g, '') },
+          });
+        } catch {}
       }}
       validationSchema={SignupSchema}
     >
@@ -60,21 +61,13 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
             error={touched.lastname && Boolean(errors.lastname)}
             helperText={touched.lastname && errors.lastname}
           />
-          <Field
-            label="Numer telefonu"
-            name="phonenumber"
-            type="tel"
-            as={StyledTextField}
-            error={touched.phonenumber && Boolean(errors.phonenumber)}
-            helperText={touched.phonenumber && errors.phonenumber}
-          />
+          <MaskedInput type="tel" name="phonenumber" label="Numer telefonu" />
           <div className={classes.buttonWrapper}>
             <StyledButton type="submit" color="primary" variant="contained" disabled={loading}>
               Zarejestruj się
             </StyledButton>
             {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
           </div>
-
           <Box className={classes.box}>
             <Typography className={classes.message}>Masz już konto?</Typography>
             <Link component="p" className={classes.link} onClick={() => setContentType('signin')}>
