@@ -29,7 +29,6 @@ export interface CustomApolloError extends Omit<ApolloError, 'networkError'> {
 export interface DataControlProps {
   data: QueryData | undefined | null;
   error: ApolloError | undefined;
-  handleSuccess: (flag: boolean) => void;
   setContentType: SetContentType;
 }
 

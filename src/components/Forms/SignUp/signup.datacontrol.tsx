@@ -1,31 +1,35 @@
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { CustomApolloError, DataControlProps } from './types';
+import { useSnackbar } from 'notistack';
 
-const DataControl = ({ data, error, handleSuccess, setContentType }: DataControlProps) => {
+const DataControl = ({ data, error, setContentType }: DataControlProps) => {
   const { setFieldError } = useFormikContext();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     try {
       if (data !== undefined && error === undefined) {
-        handleSuccess(true);
+        enqueueSnackbar('Konto utworzone pomyślnie.', {
+          variant: 'success',
+          autoHideDuration: 1000,
+        });
         setTimeout(() => {
-          handleSuccess(false);
           setContentType('signin');
-        }, 750);
+        }, 1000);
       } else if (error?.networkError) {
         const { networkError } = error as CustomApolloError;
-        if (networkError?.result?.errors?.[0]?.message) {
-          if (networkError.result.errors[0].message === 'user exists') {
-            throw new Error('Podany adres email już istnieje w bazie.');
-          }
-          throw new Error('Wystąpił błąd podczas rejestracji.');
+        if (
+          networkError?.result?.errors?.[0]?.message &&
+          networkError.result.errors[0].message === 'user exists'
+        ) {
+          setFieldError('email', 'Podany adres email już istnieje w bazie.');
         }
 
-        throw new Error('Wystąpił błąd podczas rejestracji.');
+        throw new Error();
       }
     } catch (e) {
-      setFieldError('email', e.message);
+      enqueueSnackbar('Podany adres email już istnieje w bazie.', { variant: 'error' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, data]);

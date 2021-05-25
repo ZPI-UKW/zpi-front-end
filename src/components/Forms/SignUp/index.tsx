@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Link, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { SignupSchema } from '../../../validation/AuthSchema';
 import { SignUpFormProps, QueryData, QueryVars } from './types';
 import { StyledButton, useStyles, StyledTextField } from '../styles';
@@ -11,10 +11,7 @@ import DataControl from './signup.datacontrol';
 
 const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown> | undefined) => {
   const classes = useStyles();
-  const [success, setSuccess] = useState(false);
   const [CreateUser, { data, error, loading }] = useMutation<QueryData, QueryVars>(REGISTER);
-
-  const handleSuccess = (flag: boolean) => setSuccess(flag);
 
   return (
     <Formik
@@ -72,13 +69,7 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
             helperText={touched.phonenumber && errors.phonenumber}
           />
           <div className={classes.buttonWrapper}>
-            <StyledButton
-              type="submit"
-              color="primary"
-              variant="contained"
-              disabled={loading}
-              className={success ? classes.buttonSuccess : undefined}
-            >
+            <StyledButton type="submit" color="primary" variant="contained" disabled={loading}>
               Zarejestruj się
             </StyledButton>
             {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
@@ -90,12 +81,7 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
               Zaloguj się
             </Link>
           </Box>
-          <DataControl
-            data={data}
-            error={error}
-            handleSuccess={handleSuccess}
-            setContentType={setContentType}
-          />
+          <DataControl data={data} error={error} setContentType={setContentType} />
         </Form>
       )}
     </Formik>
