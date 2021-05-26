@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { authDataNotExist } from './helpers';
 import { ContextState, UserData } from './types';
 
 const userData: UserData = {
@@ -54,13 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const isAuthenticated = () => {
-    if (
-      !authState._id ||
-      !authState.email ||
-      !authState.name ||
-      !authState.lastname ||
-      !authState.phonenumber
-    ) {
+    if (authDataNotExist(authState)) {
       removeLocalStorageItem('userData');
       return false;
     }
