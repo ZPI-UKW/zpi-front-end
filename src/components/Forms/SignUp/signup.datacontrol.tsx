@@ -1,7 +1,8 @@
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
-import { CustomApolloError, DataControlProps } from './types';
+import { DataControlProps } from './types';
 import { useSnackbar } from 'notistack';
+import { CustomApolloError } from '../../../types/global';
 
 const DataControl = ({ data, error, setContentType }: DataControlProps) => {
   const { setFieldError } = useFormikContext();
