@@ -1,12 +1,13 @@
 import { createContext, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { authDataNotExist } from './helpers';
 import { ContextState, UserData } from './types';
 
 const userData: UserData = {
   _id: '',
   email: '',
   name: '',
-  surname: '',
+  lastname: '',
   phonenumber: '',
 };
 
@@ -34,28 +35,28 @@ const removeLocalStorageItem = (itemName: string) => {
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const history = useHistory();
 
-  const [authState, setAuthState] = useState({
-    _id: '1',
-    email: 'janusz@o2.pl',
-    name: 'Janusz',
-    surname: 'Kowalski',
-    phonenumber: '432742815',
-  });
+  const storage = localStorage.getItem('userData');
+  let userStorage: UserData;
+
+  if (storage) userStorage = JSON.parse(storage) as UserData;
+  else userStorage = userData;
+
+  const [authState, setAuthState] = useState(userStorage);
 
   const setAuthInfo = (data: UserData) => {
     setAuthState({ ...data });
-    Object.entries(data).forEach((el) => setLocalStorageItem(el[0], el[1] || ''));
+    setLocalStorageItem('userData', JSON.stringify(data));
   };
 
   const logout = () => {
     setAuthState(userData);
-    Object.keys(authState).forEach((el) => removeLocalStorageItem(el[0]));
+    removeLocalStorageItem('userData');
     history.push('/');
   };
 
   const isAuthenticated = () => {
-    if (!authState.email || !authState.name || !authState.surname || !authState.phonenumber) {
-      Object.keys(authState).forEach((el) => removeLocalStorageItem(el[0]));
+    if (authDataNotExist(authState)) {
+      removeLocalStorageItem('userData');
       return false;
     }
     return true;

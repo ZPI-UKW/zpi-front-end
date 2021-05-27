@@ -22,7 +22,11 @@ const AuthDialog = ({ isDialogOpen, handleClose }: DialogProps) => {
       <DialogTitle handleClose={handleClose}>
         {contentType === 'signin' ? 'Zaloguj się' : 'Zarejestruj się'}
       </DialogTitle>
-      <DialogContent contentType={contentType} setContentType={setContentType} />
+      <DialogContent
+        contentType={contentType}
+        setContentType={setContentType}
+        closeModal={handleClose}
+      />
     </Dialog>
   );
 };

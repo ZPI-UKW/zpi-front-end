@@ -9,7 +9,7 @@ const passwordValidation = Yup.string()
 
 export const SigninSchema = Yup.object().shape({
   email: emailValidation,
-  password: passwordValidation,
+  loginPassword: passwordValidation,
 });
 
 export const SignupSchema = Yup.object().shape({
@@ -17,5 +17,8 @@ export const SignupSchema = Yup.object().shape({
   password: passwordValidation,
   name: Yup.string().required(requiredMsg),
   lastname: Yup.string().required(requiredMsg),
-  phonenumber: Yup.string().length(9, 'Niepoprawny number telefonu').required(requiredMsg),
+  phonenumber: Yup.string()
+    .transform((value) => value.replace(/[^\d]/g, ''))
+    .length(9, 'Niepoprawny number telefonu')
+    .required(requiredMsg),
 });
