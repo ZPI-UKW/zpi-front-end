@@ -1,29 +1,13 @@
-import { IconButton, Typography, withStyles } from '@material-ui/core';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import { IconButton, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { StyledDialogTitle } from './styles';
+import { DialogTitleProps } from './types';
 
-const StyledDialogTitle = withStyles((theme) => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    '& svg, & h2': {
-      fontSize: '3rem',
-    },
-  },
-}))(MuiDialogTitle);
-
-const DialogTitle = ({
-  children,
-  handleClose,
-  ...props
-}: {
-  children: string;
-  handleClose: () => void;
-}) => (
+const DialogTitle = ({ children, handleClose, id, ...props }: DialogTitleProps) => (
   <StyledDialogTitle disableTypography {...props}>
-    <Typography variant="h2">{children}</Typography>
+    <Typography variant="h2" id={id}>
+      {children}
+    </Typography>
     <IconButton size="medium" edge="end" onClick={handleClose}>
       <CloseIcon />
     </IconButton>
