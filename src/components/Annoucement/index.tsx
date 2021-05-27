@@ -11,9 +11,15 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import Slider from './annoucement.slider';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import { useState } from 'react';
+import RentDialog from '../RentDialog';
 
 const Annoucement = ({ annoucement }: AnnoucementProps) => {
   const classes = useStyles();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleClose = () => setIsDialogOpen(false);
+  const handleOpen = () => setIsDialogOpen(true);
 
   return (
     <>
@@ -55,7 +61,7 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
             </Typography>
           </Hidden>
           <div className={classes.rentContainer}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleOpen}>
               Wypożycz
             </Button>
           </div>
@@ -107,6 +113,7 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
           </Hidden>
         </Grid>
       </Grid>
+      <RentDialog isOpen={isDialogOpen} handleClose={handleClose} />
     </>
   );
 };

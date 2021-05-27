@@ -55,5 +55,12 @@ const GlobalStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
   }
+
+  body .MuiPickersModal-dialog + .MuiDialogActions-root button {
+    font-size: 1.4rem;
+  }
+  body .MuiPickerDTTabs-tabs * {
+    font-size: 2.2rem;
+  }
 `;
 export default GlobalStyles;
