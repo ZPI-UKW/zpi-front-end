@@ -5,6 +5,7 @@ import AnnoucementForm from './AnnoucementForm';
 import Main from './Main';
 import MyAnnoucements from './MyAnnoucements';
 import MyRentals from './MyRentals/myRentals';
+import Product from './Product';
 
 const Root = () => (
   <Router>
@@ -33,7 +34,7 @@ const Root = () => (
             <h1>Category name like vehicles or books</h1>
           </Route>
           <Route exact path="/category/:categoryName/:adId">
-            <h1>Category name like vehicles or books and advertisement Id</h1>
+            <Product />
           </Route>
         </Wrapper>
       </Switch>
