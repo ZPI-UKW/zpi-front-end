@@ -30,13 +30,26 @@ export const useStyles = makeStyles((theme: Theme) =>
     passwordInput: {
       height: '7rem',
     },
+    buttonWrapper: {
+      marginTop: '4rem',
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      '& > button': {
+        margin: 0,
+      },
+    },
+    buttonProgress: {
+      position: 'absolute',
+    },
   })
 );
 
 export const StyledButton = withStyles((theme: Theme) => ({
   root: {
-    width: '55%',
-    minWidth: '14rem',
+    width: '100%',
     margin: '0 auto',
     marginTop: '4rem',
 
@@ -45,11 +58,7 @@ export const StyledButton = withStyles((theme: Theme) => ({
     },
   },
   label: {
-    fontSize: '1.2rem',
-
-    [theme.breakpoints.up('sm')]: {
-      fontSize: '1.2rem',
-    },
+    fontSize: '1.6rem',
   },
 }))(Button);
 

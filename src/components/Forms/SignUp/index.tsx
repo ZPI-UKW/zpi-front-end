@@ -1,22 +1,34 @@
-import { Box, Link, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Link, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { forwardRef } from 'react';
-import { SignupSchema } from '../../validation/AuthSchema';
-import { SetContentType } from '../AuthDialog/types';
-import { StyledButton, useStyles, StyledTextField } from './styles';
-import PasswordField from './passwordField';
+import { SignupSchema } from '../../../validation/AuthSchema';
+import { SignUpFormProps, QueryData, QueryVars } from './types';
+import { StyledButton, useStyles, StyledTextField } from '../styles';
+import PasswordField from '../../CustomControls/password.control';
+import { useMutation } from '@apollo/client';
+import { REGISTER } from '../../../graphql/auth';
+import DataControl from './signup.datacontrol';
+import MaskedInput from '../../CustomControls/masked.control';
 
-const SignupForm = (
-  { setContentType }: { setContentType: SetContentType },
-  ref: React.Ref<unknown> | undefined
-) => {
+const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown> | undefined) => {
   const classes = useStyles();
+  const [CreateUser, { data, error, loading }] = useMutation<QueryData, QueryVars>(REGISTER);
 
   return (
     <Formik
-      initialValues={{ email: '', password: '', name: '', lastname: '', phonenumber: '' }}
-      onSubmit={(values) => {
-        console.log(values);
+      initialValues={{
+        email: '',
+        password: '',
+        name: '',
+        lastname: '',
+        phonenumber: '',
+      }}
+      onSubmit={async (values) => {
+        try {
+          await CreateUser({
+            variables: { ...values, phonenumber: values.phonenumber.replace(/[^\d]/g, '') },
+          });
+        } catch {}
       }}
       validationSchema={SignupSchema}
     >
@@ -49,23 +61,20 @@ const SignupForm = (
             error={touched.lastname && Boolean(errors.lastname)}
             helperText={touched.lastname && errors.lastname}
           />
-          <Field
-            label="Numer telefonu"
-            name="phonenumber"
-            type="tel"
-            as={StyledTextField}
-            error={touched.phonenumber && Boolean(errors.phonenumber)}
-            helperText={touched.phonenumber && errors.phonenumber}
-          />
-          <StyledButton type="submit" color="primary" variant="contained">
-            Zarejestruj się
-          </StyledButton>
+          <MaskedInput type="tel" name="phonenumber" label="Numer telefonu" />
+          <div className={classes.buttonWrapper}>
+            <StyledButton type="submit" color="primary" variant="contained" disabled={loading}>
+              Zarejestruj się
+            </StyledButton>
+            {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
+          </div>
           <Box className={classes.box}>
             <Typography className={classes.message}>Masz już konto?</Typography>
             <Link component="p" className={classes.link} onClick={() => setContentType('signin')}>
               Zaloguj się
             </Link>
           </Box>
+          <DataControl data={data} error={error} setContentType={setContentType} />
         </Form>
       )}
     </Formik>

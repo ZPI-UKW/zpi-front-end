@@ -15,4 +15,5 @@ export interface DialogTitleProps {
 export interface DialogContentProps {
   contentType: ContentType;
   setContentType: SetContentType;
+  closeModal: () => void;
 }

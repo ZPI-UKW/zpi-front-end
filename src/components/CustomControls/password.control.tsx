@@ -9,9 +9,10 @@ import {
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { useState } from 'react';
-import { useStyles } from './styles';
+import { useStyles } from '../Forms/styles';
+import { PasswordInputProps } from './types';
 
-const PasswordField = ({ helperText, error, ...props }: { helperText: string; error: boolean }) => {
+const PasswordField = ({ helperText, error, name, ...props }: PasswordInputProps) => {
   const [isShown, setIsShown] = useState(false);
   const classes = useStyles();
 
@@ -19,12 +20,13 @@ const PasswordField = ({ helperText, error, ...props }: { helperText: string; er
 
   return (
     <FormControl classes={{ root: classes.passwordInput }}>
-      <InputLabel htmlFor="password" className={error ? 'Mui-error' : ''}>
+      <InputLabel htmlFor={name} className={error ? 'Mui-error' : ''}>
         Hasło
       </InputLabel>
       <Input
-        id="password"
+        id={name}
         className={error ? 'Mui-error' : ''}
+        aria-describedby={`${name}-helperText`}
         aria-invalid="true"
         type={isShown ? 'text' : 'password'}
         endAdornment={
@@ -36,7 +38,11 @@ const PasswordField = ({ helperText, error, ...props }: { helperText: string; er
         }
         {...props}
       />
-      {error ? <FormHelperText className="Mui-error">{helperText}</FormHelperText> : null}
+      {error ? (
+        <FormHelperText id={`${name}-helperText`} className="Mui-error">
+          {helperText}
+        </FormHelperText>
+      ) : null}
     </FormControl>
   );
 };
