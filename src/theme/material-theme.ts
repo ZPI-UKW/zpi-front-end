@@ -6,10 +6,6 @@ const theme = createMuiTheme({
   },
   overrides: {
     MuiPickersToolbar: {
-      '& svg': {
-        fontSize: '2.4rem',
-      },
-
       toolbar: {
         '& h3': {
           fontSize: '4.8rem',
@@ -19,13 +15,6 @@ const theme = createMuiTheme({
         },
         '& h4': {
           fontSize: '3.6rem',
-        },
-      },
-    },
-    MuiPickerDTTabs: {
-      scroller: {
-        '& *': {
-          fontSize: '4rem',
         },
       },
     },
