@@ -6,9 +6,9 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
+import DatePicker from '../CustomControls/datepicker.control';
 import DialogTitle from '../DialogTitle';
 import { StyledButton } from '../Forms/styles';
 import { useStyles } from './styles';
@@ -33,50 +33,17 @@ const RentDialog = ({ isOpen, handleClose }: RentDialogProps) => {
       <DialogContent className={classes.content}>
         <Formik
           initialValues={{
-            startDate: new Date(),
-            endDate: moment(moment().format(format), format).add(1, 'days'),
+            startDate: moment(),
+            endDate: moment().add(1, 'days'),
           }}
           onSubmit={(values) => console.log(values)}
         >
-          {({ values, setFieldValue, errors, setFieldError }) => (
+          {({ values, errors }) => (
             <Form>
               <Grid container direction="column">
                 <Grid item className={classes.pickersWrapper}>
-                  <KeyboardDatePicker
-                    name="startDate"
-                    value={values.startDate}
-                    onChange={(date) => setFieldValue('startDate', date, false)}
-                    className={classes.datePicker}
-                    helperText={errors.startDate}
-                    error={Boolean(errors.startDate)}
-                    onError={(error) => {
-                      if (error !== errors.startDate) setFieldError('startDate', error as string);
-                    }}
-                    label="Data wypożyczenia"
-                    invalidDateMessage="Błędny format daty"
-                    minDateMessage="Podana dana nie powinna być przed dzisiejszą"
-                    cancelLabel="Anuluj"
-                    disablePast
-                    format={format}
-                  />
-
-                  <KeyboardDatePicker
-                    name="endDate"
-                    value={values.endDate}
-                    onChange={(date) => setFieldValue('endDate', date, false)}
-                    className={classes.datePicker}
-                    helperText={errors.endDate}
-                    error={Boolean(errors.endDate)}
-                    onError={(error) => {
-                      if (error !== errors.endDate) setFieldError('endDate', error as string);
-                    }}
-                    label="Data zwrotu"
-                    invalidDateMessage="Błędny format daty"
-                    minDateMessage="Podana dana nie powinna być przed dzisiejszą"
-                    cancelLabel="Anuluj"
-                    disablePast
-                    format={format}
-                  />
+                  <DatePicker name="startDate" />
+                  <DatePicker name="endDate" />
                 </Grid>
                 <Grid item className={classes.contentWrapper}>
                   <Typography variant="h4" gutterBottom>

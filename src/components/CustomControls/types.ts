@@ -10,3 +10,8 @@ export interface CustomMaskedInputProps {
   name: string;
   mask?: string;
 }
+
+export interface DatePickerProps {
+  name: 'startDate' | 'endDate';
+  format?: string;
+}
