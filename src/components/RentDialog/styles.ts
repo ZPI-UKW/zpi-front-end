@@ -37,4 +37,9 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '1.8rem',
     },
   },
+  alert: {
+    '& .MuiAlert-message': {
+      fontSize: '1.6rem',
+    },
+  },
 }));

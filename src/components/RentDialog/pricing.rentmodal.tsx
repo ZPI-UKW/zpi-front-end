@@ -10,14 +10,16 @@ const Pricing = ({ costs, startDate, endDate }: PricingProps) => {
     const end = moment(moment(endDate).format('DD-MM-yyyy'), 'DD-MM-yyyy');
     const start = moment(moment(startDate).format('DD-MM-yyyy'), 'DD-MM-yyyy');
 
-    const diff = end.diff(start, 'days');
+    if (start.isBefore(end)) {
+      const diff = end.diff(start, 'days');
 
-    const months = Math.floor(diff / 30);
-    const weeks = Math.floor((diff - months * 30) / 7);
-    const days = diff - months * 30 - weeks * 7;
+      const months = Math.floor(diff / 30);
+      const weeks = Math.floor((diff - months * 30) / 7);
+      const days = diff - months * 30 - weeks * 7;
 
-    const totalPrice = months * costs.month + weeks * costs.week + days * costs.day;
-    setSummary({ days, weeks, months, totalPrice });
+      const totalPrice = months * costs.month + weeks * costs.week + days * costs.day;
+      setSummary({ days, weeks, months, totalPrice });
+    }
   }, [startDate, endDate, costs]);
 
   return (

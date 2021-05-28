@@ -1,6 +1,8 @@
 import { Dialog, DialogContent, Grid, useMediaQuery, useTheme } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
+import { useState } from 'react';
 import DatePicker from '../CustomControls/datepicker.control';
 import DialogTitle from '../DialogTitle';
 import { StyledButton } from '../Forms/styles';
@@ -29,20 +31,36 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
             startDate: moment(),
             endDate: moment().add(1, 'days'),
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log(values);
+            setSubmitting(true);
+            setTimeout(() => {
+              setSubmitting(false);
+            }, 1500);
+          }}
         >
-          {({ values, errors }) => (
+          {({ values, isSubmitting }) => (
             <Form>
               <Grid container direction="column">
                 <Grid item className={classes.pickersWrapper}>
                   <DatePicker name="startDate" />
                   <DatePicker name="endDate" />
                 </Grid>
+                {values.startDate.isAfter(values.endDate) ? (
+                  <Alert severity="error" className={classes.alert}>
+                    Data oddania musi być większa od daty wypożyczenia
+                  </Alert>
+                ) : null}
                 <Grid item className={classes.contentWrapper}>
                   <Pricing costs={costs} {...values} />
                 </Grid>
                 <Grid item container justify="center">
-                  <StyledButton variant="contained" color="primary" type="submit">
+                  <StyledButton
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
                     Zarezerwuj
                   </StyledButton>
                 </Grid>
