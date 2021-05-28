@@ -1,24 +1,17 @@
-import {
-  Dialog,
-  DialogContent,
-  Grid,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { Dialog, DialogContent, Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
 import DatePicker from '../CustomControls/datepicker.control';
 import DialogTitle from '../DialogTitle';
 import { StyledButton } from '../Forms/styles';
+import Pricing from './pricing.rentmodal';
 import { useStyles } from './styles';
 import { RentDialogProps } from './types';
 
-const RentDialog = ({ isOpen, handleClose }: RentDialogProps) => {
+const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
-  const format = 'DD-MM-yyyy';
 
   return (
     <Dialog
@@ -46,24 +39,7 @@ const RentDialog = ({ isOpen, handleClose }: RentDialogProps) => {
                   <DatePicker name="endDate" />
                 </Grid>
                 <Grid item className={classes.contentWrapper}>
-                  <Typography variant="h4" gutterBottom>
-                    Podsumowanie
-                  </Typography>
-                  <Typography variant="h4" component="p">
-                    0 x miesiąc (30 dni)
-                  </Typography>
-                  <Typography variant="h4" component="p">
-                    3 x tydzień (7 dni)
-                  </Typography>
-                  <Typography variant="h4" component="p">
-                    3 x dzień
-                  </Typography>
-                  <Typography variant="h4" gutterBottom>
-                    Łączny koszt
-                  </Typography>
-                  <Typography variant="h4" component="p">
-                    12 876 zł
-                  </Typography>
+                  <Pricing costs={costs} {...values} />
                 </Grid>
                 <Grid item container justify="center">
                   <StyledButton variant="contained" color="primary" type="submit">

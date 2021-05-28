@@ -113,7 +113,7 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
           </Hidden>
         </Grid>
       </Grid>
-      <RentDialog isOpen={isDialogOpen} handleClose={handleClose} />
+      <RentDialog isOpen={isDialogOpen} handleClose={handleClose} costs={annoucement.costs} />
     </>
   );
 };
