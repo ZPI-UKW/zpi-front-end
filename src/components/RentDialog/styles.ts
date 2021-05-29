@@ -2,6 +2,11 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
   content: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+
     [theme.breakpoints.up('sm')]: {
       minWidth: '40rem',
     },
