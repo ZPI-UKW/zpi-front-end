@@ -5,7 +5,7 @@ import CardsContainer from '../../components/CardsContainer';
 import ViewTitle from '../../components/ViewTitle';
 import ViewContainer from '../../components/ViewContainer';
 import { useLocation } from 'react-router';
-import { AppBar, Breadcrumbs, Container } from '@material-ui/core';
+import { AppBar, Breadcrumbs, CircularProgress, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Home } from '@material-ui/icons';
 import useStyles from './styles';
@@ -20,8 +20,12 @@ const AnnoucementsList = () => {
   const searchParam = location.search ? queryString.parse(location.search).q : '';
 
   useEffect(() => {
-    setAnnoucements(ann);
-  }, []);
+    const filtered = ann.filter((item) => item.title.includes(searchParam));
+    setTimeout(() => setAnnoucements(filtered), 2000);
+    return () => {
+      setAnnoucements(null);
+    };
+  }, [searchParam]);
 
   const renderSearch = (search: string): string => {
     return ` - ${search}`;
@@ -71,18 +75,11 @@ const AnnoucementsList = () => {
         </Breadcrumbs>
         <ViewTitle>Wyniki wyszukiwania</ViewTitle>
         <CardsContainer>
-          {annoucements.map((el) => (
-            <Card
-              variant="home"
-              key={el._id}
-              title={el.title}
-              price={el.costs.day}
-              _id={el._id}
-              images={el.images}
-              categoryId={el.categoryId}
-              location={el.location}
-            />
-          ))}
+          {annoucements ? (
+            renderCards(annoucements)
+          ) : (
+            <CircularProgress size={60} className={classes.spinner} />
+          )}
         </CardsContainer>
       </Container>
     </ViewContainer>
