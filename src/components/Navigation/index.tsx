@@ -1,42 +1,11 @@
-import { createStyles, Divider, makeStyles, Menu, MenuItem, Theme } from '@material-ui/core';
+import { Divider, Menu, MenuItem } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useAuthContextState } from '../context/authContext';
+import { useAuthContextState } from '../../context/authContext';
 import Transition from './transition';
+import { useStyles } from './styles';
+import { NavigationProps } from './types';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menu: {
-      '& li': {
-        fontSize: '1.8rem',
-        [theme.breakpoints.up('sm')]: {
-          fontSize: '1.8rem',
-        },
-      },
-      '& a': {
-        color: theme.palette.primary.main,
-      },
-      '& .logout': {
-        color: theme.palette.error.main,
-      },
-    },
-    paper: {
-      width: '100%',
-      maxWidth: '100%',
-      left: 0,
-      right: 0,
-    },
-  })
-);
-
-const Navigation = ({
-  type = 'desktop',
-  anchorEl,
-  setAnchorEl,
-}: {
-  type: 'desktop' | 'mobile';
-  anchorEl: HTMLElement | null;
-  setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
-}) => {
+const Navigation = ({ type = 'desktop', anchorEl, setAnchorEl }: NavigationProps) => {
   const classes = useStyles();
   const { isAuthenticated, logout } = useAuthContextState();
 

@@ -4,7 +4,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import React, { useState } from 'react';
 import { useAuthContextState } from '../../context/authContext';
-import Navigation from '../../components/navigation';
+import Navigation from '../../components/Navigation';
 import { NavigationProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
