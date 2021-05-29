@@ -21,7 +21,7 @@ const DatePicker = ({ name, format = 'DD-MM-yyyy' }: DatePickerProps) => {
       }}
       label="Data wypożyczenia"
       invalidDateMessage="Błędny format daty"
-      minDateMessage="Podana data nie może być przed dzisiejszą"
+      minDateMessage=""
       maxDateMessage="Błędna data"
       cancelLabel="Anuluj"
       disablePast
