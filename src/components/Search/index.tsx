@@ -15,7 +15,7 @@ const Search = ({ slim = false }: { slim?: true | false }) => {
   const searchItem = (value: String): void => {
     history.push({
       pathname: '/search',
-      search: `?q=${value}`,
+      search: value && `?q=${value}`,
     });
   };
 
