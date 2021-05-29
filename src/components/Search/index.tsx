@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { Search as SearchIcon } from '@material-ui/icons';
 import useStyles from './styles';
 
-const Search = () => {
-  const classes = useStyles();
+const Search = ({ slim = false }: { slim?: true | false }) => {
+  const classes = useStyles({ slim: slim });
   const history = useHistory();
   const [searchValue, setSearchValue] = useState<String>('');
 

@@ -1,14 +1,14 @@
-import { makeStyles, colors } from '@material-ui/core';
+import { makeStyles, colors, Theme } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, { slim: boolean }>((theme) => ({
   searchInput: {
     width: '90%',
     backgroundColor: colors.grey[50],
-    marginTop: theme.spacing(3),
     borderRadius: 4,
   },
   fontResize: {
     fontSize: '1.8rem',
+    paddingBlock: ({ slim }) => (slim ? theme.spacing(1) : theme.spacing(2)),
   },
 }));
 
