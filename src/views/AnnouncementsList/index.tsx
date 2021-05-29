@@ -5,11 +5,12 @@ import CardsContainer from '../../components/CardsContainer';
 import ViewTitle from '../../components/ViewTitle';
 import ViewContainer from '../../components/ViewContainer';
 import { useLocation } from 'react-router';
-import { Breadcrumbs } from '@material-ui/core';
+import { AppBar, Breadcrumbs, Container } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Home } from '@material-ui/icons';
 import useStyles from './styles';
 import queryString from 'query-string';
+import Search from '../../components/Search';
 
 const AnnoucementsList = () => {
   const [annoucements, setAnnoucements] = useState<Annoucements[]>([]);
@@ -32,34 +33,41 @@ const AnnoucementsList = () => {
 
   return (
     <ViewContainer>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link to="/" className={classes.link}>
-          <Home />
-        </Link>
-        {pathnames &&
-          pathnames.map((path, index) => (
-            <span>
-              {path}
-              {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
-                renderSearch(searchParam)}
-            </span>
+      <AppBar position="sticky" className={classes.header}>
+        <Container className={classes.searchContainer} disableGutters>
+          <Search slim={true} />
+        </Container>
+      </AppBar>
+      <Container className={classes.contentContainer}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link to="/" className={classes.link}>
+            <Home />
+          </Link>
+          {pathnames &&
+            pathnames.map((path, index) => (
+              <span>
+                {path}
+                {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
+                  renderSearch(searchParam)}
+              </span>
+            ))}
+        </Breadcrumbs>
+        <ViewTitle>Wyniki wyszukiwania</ViewTitle>
+        <CardsContainer>
+          {annoucements.map((el) => (
+            <Card
+              variant="home"
+              key={el._id}
+              title={el.title}
+              price={el.costs.day}
+              _id={el._id}
+              images={el.images}
+              categoryId={el.categoryId}
+              location={el.location}
+            />
           ))}
-      </Breadcrumbs>
-      <ViewTitle>Wyniki wyszukiwania</ViewTitle>
-      <CardsContainer>
-        {annoucements.map((el) => (
-          <Card
-            variant="home"
-            key={el._id}
-            title={el.title}
-            price={el.costs.day}
-            _id={el._id}
-            images={el.images}
-            categoryId={el.categoryId}
-            location={el.location}
-          />
-        ))}
-      </CardsContainer>
+        </CardsContainer>
+      </Container>
     </ViewContainer>
   );
 };
