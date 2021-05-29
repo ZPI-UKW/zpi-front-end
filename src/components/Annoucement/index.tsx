@@ -24,7 +24,7 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
   return (
     <>
       <Hidden xsDown>
-        <Typography variant="subtitle1" component="p">
+        <Typography variant="subtitle1" component="p" className={classes.category}>
           Kategorie {'>'} Pojazdy
         </Typography>
       </Hidden>
