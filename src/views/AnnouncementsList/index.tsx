@@ -13,7 +13,7 @@ import queryString from 'query-string';
 import Search from '../../components/Search';
 
 const AnnoucementsList = () => {
-  const [annoucements, setAnnoucements] = useState<Annoucements[]>([]);
+  const [annoucements, setAnnoucements] = useState<Annoucements[] | null>(null);
   const location = useLocation();
   const classes = useStyles();
   const pathnames = location.pathname.split('/').filter((x) => x);
@@ -29,6 +29,23 @@ const AnnoucementsList = () => {
 
   const ifRenderSearch = (index: number, size: number, search: string): boolean => {
     return index === size && search !== '';
+  };
+
+  const renderCards = (annoucements: Annoucements[]): JSX.Element[] | string => {
+    return annoucements.length
+      ? annoucements.map((el) => (
+          <Card
+            variant="home"
+            key={el._id}
+            title={el.title}
+            price={el.costs.day}
+            _id={el._id}
+            images={el.images}
+            categoryId={el.categoryId}
+            location={el.location}
+          />
+        ))
+      : 'Nothing found';
   };
 
   return (
