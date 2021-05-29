@@ -8,12 +8,13 @@ const SpinnerButton = ({
   isLoading = false,
   disabled = false,
   className,
+  wrapperClassName,
   ...props
 }: SpinnerButtonProps) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.buttonWrapper}>
+    <div className={clsx(classes.buttonWrapper, wrapperClassName)}>
       <Button
         className={clsx(classes.button, className)}
         disabled={disabled || isLoading}
