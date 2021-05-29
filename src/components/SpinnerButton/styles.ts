@@ -6,10 +6,6 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-
-    '& > button': {
-      margin: 0,
-    },
   },
   button: {
     fontSize: '1.5rem',
