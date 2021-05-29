@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   firstHeading: {
     color: colors.grey[50],
     fontWeight: 500,
+    marginBlockEnd: theme.spacing(3),
     [theme.breakpoints.down('xs')]: {
       fontSize: '4rem',
     },
