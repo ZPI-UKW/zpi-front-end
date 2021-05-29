@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#9CA3AF',
     boxShadow: 'none',
   },
+  illustration: {
+    width: '100%',
+    height: '100%',
+  },
 }));
 
 export default useStyles;
