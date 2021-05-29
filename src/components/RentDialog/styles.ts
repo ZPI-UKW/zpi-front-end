@@ -38,8 +38,15 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   alert: {
+    marginBottom: '1.5rem',
     '& .MuiAlert-message': {
       fontSize: '1.6rem',
     },
+  },
+  buttonWrapper: {
+    marginTop: '3rem',
+  },
+  button: {
+    width: '50%',
   },
 }));

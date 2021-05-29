@@ -2,10 +2,9 @@ import { Dialog, DialogContent, Grid, useMediaQuery, useTheme } from '@material-
 import { Alert } from '@material-ui/lab';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
-import { useState } from 'react';
 import DatePicker from '../CustomControls/datepicker.control';
 import DialogTitle from '../DialogTitle';
-import { StyledButton } from '../Forms/styles';
+import SpinnerButton from '../SpinnerButton';
 import Pricing from './pricing.rentmodal';
 import { useStyles } from './styles';
 import { RentDialogProps } from './types';
@@ -39,34 +38,48 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
             }, 1500);
           }}
         >
-          {({ values, isSubmitting }) => (
-            <Form>
-              <Grid container direction="column">
-                <Grid item className={classes.pickersWrapper}>
-                  <DatePicker name="startDate" />
-                  <DatePicker name="endDate" />
+          {({ values, isSubmitting, errors }) => {
+            const isAfter = values.startDate.isAfter(values.endDate);
+            const isStartBeforeToday = values.startDate.isBefore(moment(), 'day');
+            const isEndBeforeToday = values.endDate.isBefore(moment(), 'day');
+
+            return (
+              <Form>
+                <Grid container direction="column">
+                  <Grid item className={classes.pickersWrapper}>
+                    <DatePicker name="startDate" />
+                    <DatePicker name="endDate" />
+                  </Grid>
+                  {isAfter ? (
+                    <Alert severity="error" className={classes.alert}>
+                      Data oddania musi być większa od daty wypożyczenia
+                    </Alert>
+                  ) : null}
+                  {isStartBeforeToday || isEndBeforeToday ? (
+                    <Alert severity="error" className={classes.alert}>
+                      Wypożyczenie musi zaczynać się conajmniej dzisiaj
+                    </Alert>
+                  ) : null}
+                  <Grid item className={classes.contentWrapper}>
+                    <Pricing costs={costs} {...values} />
+                  </Grid>
+                  <Grid item>
+                    <SpinnerButton
+                      type="submit"
+                      color="primary"
+                      variant="contained"
+                      isLoading={isSubmitting}
+                      className={classes.button}
+                      wrapperClassName={classes.buttonWrapper}
+                      disabled={Boolean(errors.startDate) || Boolean(errors.endDate) || isAfter}
+                    >
+                      Zarezerwuj
+                    </SpinnerButton>
+                  </Grid>
                 </Grid>
-                {values.startDate.isAfter(values.endDate) ? (
-                  <Alert severity="error" className={classes.alert}>
-                    Data oddania musi być większa od daty wypożyczenia
-                  </Alert>
-                ) : null}
-                <Grid item className={classes.contentWrapper}>
-                  <Pricing costs={costs} {...values} />
-                </Grid>
-                <Grid item container justify="center">
-                  <StyledButton
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    Zarezerwuj
-                  </StyledButton>
-                </Grid>
-              </Grid>
-            </Form>
-          )}
+              </Form>
+            );
+          }}
         </Formik>
       </DialogContent>
     </Dialog>
