@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
       margin: '1.5rem 0',
       display: 'flex',
       alignItems: 'center',
+
+      '& > a': {
+        display: 'flex',
+        alignItems: 'center',
+      },
     },
   },
   link: {
