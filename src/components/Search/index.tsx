@@ -1,13 +1,16 @@
 import { InputAdornment, TextField } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Search as SearchIcon } from '@material-ui/icons';
 import useStyles from './styles';
+import queryString from 'query-string';
 
 const Search = ({ slim = false }: { slim?: true | false }) => {
   const classes = useStyles({ slim: slim });
   const history = useHistory();
   const [searchValue, setSearchValue] = useState<String>('');
+  const location = useLocation();
+  const searchParam = location.search ? queryString.parse(location.search).q : '';
 
   const searchItem = (value: String): void => {
     history.push({
@@ -15,6 +18,10 @@ const Search = ({ slim = false }: { slim?: true | false }) => {
       search: `?q=${value}`,
     });
   };
+
+  useEffect(() => {
+    setSearchValue(searchParam);
+  }, [searchParam]);
 
   return (
     <TextField
