@@ -18,15 +18,6 @@ const useStyles = makeStyles((theme) => ({
       height: '300px',
     },
   },
-  searchInput: {
-    width: '90%',
-    backgroundColor: colors.grey[50],
-    marginTop: theme.spacing(3),
-    borderRadius: 4,
-  },
-  fontResize: {
-    fontSize: '1.8rem',
-  },
   firstHeading: {
     color: colors.grey[50],
     fontWeight: 500,

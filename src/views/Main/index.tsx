@@ -1,20 +1,18 @@
 import {
   Grid,
   Container,
-  InputAdornment,
   Typography,
-  TextField,
   useTheme,
   useMediaQuery,
   GridSpacing,
 } from '@material-ui/core';
-import { Search } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 import Category from '../../components/Category';
 import useStyles from './styles';
 import { data } from '../../components/Category/categories.data';
 import { category, categoryData } from '../../components/Category/category.interface';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Search from '../../components/Search';
 
 const getData = (data: categoryData): category[] => {
   return data.categories;
@@ -24,22 +22,12 @@ const Main = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
-  const history = useHistory();
-
   const [categories, setCategories] = useState<category[] | null>(null);
-  const [searchValue, setSearchValue] = useState<String>('');
 
   useEffect(() => setCategories(getData(data)), []);
 
   const setSpacing = (matches: boolean): GridSpacing => {
     return matches ? 2 : 4;
-  };
-
-  const search = (value: String): void => {
-    history.push({
-      pathname: '/search',
-      search: `?q=${value}`,
-    });
   };
 
   const renderCategories = (categories: category[] | null): JSX.Element[] | null => {
@@ -74,26 +62,7 @@ const Main = () => {
           <Typography variant="h1" component="h1" className={classes.firstHeading}>
             Czego szukasz?
           </Typography>
-          <TextField
-            id="search-input"
-            placeholder="Wpisz..."
-            variant="outlined"
-            type="search"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.currentTarget.value)}
-            onKeyPress={(e) => e.key === 'Enter' && search(searchValue)}
-            className={classes.searchInput}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search fontSize="large" />
-                </InputAdornment>
-              ),
-              classes: {
-                input: classes.fontResize,
-              },
-            }}
-          />
+          <Search />
         </Grid>
       </Container>
       <Container className={classes.container} maxWidth={false}>
