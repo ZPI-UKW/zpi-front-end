@@ -4,25 +4,31 @@ import { StylesButton } from '../../CustomControls/styles';
 import { ChangePasswordSchema } from '../../../validation/modifyuserdata.validation';
 import useStyles from './styles';
 import PasswordField from '../../CustomControls/password.control';
+import { useMutation } from '@apollo/client';
+import { CHANGE_PASSWORD } from '../../../graphql/user';
+import { QueryData, QueryVars } from './types';
+import DataControl from '../../DataControl';
 
 const ChangePassword = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
+  const [ChangePassword, { error, data, loading, called }] =
+    useMutation<QueryData, QueryVars>(CHANGE_PASSWORD);
 
   return (
     <Formik
       initialValues={{ currentPassword: '', newPassword: '' }}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        console.log(values);
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 1500);
+      onSubmit={async (values) => {
+        try {
+          await ChangePassword({
+            variables: { ...values },
+          });
+        } catch {}
       }}
       validationSchema={ChangePasswordSchema}
     >
-      {({ touched, errors, isSubmitting }) => (
+      {({ touched, errors, isSubmitting, setFieldError, resetForm }) => (
         <Form>
           <Grid container className={classes.root} spacing={matches ? 0 : 2}>
             <Grid item xs={12}>
@@ -60,6 +66,22 @@ const ChangePassword = () => {
               </StylesButton>
             </Grid>
           </Grid>
+          <DataControl
+            data={data}
+            error={error}
+            loading={loading}
+            called={called}
+            successMsg="Hasło zmienione pomyślnie."
+            onError={(error, status, message) => {
+              if (message === 'Invalid password' && status === 401) {
+                error.message = '';
+                setFieldError('currentPassword', 'Błędne hasło.');
+              }
+            }}
+            onSuccess={() => {
+              resetForm();
+            }}
+          />
         </Form>
       )}
     </Formik>
