@@ -29,6 +29,10 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     passwordInput: {
       height: '7rem',
+      maxWidth: '30rem',
+      width: '100%',
+      '& *': { fontSize: '1.8rem' },
+      '& .MuiFormHelperText-root': { fontSize: '1.4rem' },
     },
     buttonWrapper: {
       marginTop: '4rem',
