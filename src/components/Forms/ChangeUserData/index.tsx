@@ -23,7 +23,7 @@ const ChangeUserData = () => {
     >
       {({ touched, errors, isSubmitting }) => (
         <Form>
-          <Grid container spacing={2} className={classes.root}>
+          <Grid container className={classes.root} spacing={matches ? 0 : 2}>
             <Grid item xs={12}>
               <Typography className={classes.subTitle} variant="h4">
                 Dane

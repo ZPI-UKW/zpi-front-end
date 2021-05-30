@@ -3,14 +3,14 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   subTitle: {
     fontSize: '2.5rem',
-    marginTop: '3rem',
+    margin: '2.5rem 0 0.5rem',
   },
   button: {
-    marginTop: '1rem',
+    margin: '3rem 0',
   },
   root: {
     '& .MuiFormControl-root': {
-      margin: '0.5rem 0',
+      // margin: '0.5rem 0',
     },
   },
 }));
