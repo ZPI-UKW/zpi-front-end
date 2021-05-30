@@ -3,15 +3,18 @@ import { Field, Form, Formik } from 'formik';
 import { StyledTextField, StylesButton } from '../../CustomControls/styles';
 import { ChangeUserDataSchema } from '../../../validation/modifyuserdata.validation';
 import useStyles from './styles';
+import { useAuthContextState } from '../../../context/authContext';
+import _ from 'lodash';
 
 const ChangeUserData = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
+  const { userInfo } = useAuthContextState();
 
   return (
     <Formik
-      initialValues={{ name: '', lastname: '', email: '', phonenumber: '' }}
+      initialValues={{ ..._.omit(userInfo, '_id') }}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(true);
         console.log(values);
