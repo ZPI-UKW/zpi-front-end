@@ -3,7 +3,7 @@ import { SetContentType } from '../../AuthDialog/types';
 
 export interface QueryData {
   login: {
-    userId: string;
+    _id: string;
     email: string;
     lastname: string;
     name: string;

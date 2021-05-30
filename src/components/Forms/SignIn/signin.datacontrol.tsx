@@ -11,8 +11,8 @@ const DataControl = ({ data, error, closeModal }: DataControlProps) => {
   useEffect(() => {
     try {
       if (data !== undefined && error === undefined) {
-        const { userId, email, lastname, name, phonenumber } = data.login;
-        setAuthInfo({ _id: userId, email, lastname, name, phonenumber });
+        const { _id, email, lastname, name, phonenumber } = data.login;
+        setAuthInfo({ _id, email, lastname, name, phonenumber });
         enqueueSnackbar('Zalogowano pomyślnie.', { variant: 'success', autoHideDuration: 2000 });
         closeModal();
       } else if (error !== undefined && error?.networkError) {
