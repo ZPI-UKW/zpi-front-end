@@ -8,6 +8,7 @@ export interface DataControlProps<T> {
   loading: boolean;
   called: boolean;
   onError?: OnError;
+  onSuccess?: () => void;
   messages?: {
     _401?: string;
     _403?: string;

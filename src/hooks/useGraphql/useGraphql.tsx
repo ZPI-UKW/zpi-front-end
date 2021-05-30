@@ -20,6 +20,7 @@ export const useGraphql = <T,>({
   messages,
   successMsg,
   onError,
+  onSuccess,
 }: DataControlProps<T>) => {
   const { enqueueSnackbar } = useSnackbar();
   const [isOk, setIsOk] = useState(false);
@@ -27,6 +28,7 @@ export const useGraphql = <T,>({
 
   useEffect(() => {
     setErrorMessages({ ...errorMessages, ...messages });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -39,7 +41,8 @@ export const useGraphql = <T,>({
           autoHideDuration: 1500,
         });
         setIsOk(true);
-        console.log(error);
+        if (typeof onSuccess === 'function') onSuccess();
+        return;
       } else if (error !== undefined && error?.networkError) {
         const err = new Error();
         const { networkError } = error as CustomApolloError;
@@ -60,11 +63,13 @@ export const useGraphql = <T,>({
         throw new Error('Wystąpił nieznany błąd.');
       }
     } catch (e) {
-      enqueueSnackbar(e.message || 'Wystąpił nieznany błąd.', {
-        variant: 'error',
-        autoHideDuration: 1500,
-      });
+      if (e.message !== '')
+        enqueueSnackbar(e.message || 'Wystąpił nieznany błąd.', {
+          variant: 'error',
+          autoHideDuration: 1500,
+        });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, data]);
 
   return isOk;
