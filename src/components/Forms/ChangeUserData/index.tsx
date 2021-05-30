@@ -1,6 +1,7 @@
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { StyledTextField, StylesButton } from '../../CustomControls/styles';
+import { ChangeUserDataSchema } from '../../../validation/modifyuserdata.validation';
 import useStyles from './styles';
 
 const ChangeUserData = () => {
@@ -18,6 +19,7 @@ const ChangeUserData = () => {
           setSubmitting(false);
         }, 1500);
       }}
+      validationSchema={ChangeUserDataSchema}
     >
       {({ touched, errors, isSubmitting }) => (
         <Form>
