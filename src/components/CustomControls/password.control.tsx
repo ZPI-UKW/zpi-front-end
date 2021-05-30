@@ -12,7 +12,13 @@ import { useState } from 'react';
 import { useStyles } from '../Forms/styles';
 import { PasswordInputProps } from './types';
 
-const PasswordField = ({ helperText, error, name, ...props }: PasswordInputProps) => {
+const PasswordField = ({
+  helperText,
+  error,
+  name,
+  label = 'Hasło',
+  ...props
+}: PasswordInputProps) => {
   const [isShown, setIsShown] = useState(false);
   const classes = useStyles();
 
@@ -21,10 +27,11 @@ const PasswordField = ({ helperText, error, name, ...props }: PasswordInputProps
   return (
     <FormControl classes={{ root: classes.passwordInput }}>
       <InputLabel htmlFor={name} className={error ? 'Mui-error' : ''}>
-        Hasło
+        {label}
       </InputLabel>
       <Input
         id={name}
+        name={name}
         className={error ? 'Mui-error' : ''}
         aria-describedby={`${name}-helperText`}
         aria-invalid="true"
