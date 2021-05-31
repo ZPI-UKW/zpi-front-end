@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core';
 import hexRgb from 'hex-rgb';
 
 const useStyles = makeStyles((theme) => ({
+  category: {
+    fontSize: '1.4rem',
+  },
   titleContainer: {
     position: 'absolute',
     top: '1rem',
@@ -13,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
       margin: '1.5rem 0',
       display: 'flex',
       alignItems: 'center',
+
+      '& > a': {
+        display: 'flex',
+        alignItems: 'center',
+      },
     },
   },
   link: {

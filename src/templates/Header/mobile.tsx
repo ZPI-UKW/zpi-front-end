@@ -2,7 +2,7 @@ import { Container, createStyles, Hidden, IconButton, makeStyles, Theme } from '
 import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import PersonIcon from '@material-ui/icons/Person';
-import Navigation from '../../components/navigation';
+import Navigation from '../../components/Navigation';
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { useState } from 'react';
