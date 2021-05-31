@@ -6,6 +6,7 @@ import Main from './Main';
 import MyAnnoucements from './MyAnnoucements';
 import MyRentals from './MyRentals/myRentals';
 import Product from './Product';
+import Profile from './Profile';
 
 const Root = () => (
   <Router>
@@ -22,7 +23,7 @@ const Root = () => (
             <AnnoucementForm />
           </Route>
           <Route path="/profile">
-            <h1>Profile</h1>
+            <Profile />
           </Route>
           <Route path="/my-advertisements">
             <MyAnnoucements />
