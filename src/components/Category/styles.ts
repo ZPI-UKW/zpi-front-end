@@ -9,6 +9,7 @@ const useStyle = makeStyles<Theme, { bgColor: string }>((theme) => ({
     alignItems: 'center',
     padding: 0,
     cursor: 'pointer',
+    color: colors.grey[900],
   },
   box: {
     width: '38px',

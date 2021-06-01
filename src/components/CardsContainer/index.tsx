@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const CardsContainer = ({ children }: { children: ReactNode }) => {
   const classes = useStyles();
   return (
-    <Grid container className={classes.grid}>
+    <Grid container className={classes.grid} justify="center">
       {children}
     </Grid>
   );
