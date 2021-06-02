@@ -14,7 +14,7 @@ const ChangeUserData = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
-  const { userInfo, setAuthInfo } = useAuthContextState();
+  const { userInfo, setAuthInfo, logout } = useAuthContextState();
   const [ChangeUserData, { error, data, loading, called }] =
     useMutation<QueryData, QueryVars>(CHANGE_USER_DATA);
 
@@ -93,6 +93,7 @@ const ChangeUserData = () => {
                 error.message = '';
                 setFieldError('email', 'Email istnieje już w bazie danych.');
               }
+              if (status === 401) logout();
             }}
             onSuccess={() => {
               if (data) setAuthInfo({ ...data.changeUserData });
