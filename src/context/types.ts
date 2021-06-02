@@ -14,3 +14,14 @@ export interface ContextState {
   logout: () => void;
   setAuthInfo: (data: UserData) => void;
 }
+
+export interface QueryData {
+  getUserData: {
+    _id: string;
+    email: string;
+    name: string;
+    lastname: string;
+    phonenumber: string;
+    __typename: string;
+  };
+}

@@ -1,7 +1,9 @@
-import { createContext, useContext, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { GET_USER_DATA } from '../graphql/user';
 import { authDataNotExist } from './helpers';
-import { ContextState, UserData } from './types';
+import { ContextState, QueryData, UserData } from './types';
 
 const userData: UserData = {
   _id: '',
@@ -61,6 +63,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     return true;
   };
+
+  const { loading, error, data } = useQuery<QueryData>(GET_USER_DATA);
+
+  useEffect(() => {
+    if (!loading) {
+      if (data) setAuthInfo({ ...data.getUserData });
+      else {
+        logout();
+      }
+    }
+  }, [loading, data, error]);
 
   return (
     <Provider value={{ userInfo: authState, isAuthenticated, logout, setAuthInfo }}>
