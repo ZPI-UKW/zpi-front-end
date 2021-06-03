@@ -11,6 +11,7 @@ export interface Initial {
   phone: string;
   email: string;
   description: string;
+  categoryId: string;
   costs: {
     day: number;
     week: number;

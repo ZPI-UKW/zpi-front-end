@@ -1,4 +1,5 @@
 import { Button, DialogContent, makeStyles, TextField, withStyles } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 
 export const useStyles = makeStyles((theme) => ({
   flexWrapper: {
@@ -76,7 +77,7 @@ export const StyledButton = withStyles(() => ({
   },
 }))(Button);
 
-export const StyledDialogContent = withStyles((theme) => ({
+export const StyledDialogContent = withStyles(() => ({
   root: {
     overflow: 'hidden',
     display: 'flex',
@@ -85,3 +86,12 @@ export const StyledDialogContent = withStyles((theme) => ({
     width: '50rem',
   },
 }))(DialogContent);
+
+export const StyledAutocomplete = withStyles(() => ({
+  root: {
+    width: '100%',
+  },
+  option: {
+    fontSize: '1.6rem',
+  },
+}))(Autocomplete);
