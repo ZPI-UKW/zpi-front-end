@@ -8,6 +8,7 @@ import MyRentals from './MyRentals/myRentals';
 import AnnoucementsList from './AnnouncementsList';
 import Product from './Product';
 import Profile from './Profile';
+import AuthRoute from '../components/AuthRoute';
 
 const Root = () => (
   <Router>
@@ -17,21 +18,21 @@ const Root = () => (
           <Route exact path="/">
             <Main />
           </Route>
-          <Route path="/create-advertisement">
+          <AuthRoute path="/create-advertisement">
             <AnnoucementForm />
-          </Route>
-          <Route path="/edit-advertisement/:addId">
+          </AuthRoute>
+          <AuthRoute path="/edit-advertisement/:addId">
             <AnnoucementForm />
-          </Route>
-          <Route path="/profile">
+          </AuthRoute>
+          <AuthRoute path="/profile">
             <Profile />
-          </Route>
-          <Route path="/my-advertisements">
+          </AuthRoute>
+          <AuthRoute path="/my-advertisements">
             <MyAnnoucements />
-          </Route>
-          <Route path="/my-rentals">
+          </AuthRoute>
+          <AuthRoute path="/my-rentals">
             <MyRentals />
-          </Route>
+          </AuthRoute>
           <Route exact path={['/search', '/search/category/:categoryName']}>
             <AnnoucementsList />
           </Route>

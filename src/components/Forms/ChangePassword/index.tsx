@@ -8,11 +8,13 @@ import { useMutation } from '@apollo/client';
 import { CHANGE_PASSWORD } from '../../../graphql/user';
 import { QueryData, QueryVars } from './types';
 import DataControl from '../../DataControl';
+import { useAuthContextState } from '../../../context/authContext';
 
 const ChangePassword = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
+  const { logout } = useAuthContextState();
   const [ChangePassword, { error, data, loading, called }] =
     useMutation<QueryData, QueryVars>(CHANGE_PASSWORD);
 
@@ -77,6 +79,7 @@ const ChangePassword = () => {
                 error.message = '';
                 setFieldError('currentPassword', 'Błędne hasło.');
               }
+              if (status === 401) logout();
             }}
             onSuccess={() => {
               resetForm();

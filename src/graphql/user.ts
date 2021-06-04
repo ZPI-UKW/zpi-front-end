@@ -26,3 +26,15 @@ export const CHANGE_USER_DATA = gql`
     }
   }
 `;
+
+export const GET_USER_DATA = gql`
+  query GetUserData {
+    getUserData {
+      _id
+      email
+      lastname
+      name
+      phonenumber
+    }
+  }
+`;

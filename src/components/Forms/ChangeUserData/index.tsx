@@ -5,26 +5,32 @@ import { ChangeUserDataSchema } from '../../../validation/modifyuserdata.validat
 import useStyles from './styles';
 import { useAuthContextState } from '../../../context/authContext';
 import _ from 'lodash';
+import { useMutation } from '@apollo/client';
+import { CHANGE_USER_DATA } from '../../../graphql/user';
+import { QueryData, QueryVars } from './types';
+import DataControl from '../../DataControl';
 
 const ChangeUserData = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
-  const { userInfo } = useAuthContextState();
+  const { userInfo, setAuthInfo, logout } = useAuthContextState();
+  const [ChangeUserData, { error, data, loading, called }] =
+    useMutation<QueryData, QueryVars>(CHANGE_USER_DATA);
 
   return (
     <Formik
       initialValues={{ ..._.omit(userInfo, '_id') }}
-      onSubmit={(values, { setSubmitting }) => {
-        setSubmitting(true);
-        console.log(values);
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 1500);
+      onSubmit={async (values) => {
+        try {
+          await ChangeUserData({
+            variables: { ...values },
+          });
+        } catch {}
       }}
       validationSchema={ChangeUserDataSchema}
     >
-      {({ touched, errors, isSubmitting }) => (
+      {({ touched, errors, isSubmitting, setFieldError }) => (
         <Form>
           <Grid container className={classes.root} spacing={matches ? 0 : 2}>
             <Grid item xs={12}>
@@ -76,6 +82,23 @@ const ChangeUserData = () => {
               </StylesButton>
             </Grid>
           </Grid>
+          <DataControl
+            data={data}
+            error={error}
+            loading={loading}
+            called={called}
+            successMsg="Dane zaktualizowane pomyślnie."
+            onError={(error, status, message) => {
+              if (message === 'Email exists' && status === 409) {
+                error.message = '';
+                setFieldError('email', 'Email istnieje już w bazie danych.');
+              }
+              if (status === 401) logout();
+            }}
+            onSuccess={() => {
+              if (data) setAuthInfo({ ...data.changeUserData });
+            }}
+          />
         </Form>
       )}
     </Formik>

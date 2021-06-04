@@ -9,6 +9,7 @@ export const initial: Initial = {
   phone: '',
   email: '',
   description: '',
+  categoryId: '',
   costs: {
     day: 0,
     week: 0,
@@ -45,7 +46,7 @@ export const routeType: RouteTypeFunc = (
       return;
     }
 
-    const { title, description, costs, location, email, phone, images } = annoucement;
+    const { title, description, costs, location, email, phone, images, categoryId } = annoucement;
 
     setInitialValues({
       ...user,
@@ -56,6 +57,7 @@ export const routeType: RouteTypeFunc = (
       email,
       phone,
       images,
+      categoryId,
     });
   }
 };
@@ -67,7 +69,7 @@ export const deleteImage = (
 ) => {
   setFieldValue(
     'images',
-    images.filter((el, i) => i !== index)
+    images.filter((_, i) => i !== index)
   );
 };
 
