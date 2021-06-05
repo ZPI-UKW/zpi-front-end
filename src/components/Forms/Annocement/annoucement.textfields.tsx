@@ -1,4 +1,5 @@
 import { Field, useFormikContext } from 'formik';
+import Location from './annoucement.location';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { FieldsProps, Initial } from './types';
 
@@ -15,14 +16,7 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
         error={touched.title && Boolean(errors.title)}
         helperText={touched.title && errors.title}
       />
-      <Field
-        variant={variant}
-        label="Lokalizacja"
-        name="location"
-        as={StyledTextField}
-        error={touched.location && Boolean(errors.location)}
-        helperText={touched.location && errors.location}
-      />
+      <Location />
       <Field
         variant={variant}
         label="Telefon kontaktowy"

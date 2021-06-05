@@ -94,4 +94,10 @@ export const StyledAutocomplete = withStyles(() => ({
   option: {
     fontSize: '1.6rem',
   },
+  noOptions: {
+    fontSize: '1.6rem',
+  },
+  loading: {
+    fontSize: '1.6rem',
+  },
 }))(Autocomplete);
