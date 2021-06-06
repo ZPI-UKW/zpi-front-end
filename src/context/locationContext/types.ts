@@ -35,3 +35,21 @@ export interface Place {
     value: string;
   }[];
 }
+
+export interface GeoPlace {
+  address_components: {
+    long_name: string;
+    short_name: string;
+    types: string[];
+  }[];
+  formatted_address: string;
+  place_id: string;
+  types: string[];
+  geometry: {
+    location_type: string;
+    bounds: {
+      Eb: { g: number; i: number };
+      oc: { g: number; i: number };
+    };
+  };
+}

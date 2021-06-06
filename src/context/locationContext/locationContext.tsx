@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { GeolocatedProps, geolocated } from 'react-geolocated';
 import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete';
-import { InitialLotationContext, Place } from './types';
+import { GeoPlace, InitialLotationContext, Place } from './types';
 import { useJsApiLoader } from '@react-google-maps/api';
 
 const initialUserPos = {
@@ -69,8 +69,13 @@ const LocationProvider = ({
           location: { lat, lng },
         });
 
-        console.log(geocode);
-        setValue(geocode[0].formatted_address);
+        const types = ['locality', 'country', 'political'];
+
+        const filteredGeo = (geocode as GeoPlace[]).filter((place) =>
+          place.types.some((el) => types.includes(el))
+        );
+
+        setValue(filteredGeo[0].formatted_address);
       };
 
       fetchLocation(coords?.latitude || 52.232, coords?.longitude || 21.0047);
