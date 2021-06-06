@@ -1,39 +1,15 @@
 import { useFormikContext } from 'formik';
-import { useEffect, useState } from 'react';
 import { StyledAutocomplete, StyledTextField } from './styles';
-import { Initial, Place } from './types';
-import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete';
+import { Initial } from './types';
 import { CircularProgress } from '@material-ui/core';
-import { GeolocatedProps, geolocated } from 'react-geolocated';
+import { useLocationContextState } from '../../../context/locationContext/locationContext';
+import { Place } from '../../../context/locationContext/types';
 
-const Location = ({ coords }: GeolocatedProps) => {
+const Location = () => {
   const { values, setFieldValue } = useFormikContext<Initial>();
-  const [options, setOptions] = useState<Place[]>([]);
-
   const {
-    ready,
-    value: places,
-    suggestions: { data, loading },
-    setValue: setPlacesValue,
-  } = usePlacesAutocomplete({
-    debounce: 150,
-  });
-
-  useEffect(() => {
-    setOptions(data as Place[]);
-  }, [places, data]);
-
-  useEffect(() => {
-    const fetchLocation = async (lat: number, lng: number) => {
-      const geocode = await getGeocode({
-        location: { lat, lng },
-      });
-
-      setPlacesValue(geocode[0].formatted_address);
-    };
-
-    fetchLocation(coords?.latitude || 52.232, coords?.longitude || 21.0047);
-  }, [coords]);
+    autocomplete: { loading, options, setValue },
+  } = useLocationContextState();
 
   return (
     <StyledAutocomplete
@@ -42,11 +18,14 @@ const Location = ({ coords }: GeolocatedProps) => {
       onChange={(_, value) => {
         if ((value as Place)?.description) setFieldValue('location', (value as Place).description);
       }}
-      onInputChange={(_, newInputValue) => setPlacesValue(newInputValue as string)}
+      onInputChange={(_, newInputValue) => {
+        setValue(newInputValue as string);
+        setFieldValue('location', newInputValue);
+      }}
       loading={loading}
       loadingText="Ładowanie..."
       noOptionsText="Brak opcji"
-      disabled={!ready}
+      freeSolo
       renderInput={(params) => (
         <StyledTextField
           {...params}
@@ -68,4 +47,4 @@ const Location = ({ coords }: GeolocatedProps) => {
   );
 };
 
-export default geolocated()(Location);
+export default Location;

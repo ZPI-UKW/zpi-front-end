@@ -12,6 +12,8 @@ import { Initial, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { initial, onFileChange, routeType, deleteImage } from './annoucement.util';
 import CropperDialog from './annoucement.cropper';
+import { useLocationContextState } from '../../../context/locationContext/locationContext';
+import { CircularProgress } from '@material-ui/core';
 
 const AnnoucementForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +25,11 @@ const AnnoucementForm = () => {
   const params = useParams<RouteParams>();
   const history = useHistory();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const {
+    isMapLoaded,
+    isMapError,
+    autocomplete: { ready },
+  } = useLocationContextState();
 
   const closeModal = () => setIsModalOpen(false);
   const openModal = () => setIsModalOpen(true);
@@ -32,6 +39,22 @@ const AnnoucementForm = () => {
     routeType(pathname, initialValues, params, userInfo, setInitialValues, history);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, params]);
+
+  if (isMapLoaded && !ready)
+    return (
+      <div className={classes.loaderWrapper}>
+        <CircularProgress />
+      </div>
+    );
+
+  if (isMapError)
+    return (
+      <div className={classes.loaderWrapper}>
+        <Typography variant="h3">
+          Wystąpił błąd podczas dodawanie ogłoszenia. Spróbuj ponownie później.
+        </Typography>
+      </div>
+    );
 
   return (
     <Formik

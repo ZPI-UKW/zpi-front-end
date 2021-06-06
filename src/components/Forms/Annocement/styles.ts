@@ -57,6 +57,11 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '2rem',
     },
   },
+  loaderWrapper: {
+    height: '100%',
+    display: 'grid',
+    placeItems: 'center',
+  },
 }));
 
 export const StyledTextField = withStyles((theme) => ({
@@ -90,6 +95,7 @@ export const StyledDialogContent = withStyles(() => ({
 export const StyledAutocomplete = withStyles(() => ({
   root: {
     width: '100%',
+    maxWidth: '30rem',
   },
   option: {
     fontSize: '1.6rem',
