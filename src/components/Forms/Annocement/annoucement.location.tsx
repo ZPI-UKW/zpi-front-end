@@ -1,10 +1,11 @@
 import { useFormikContext } from 'formik';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import parse from 'autosuggest-highlight/parse';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { Initial } from './types';
-import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import { useLocationContextState } from '../../../context/locationContext/locationContext';
 import { Place } from '../../../context/locationContext/types';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useStyles } from './styles';
 
 const Location = () => {
@@ -47,6 +48,13 @@ const Location = () => {
         />
       )}
       renderOption={(option) => {
+        const currentPlace = option as Place;
+
+        const matches = currentPlace.structured_formatting.main_text_matched_substrings;
+        const parts = parse(
+          currentPlace.structured_formatting.main_text,
+          matches.map((match: any) => [match.offset, match.offset + match.length])
+        );
         return (
           <Grid container alignItems="center">
             <Grid item>
@@ -54,10 +62,14 @@ const Location = () => {
             </Grid>
             <Grid item xs>
               <Typography className={classes.autocompleteTitle} variant="h6" component="p">
-                {(option as Place).structured_formatting.main_text}
+                {parts.map((part, index) => (
+                  <span key={index} style={{ fontWeight: part.highlight ? 700 : 400 }}>
+                    {part.text}
+                  </span>
+                ))}
               </Typography>
               <Typography variant="subtitle1">
-                {(option as Place).structured_formatting.secondary_text}
+                {currentPlace.structured_formatting.secondary_text}
               </Typography>
             </Grid>
           </Grid>
