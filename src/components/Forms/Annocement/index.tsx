@@ -1,35 +1,25 @@
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useAuthContextState } from '../../../context/authContext';
+import { useState } from 'react';
 import { useStyles } from './styles';
-import { Initial, RouteParams } from './types';
+import { Initial } from './types';
 import TextFields from './annoucement.textfields';
-import { initial, routeType } from './annoucement.util';
+import { initial } from './annoucement.util';
 import { useLocationContextState } from '../../../context/locationContext/locationContext';
 import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
 import File from './annoucement.file';
+import AnnocementControl from './annoucement.control';
 
 const AnnoucementForm = () => {
   const classes = useStyles();
   const [initialValues, setInitialValues] = useState<Initial>(initial);
-  const { userInfo } = useAuthContextState();
-  const { pathname } = useLocation();
-  const params = useParams<RouteParams>();
-  const history = useHistory();
   const {
     isMapLoaded,
     isMapError,
     autocomplete: { ready },
   } = useLocationContextState();
-
-  useEffect(() => {
-    routeType(pathname, initialValues, params, userInfo, setInitialValues, history);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, params]);
 
   if (isMapLoaded && !ready)
     return (
@@ -42,7 +32,7 @@ const AnnoucementForm = () => {
     return (
       <div className={classes.loaderWrapper}>
         <Typography variant="h3">
-          Wystąpił błąd podczas dodawanie ogłoszenia. Spróbuj ponownie później.
+          Wystąpił błąd podczas dodawania ogłoszenia. Spróbuj ponownie później.
         </Typography>
       </div>
     );
@@ -84,6 +74,7 @@ const AnnoucementForm = () => {
           >
             Dodaj ogłoszenie
           </SpinnerButton>
+          <AnnocementControl initialValues={initialValues} setInitialValues={setInitialValues} />
         </Form>
       )}
     </Formik>
