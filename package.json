@@ -20,6 +20,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.9",
     "@types/yup": "^0.29.11",
+    "autosuggest-highlight": "^3.1.1",
     "clsx": "^1.1.1",
     "formik": "^2.2.6",
     "framer-motion": "^4.1.13",
@@ -70,6 +71,7 @@
     ]
   },
   "devDependencies": {
+    "@types/autosuggest-highlight": "^3.1.1",
     "@types/query-string": "^6.3.0",
     "@types/randomcolor": "^0.5.5",
     "@types/react-input-mask": "^3.0.0"
