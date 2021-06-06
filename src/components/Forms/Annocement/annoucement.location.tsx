@@ -1,15 +1,18 @@
 import { useFormikContext } from 'formik';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { Initial } from './types';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import { useLocationContextState } from '../../../context/locationContext/locationContext';
 import { Place } from '../../../context/locationContext/types';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { useStyles } from './styles';
 
 const Location = () => {
   const { values, setFieldValue } = useFormikContext<Initial>();
   const {
     autocomplete: { loading, options, setValue },
   } = useLocationContextState();
+  const classes = useStyles();
 
   return (
     <StyledAutocomplete
@@ -19,7 +22,7 @@ const Location = () => {
         if ((value as Place)?.description) setFieldValue('location', (value as Place).description);
       }}
       onInputChange={(_, newInputValue) => {
-        setValue(newInputValue as string);
+        if (newInputValue !== '') setValue(newInputValue as string);
         setFieldValue('location', newInputValue);
       }}
       loading={loading}
@@ -43,6 +46,23 @@ const Location = () => {
           }}
         />
       )}
+      renderOption={(option) => {
+        return (
+          <Grid container alignItems="center">
+            <Grid item>
+              <LocationOnIcon className={classes.autocompleteIcon} />
+            </Grid>
+            <Grid item xs>
+              <Typography className={classes.autocompleteTitle} variant="h6" component="p">
+                {(option as Place).structured_formatting.main_text}
+              </Typography>
+              <Typography variant="subtitle1">
+                {(option as Place).structured_formatting.secondary_text}
+              </Typography>
+            </Grid>
+          </Grid>
+        );
+      }}
     />
   );
 };

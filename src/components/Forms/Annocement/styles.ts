@@ -62,6 +62,13 @@ export const useStyles = makeStyles((theme) => ({
     display: 'grid',
     placeItems: 'center',
   },
+  autocompleteIcon: {
+    fontSize: '2.25rem',
+    marginRight: theme.spacing(2),
+  },
+  autocompleteTitle: {
+    fontSize: '1.5rem',
+  },
 }));
 
 export const StyledTextField = withStyles((theme) => ({
