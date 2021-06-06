@@ -12,6 +12,12 @@ export const useStyles = makeStyles((theme) => ({
       alignItems: 'flex-start',
     },
   },
+  buttonWrapper: {
+    marginTop: '1.5rem',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '30rem',
+    },
+  },
   imagesContainer: {
     display: 'flex',
     flexDirection: 'column',

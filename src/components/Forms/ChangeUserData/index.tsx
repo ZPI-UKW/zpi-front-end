@@ -1,6 +1,6 @@
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import { StyledTextField, StylesButton } from '../../CustomControls/styles';
+import { StyledTextField } from '../../CustomControls/styles';
 import { ChangeUserDataSchema } from '../../../validation/modifyuserdata.validation';
 import useStyles from './styles';
 import { useAuthContextState } from '../../../context/authContext';
@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/client';
 import { CHANGE_USER_DATA } from '../../../graphql/user';
 import { QueryData, QueryVars } from './types';
 import DataControl from '../../DataControl';
+import SpinnerButton from '../../SpinnerButton';
 
 const ChangeUserData = () => {
   const classes = useStyles();
@@ -70,16 +71,16 @@ const ChangeUserData = () => {
                 helperText={touched.phonenumber && errors.phonenumber}
               />
             </Grid>
-            <Grid item container={matches} xs={12} justify="center">
-              <StylesButton
-                className={classes.button}
+            <Grid item container={matches} xs={12} alignItems="flex-start">
+              <SpinnerButton
+                wrapperClassName={classes.wrapper}
                 variant="contained"
-                disabled={isSubmitting}
+                isLoading={isSubmitting}
                 color="primary"
                 type="submit"
               >
                 Zapisz
-              </StylesButton>
+              </SpinnerButton>
             </Grid>
           </Grid>
           <DataControl

@@ -7,13 +7,14 @@ import { Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useAuthContextState } from '../../../context/authContext';
-import { StyledButton, useStyles } from './styles';
+import { useStyles } from './styles';
 import { Initial, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { initial, onFileChange, routeType, deleteImage } from './annoucement.util';
 import CropperDialog from './annoucement.cropper';
 import { useLocationContextState } from '../../../context/locationContext/locationContext';
 import { CircularProgress } from '@material-ui/core';
+import SpinnerButton from '../../SpinnerButton';
 
 const AnnoucementForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,9 +61,15 @@ const AnnoucementForm = () => {
     <Formik
       enableReinitialize
       initialValues={initialValues}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values, { setSubmitting }) => {
+        setSubmitting(true);
+        console.log(values);
+        setTimeout(() => {
+          setSubmitting(false);
+        }, 2000);
+      }}
     >
-      {({ values, touched, errors, setFieldValue, setErrors }) => (
+      {({ values, touched, errors, setFieldValue, setErrors, isSubmitting }) => (
         <Form>
           <Grid container>
             <Grid item xs={12} md={6} className={classes.flexWrapper}>
@@ -128,11 +135,15 @@ const AnnoucementForm = () => {
               />
             </Grid>
           </Grid>
-          <div className={classes.flexWrapper}>
-            <StyledButton type="submit" variant="contained" color="primary">
-              Dodaj ogłoszenie
-            </StyledButton>
-          </div>
+          <SpinnerButton
+            type="submit"
+            variant="contained"
+            color="primary"
+            isLoading={isSubmitting}
+            wrapperClassName={classes.buttonWrapper}
+          >
+            Dodaj ogłoszenie
+          </SpinnerButton>
         </Form>
       )}
     </Formik>
