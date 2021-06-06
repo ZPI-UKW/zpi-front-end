@@ -3,6 +3,7 @@ import { GeolocatedProps, geolocated } from 'react-geolocated';
 import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete';
 import { GeoPlace, InitialLotationContext, Place } from './types';
 import { useJsApiLoader } from '@react-google-maps/api';
+import { Libraries } from '@react-google-maps/api/dist/utils/make-load-script-url';
 
 const initialUserPos = {
   lan: 52.232,
@@ -21,6 +22,8 @@ const initialState: InitialLotationContext = {
   },
 };
 
+const libraries: Libraries = ['places'];
+
 const LocationContext = createContext(initialState);
 const { Provider } = LocationContext;
 
@@ -37,50 +40,42 @@ const LocationProvider = ({
     suggestions: { data, loading },
     setValue,
     init,
-  } = usePlacesAutocomplete({
-    debounce: 150,
-    initOnMount: false,
-  });
+  } = usePlacesAutocomplete({ initOnMount: false });
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_KEY!,
-    libraries: ['places'],
+    libraries,
   });
-  useEffect(() => {
-    if (isLoaded && !ready) init();
-  }, [isLoaded, ready, init]);
 
   useEffect(() => {
+    const fetchLocation = async (lat: number, lng: number) => {
+      const geocode = await getGeocode({
+        location: { lat, lng },
+      });
+
+      const types = ['locality', 'country', 'political'];
+
+      const filteredGeo = (geocode as GeoPlace[]).filter((place) =>
+        place.types.some((el) => types.includes(el))
+      );
+
+      setValue(filteredGeo[0].formatted_address);
+    };
+
+    if (isLoaded && !ready) init();
+
     if (isLoaded && ready) {
       setOptions(data as Place[]);
     }
-  }, [places, data, isLoaded, ready]);
 
-  useEffect(() => {
-    if (isLoaded && ready) {
-      if (coords?.latitude && coords?.longitude) {
-        const { latitude, longitude } = coords;
+    if (isLoaded && ready && !places) {
+      if (coords?.latitude && coords?.longitude)
+        setUserPos({ lan: coords.latitude, lng: coords.longitude });
 
-        setUserPos({ lan: latitude, lng: longitude });
-      }
-
-      const fetchLocation = async (lat: number, lng: number) => {
-        const geocode = await getGeocode({
-          location: { lat, lng },
-        });
-
-        const types = ['locality', 'country', 'political'];
-
-        const filteredGeo = (geocode as GeoPlace[]).filter((place) =>
-          place.types.some((el) => types.includes(el))
-        );
-
-        setValue(filteredGeo[0].formatted_address);
-      };
-
-      fetchLocation(coords?.latitude || 52.232, coords?.longitude || 21.0047);
+      fetchLocation(coords?.latitude || userPos.lan, coords?.longitude || userPos.lng);
     }
-  }, [coords, isLoaded, ready, setValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded, ready, places, data]);
 
   return (
     <Provider

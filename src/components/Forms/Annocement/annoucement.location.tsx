@@ -18,7 +18,9 @@ const Location = () => {
   return (
     <StyledAutocomplete
       options={options}
-      getOptionLabel={(option) => (option as Place).description}
+      getOptionLabel={(option) =>
+        typeof option === 'string' ? option : (option as Place).description
+      }
       onChange={(_, value) => {
         if ((value as Place)?.description) setFieldValue('location', (value as Place).description);
       }}
@@ -29,13 +31,14 @@ const Location = () => {
       loading={loading}
       loadingText="Ładowanie..."
       noOptionsText="Brak opcji"
+      value={values.location}
       freeSolo
       renderInput={(params) => (
         <StyledTextField
           {...params}
+          value={values.location}
           name="location"
           label="Lokalizacja"
-          value={values.location}
           InputProps={{
             ...params.InputProps,
             endAdornment: (
