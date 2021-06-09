@@ -39,7 +39,7 @@ export const routeType: RouteTypeFunc = (
     });
   } else {
     const { addId } = params;
-    const annoucement = annoucements.find((el) => el._id === addId);
+    const annoucement = annoucements.find((el) => el.id === addId);
 
     if (annoucement === undefined) {
       history.push('/');

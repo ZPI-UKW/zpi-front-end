@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core';
 import hexRgb from 'hex-rgb';
 
 const useStyles = makeStyles((theme) => ({
+  capitalize: {
+    textTransform: 'capitalize',
+  },
   category: {
     fontSize: '1.4rem',
   },

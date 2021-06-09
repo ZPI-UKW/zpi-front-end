@@ -1,29 +1,37 @@
-import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
-import { RouteParams } from './types';
-import { Annoucements, annoucements } from '../../data/annoucements';
-import { CircularProgress, Container } from '@material-ui/core';
+import { useParams } from 'react-router';
+import { RouteParams, QueryData, QueryVars } from './types';
+import { Box, CircularProgress, Container } from '@material-ui/core';
 import Annoucement from '../../components/Annoucement';
 import useStyles from './styles';
 import clsx from 'clsx';
+import { useQuery } from '@apollo/client';
+import { GET_ANNOUCEMENT_BY_ID } from '../../graphql/annoucements';
+import ErrorMessage from '../../components/ErrorMessage';
 
 const Product = () => {
   const classes = useStyles();
   const { adId } = useParams<RouteParams>();
-  const history = useHistory();
-  const [annoucement, setAnnoucement] = useState<Annoucements | null>(null);
+  const { data, error, loading } = useQuery<QueryData, QueryVars>(GET_ANNOUCEMENT_BY_ID, {
+    variables: { id: adId },
+  });
 
-  useEffect(() => {
-    const ann = annoucements.find((el) => el._id === adId);
-    setTimeout(() => {
-      if (ann) setAnnoucement(ann);
-      else history.push('/');
-    }, 1500);
-  }, [adId, history]);
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error) return <ErrorMessage>Nie znaleziono ogłoszenia.</ErrorMessage>;
 
   return (
-    <Container className={clsx(classes.root, !annoucement && classes.centered)}>
-      {annoucement ? <Annoucement annoucement={annoucement} /> : <CircularProgress />}
+    <Container className={clsx(classes.root, !data?.getAnnoucement && classes.centered)}>
+      {console.log(data?.getAnnoucement)}
+      {data?.getAnnoucement ? (
+        <Annoucement annoucement={data.getAnnoucement} />
+      ) : (
+        <ErrorMessage>Wystąpił nieznany błąd.</ErrorMessage>
+      )}
     </Container>
   );
 };

@@ -25,7 +25,7 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
     <>
       <Hidden xsDown>
         <Typography variant="subtitle1" component="p" className={classes.category}>
-          Kategorie {'>'} Pojazdy
+          Kategorie {'>'} <span className={classes.capitalize}>{annoucement.categoryId.name}</span>
         </Typography>
       </Hidden>
       <div className={classes.titleContainer}>
