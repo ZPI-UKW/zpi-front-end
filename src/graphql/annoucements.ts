@@ -36,3 +36,13 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
     }
   }
 `;
+
+export const RESERVATION = gql`
+  mutation CreateReservation($startAt: String!, $endAt: String!, $annoucementId: ID!) {
+    createReservation(
+      reservationInput: { startAt: $startAt, endAt: $endAt, annoucementId: $annoucementId }
+    ) {
+      id
+    }
+  }
+`;
