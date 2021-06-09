@@ -25,7 +25,16 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
     <>
       <Hidden xsDown>
         <Typography variant="subtitle1" component="p" className={classes.category}>
-          Kategorie {'>'} <span className={classes.capitalize}>{annoucement.categoryId.name}</span>
+          <Link className={clsx(classes.link, classes.hoveredLink)} to="/">
+            Kategorie
+          </Link>
+          &nbsp;{'>'}&nbsp;
+          <Link
+            className={clsx(classes.link, classes.hoveredLink)}
+            to={`/search/category/${annoucement.categoryId.name}`}
+          >
+            <span className={classes.capitalize}>{annoucement.categoryId.name}</span>
+          </Link>
         </Typography>
       </Hidden>
       <div className={classes.titleContainer}>

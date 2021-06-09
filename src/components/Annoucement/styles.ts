@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  hoveredLink: {
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
   image: {
     height: '30vh',
     objectFit: 'cover',
