@@ -14,3 +14,25 @@ export const MY_ANNOUCEMENTS = gql`
     }
   }
 `;
+
+export const GET_ANNOUCEMENT_BY_ID = gql`
+  query MyAnnoucement($id: String!) {
+    getAnnoucement(id: $id) {
+      id
+      title
+      description
+      location
+      categoryId {
+        name
+      }
+      phone
+      email
+      costs {
+        day
+        week
+        month
+      }
+      images
+    }
+  }
+`;
