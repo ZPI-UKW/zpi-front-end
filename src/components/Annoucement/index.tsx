@@ -122,7 +122,12 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
           </Hidden>
         </Grid>
       </Grid>
-      <RentDialog isOpen={isDialogOpen} handleClose={handleClose} costs={annoucement.costs} />
+      <RentDialog
+        id={annoucement.id}
+        isOpen={isDialogOpen}
+        handleClose={handleClose}
+        costs={annoucement.costs}
+      />
     </>
   );
 };

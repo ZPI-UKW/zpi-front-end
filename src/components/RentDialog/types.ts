@@ -22,6 +22,7 @@ export interface RentDialogProps {
   isOpen: boolean;
   handleClose: () => void;
   costs: Costs;
+  id: string;
 }
 
 export interface FormikProps {

@@ -13,7 +13,7 @@ import Pricing from './pricing.rentmodal';
 import { useStyles } from './styles';
 import { QueryData, QueryVars, RentDialogProps } from './types';
 
-const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
+const RentDialog = ({ isOpen, handleClose, costs, id }: RentDialogProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
@@ -45,7 +45,7 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
                 variables: {
                   endAt: moment(values.endDate).format('YYYY-MM-DD') + 'T00:00:00.000+00:00',
                   startAt: moment(values.startDate).format('YYYY-MM-DD') + 'T00:00:00.000+00:00',
-                  annoucementId: '60ac1c9b636d1e099197cdac',
+                  annoucementId: id,
                 },
               });
             } catch {}
