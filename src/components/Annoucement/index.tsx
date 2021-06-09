@@ -13,10 +13,12 @@ import Slider from './annoucement.slider';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import { useState } from 'react';
 import RentDialog from '../RentDialog';
+import { useAuthContextState } from '../../context/authContext';
 
 const Annoucement = ({ annoucement }: AnnoucementProps) => {
   const classes = useStyles();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { userInfo } = useAuthContextState();
 
   const handleClose = () => setIsDialogOpen(false);
   const handleOpen = () => setIsDialogOpen(true);
@@ -69,11 +71,13 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
               {annoucement.title}
             </Typography>
           </Hidden>
-          <div className={classes.rentContainer}>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-              Wypożycz
-            </Button>
-          </div>
+          {userInfo._id !== annoucement.addedBy._id ? (
+            <div className={classes.rentContainer}>
+              <Button variant="contained" color="primary" onClick={handleOpen}>
+                Wypożycz
+              </Button>
+            </div>
+          ) : null}
           <Paper className={classes.paper} elevation={4}>
             <div className={classes.paperTitle}>
               <PersonOutlineOutlinedIcon />

@@ -40,6 +40,9 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
       categoryId {
         name
       }
+      addedBy {
+        _id
+      }
       phone
       email
       costs {

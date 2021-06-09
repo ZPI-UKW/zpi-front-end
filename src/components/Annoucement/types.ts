@@ -4,17 +4,12 @@ export interface AnnoucementProps {
     title: string;
     description: string;
     addedBy: {
-      id: string;
-      email: string;
-      name: string;
-      lastname: string;
-      phonenumber: string;
+      _id: string;
     };
     location: string;
     categoryId: {
       id: string;
       name: string;
-      englishName: string;
     };
     phone: string;
     email: string;
