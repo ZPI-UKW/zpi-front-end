@@ -1,5 +1,17 @@
 import { Moment } from 'moment';
 
+export interface QueryData {
+  createReservation: {
+    id: string;
+  };
+}
+
+export interface QueryVars {
+  startAt: string;
+  endAt: string;
+  annoucementId: string;
+}
+
 type Costs = {
   day: number;
   week: number;

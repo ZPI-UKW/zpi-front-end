@@ -26,7 +26,6 @@ const Product = () => {
 
   return (
     <Container className={clsx(classes.root, !data?.getAnnoucement && classes.centered)}>
-      {console.log(data?.getAnnoucement)}
       {data?.getAnnoucement ? (
         <Annoucement annoucement={data.getAnnoucement} />
       ) : (

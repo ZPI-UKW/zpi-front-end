@@ -1,18 +1,25 @@
+import { useMutation } from '@apollo/client';
 import { Dialog, DialogContent, Grid, useMediaQuery, useTheme } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
+import { useState } from 'react';
+import { RESERVATION } from '../../graphql/annoucements';
 import DatePicker from '../CustomControls/datepicker.control';
+import DataControl from '../DataControl';
 import DialogTitle from '../DialogTitle';
 import SpinnerButton from '../SpinnerButton';
 import Pricing from './pricing.rentmodal';
 import { useStyles } from './styles';
-import { RentDialogProps } from './types';
+import { QueryData, QueryVars, RentDialogProps } from './types';
 
 const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
   const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+  const [AddReservation, { data, loading, error }] = useMutation<QueryData, QueryVars>(RESERVATION);
+
+  const [wasCalled, setWasCalled] = useState(false);
 
   return (
     <Dialog
@@ -20,6 +27,7 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
       open={isOpen}
       onClose={handleClose}
       aria-labelledby="rent-dialog-title"
+      onExiting={() => setWasCalled(false)}
     >
       <DialogTitle handleClose={handleClose} id="rent-dialog-title">
         Wybierz termin
@@ -30,15 +38,20 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
             startDate: moment(),
             endDate: moment().add(1, 'days'),
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-            setSubmitting(true);
-            setTimeout(() => {
-              setSubmitting(false);
-            }, 1500);
+          onSubmit={async (values) => {
+            try {
+              setWasCalled(true);
+              await AddReservation({
+                variables: {
+                  endAt: moment(values.endDate).format('YYYY-MM-DD') + 'T00:00:00.000+00:00',
+                  startAt: moment(values.startDate).format('YYYY-MM-DD') + 'T00:00:00.000+00:00',
+                  annoucementId: '60ac1c9b636d1e099197cdac',
+                },
+              });
+            } catch {}
           }}
         >
-          {({ values, isSubmitting, errors }) => {
+          {({ values, errors }) => {
             const isAfter = values.startDate.isAfter(values.endDate);
             const isStartBeforeToday = values.startDate.isBefore(moment(), 'day');
             const isEndBeforeToday = values.endDate.isBefore(moment(), 'day');
@@ -68,7 +81,7 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
                       type="submit"
                       color="primary"
                       variant="contained"
-                      isLoading={isSubmitting}
+                      isLoading={loading}
                       className={classes.button}
                       wrapperClassName={classes.buttonWrapper}
                       disabled={Boolean(errors.startDate) || Boolean(errors.endDate) || isAfter}
@@ -77,6 +90,17 @@ const RentDialog = ({ isOpen, handleClose, costs }: RentDialogProps) => {
                     </SpinnerButton>
                   </Grid>
                 </Grid>
+                <DataControl
+                  data={data}
+                  error={error}
+                  loading={loading}
+                  called={wasCalled}
+                  successMsg="Rezerwacja wykonana pomyślnie."
+                  messages={{
+                    _409: 'Przedmiot jest zarezerwowany w tym terminie.',
+                  }}
+                  onSuccess={() => handleClose()}
+                />
               </Form>
             );
           }}
