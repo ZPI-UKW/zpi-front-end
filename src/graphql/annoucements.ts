@@ -15,6 +15,21 @@ export const MY_ANNOUCEMENTS = gql`
   }
 `;
 
+export const MY_RESERVETIONS = gql`
+  query MyAnnoucements($reservedBy: String!) {
+    getAnnoucements(reservedBy: $reservedBy) {
+      id
+      title
+      images
+      costs {
+        day
+      }
+      categoryId
+      location
+    }
+  }
+`;
+
 export const GET_ANNOUCEMENT_BY_ID = gql`
   query MyAnnoucement($id: String!) {
     getAnnoucement(id: $id) {

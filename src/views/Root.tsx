@@ -4,7 +4,7 @@ import MainTemplate from '../templates/Main';
 import AnnoucementForm from './AnnoucementForm';
 import Main from './Main';
 import MyAnnoucements from './MyAnnoucements';
-import MyRentals from './MyRentals/myRentals';
+import MyRentals from './MyRentals';
 import AnnoucementsList from './AnnouncementsList';
 import Product from './Product';
 import Profile from './Profile';
