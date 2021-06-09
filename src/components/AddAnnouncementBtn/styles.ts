@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   gridItem: {
     padding: theme.spacing(2),
+    minHeight: '20rem',
   },
 }));
 
