@@ -74,6 +74,7 @@
     "@types/autosuggest-highlight": "^3.1.1",
     "@types/query-string": "^6.3.0",
     "@types/randomcolor": "^0.5.5",
-    "@types/react-input-mask": "^3.0.0"
+    "@types/react-input-mask": "^3.0.0",
+    "fsevents": "^2.3.2"
   }
 }
