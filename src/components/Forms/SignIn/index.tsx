@@ -7,14 +7,16 @@ import PasswordField from '../../CustomControls/password.control';
 import { StyledButton, useStyles, StyledTextField } from '../styles';
 import { LOGIN } from '../../../graphql/auth';
 import { QueryData, QueryVars, SignInFormProps } from './types';
-import DataControl from './signin.datacontrol';
+import DataControl from '../../DataControl';
+import { useAuthContextState } from '../../../context/authContext';
 
 const SigninForm = (
   { setContentType, closeModal }: SignInFormProps,
   ref: React.Ref<unknown> | undefined
 ) => {
   const classes = useStyles();
-  const [LoginQuery, { error, data, loading }] = useLazyQuery<QueryData, QueryVars>(LOGIN);
+  const [LoginQuery, { error, data, loading, called }] = useLazyQuery<QueryData, QueryVars>(LOGIN);
+  const { setAuthInfo } = useAuthContextState();
 
   return (
     <Formik
@@ -46,7 +48,20 @@ const SigninForm = (
               </StyledButton>
               {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
             </div>
-            <DataControl data={data} error={error} closeModal={closeModal} />
+            <DataControl
+              data={data}
+              error={error}
+              loading={loading}
+              called={called}
+              successMsg="Zalogowano pomyślnie."
+              messages={{ _401: 'Błędny email lub hasło.' }}
+              onSuccess={() => {
+                if (data) {
+                  setAuthInfo({ ...data.login });
+                  closeModal();
+                }
+              }}
+            />
             <Box className={classes.box}>
               <Typography className={classes.message}>Nie masz konta?</Typography>
               <Link component="p" className={classes.link} onClick={() => setContentType('signup')}>

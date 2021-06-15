@@ -5,8 +5,9 @@ const useStyles = makeStyles(() => ({
     fontSize: '2.5rem',
     margin: '2.5rem 0 0.5rem',
   },
-  button: {
+  wrapper: {
     margin: '3rem 0',
+    width: 'fit-content',
   },
   root: {
     '& .MuiFormControl-root': {

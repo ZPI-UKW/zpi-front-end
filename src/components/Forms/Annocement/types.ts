@@ -1,5 +1,4 @@
 import { FormikErrors, FormikTouched } from 'formik';
-import * as H from 'history';
 
 export interface RouteParams {
   addId: string;
@@ -35,11 +34,7 @@ export interface FieldsProps {
   variant?: 'standard' | 'filled' | 'outlined';
 }
 
-export type RouteTypeFunc = (
-  pathname: string,
-  initialValues: Initial,
-  params: RouteParams,
-  userInfo: { email: string; name: string; phonenumber: string },
-  setInitialValues: React.Dispatch<React.SetStateAction<Initial>>,
-  history: H.History<unknown>
-) => void;
+export interface AnnoucementControlProps {
+  initialValues: Initial;
+  setInitialValues: React.Dispatch<React.SetStateAction<Initial>>;
+}

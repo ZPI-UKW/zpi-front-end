@@ -1,7 +1,6 @@
 import { FormikErrors } from 'formik';
 import { Area } from 'react-easy-crop/types';
-import { annoucements } from '../../../data/annoucements';
-import { RouteTypeFunc, Initial } from './types';
+import { Initial } from './types';
 
 export const initial: Initial = {
   title: '',
@@ -16,50 +15,6 @@ export const initial: Initial = {
     month: 0,
   },
   images: [],
-};
-
-export const routeType: RouteTypeFunc = (
-  pathname,
-  initialValues,
-  params,
-  userInfo,
-  setInitialValues,
-  history
-) => {
-  const user = {
-    email: userInfo.email,
-    name: userInfo.name,
-    phone: userInfo.phonenumber,
-  };
-
-  if (pathname === '/create-advertisement') {
-    setInitialValues({
-      ...initialValues,
-      ...user,
-    });
-  } else {
-    const { addId } = params;
-    const annoucement = annoucements.find((el) => el._id === addId);
-
-    if (annoucement === undefined) {
-      history.push('/');
-      return;
-    }
-
-    const { title, description, costs, location, email, phone, images, categoryId } = annoucement;
-
-    setInitialValues({
-      ...user,
-      title,
-      description,
-      costs,
-      location,
-      email,
-      phone,
-      images,
-      categoryId,
-    });
-  }
 };
 
 export const deleteImage = (
