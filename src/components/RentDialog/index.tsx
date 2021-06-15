@@ -9,6 +9,7 @@ import DatePicker from '../CustomControls/datepicker.control';
 import DataControl from '../DataControl';
 import DialogTitle from '../DialogTitle';
 import SpinnerButton from '../SpinnerButton';
+import { RentVariables } from './helpers.rentdialog';
 import Pricing from './pricing.rentmodal';
 import { useStyles } from './styles';
 import { QueryData, QueryVars, RentDialogProps } from './types';
@@ -38,16 +39,10 @@ const RentDialog = ({ isOpen, handleClose, costs, id }: RentDialogProps) => {
             startDate: moment(),
             endDate: moment().add(1, 'days'),
           }}
-          onSubmit={async (values) => {
+          onSubmit={async ({ endDate, startDate }) => {
             try {
               setWasCalled(true);
-              await AddReservation({
-                variables: {
-                  endAt: moment(values.endDate).format('YYYY-MM-DD') + 'T00:00:00.000+00:00',
-                  startAt: moment(values.startDate).format('YYYY-MM-DD') + 'T00:00:00.000+00:00',
-                  annoucementId: id,
-                },
-              });
+              await AddReservation(RentVariables(startDate, endDate, id));
             } catch {}
           }}
         >
