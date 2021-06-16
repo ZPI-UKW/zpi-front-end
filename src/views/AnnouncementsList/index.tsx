@@ -81,7 +81,7 @@ const AnnoucementsList = () => {
           </Link>
           {pathnames &&
             pathnames.map((path, index) => (
-              <span>
+              <span key={path}>
                 {path}
                 {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
                   renderSearch(searchParam)}
