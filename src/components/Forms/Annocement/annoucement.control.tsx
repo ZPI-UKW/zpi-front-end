@@ -16,8 +16,6 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
     useLazyQuery<QueryDataGetAnn, QueryVarsGetAnn>(GET_ANNOUCEMENT_BY_ID);
 
   useEffect(() => {
-    console.log(error, data);
-
     const user = {
       email,
       name,
