@@ -9,8 +9,14 @@ import { initial } from './annoucement.util';
 import { useLocationContextState } from '../../../context/locationContext/locationContext';
 import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
-import File from './annoucement.file';
+import FileHandler from './annoucement.file';
 import AnnocementControl from './annoucement.control';
+
+async function dataUrlToFile(dataUrl: string, fileName: string): Promise<File> {
+  const res: Response = await fetch(dataUrl);
+  const blob: Blob = await res.blob();
+  return new File([blob], fileName, { type: 'image/png' });
+}
 
 const AnnoucementForm = () => {
   const classes = useStyles();
@@ -41,15 +47,38 @@ const AnnoucementForm = () => {
     <Formik
       enableReinitialize
       initialValues={initialValues}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, setErrors }) => {
         setSubmitting(true);
-        console.log(values);
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 2000);
+        const formData = new FormData();
+        try {
+          for (let i = 0; i < values.images.length; i++) {
+            if (values.images[i]) {
+              const file = await dataUrlToFile(values.images[i], `img${i}.png`);
+              formData.append('images', file);
+            }
+          }
+
+          const res = await fetch('http://localhost:8080/add-images', {
+            method: 'PUT',
+            body: formData,
+            credentials: 'include',
+          });
+
+          const data = await res.json();
+
+          console.log(data);
+        } catch {
+          setErrors({ images: 'Wystąpił błąd podczas przesyłania zdjęcia' });
+        }
+        setSubmitting(false);
+        // setSubmitting(true);
+        // console.log(values);
+        // setTimeout(() => {
+        //   setSubmitting(false);
+        // }, 2000);
       }}
     >
-      {({ touched, errors, isSubmitting }) => (
+      {({ touched, errors, isSubmitting, values }) => (
         <Form>
           <Grid container>
             <Grid item xs={12} md={6} className={classes.flexWrapper}>
@@ -62,7 +91,7 @@ const AnnoucementForm = () => {
               <Typography variant="subtitle1" component="p">
                 Maksymalny rozmiar zdjęcia to 1MB
               </Typography>
-              <File />
+              <FileHandler />
             </Grid>
           </Grid>
           <SpinnerButton
