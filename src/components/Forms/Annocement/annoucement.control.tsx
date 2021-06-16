@@ -1,8 +1,9 @@
+import { useLazyQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router';
 import { useAuthContextState } from '../../../context/authContext';
-import { annoucements } from '../../../data/annoucements';
-import { AnnoucementControlProps, RouteParams } from './types';
+import { GET_ANNOUCEMENT_BY_ID } from '../../../graphql/annoucement';
+import { AnnoucementControlProps, QueryDataGetAnn, QueryVarsGetAnn, RouteParams } from './types';
 
 const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementControlProps) => {
   const {
@@ -11,8 +12,12 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
   const { pathname } = useLocation();
   const params = useParams<RouteParams>();
   const history = useHistory();
+  const [GetAnnoucement, { data, error }] =
+    useLazyQuery<QueryDataGetAnn, QueryVarsGetAnn>(GET_ANNOUCEMENT_BY_ID);
 
   useEffect(() => {
+    console.log(error, data);
+
     const user = {
       email,
       name,
@@ -26,29 +31,30 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
       });
     } else {
       const { addId } = params;
-      const annoucement = annoucements.find((el) => el._id === addId);
+      GetAnnoucement({ variables: { id: addId } });
 
-      if (annoucement === undefined) {
+      if (!error && data?.getAnnoucement) {
+        const { title, description, costs, location, email, phone, images } = data.getAnnoucement;
+
+        setInitialValues({
+          ...user,
+          title,
+          description,
+          costs,
+          location,
+          email,
+          phone,
+          images,
+        });
+      }
+
+      if (error !== undefined) {
         history.push('/');
         return;
       }
-
-      const { title, description, costs, location, email, phone, images, categoryId } = annoucement;
-
-      setInitialValues({
-        ...user,
-        title,
-        description,
-        costs,
-        location,
-        email,
-        phone,
-        images,
-        categoryId,
-      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [error, data]);
 
   return null;
 };

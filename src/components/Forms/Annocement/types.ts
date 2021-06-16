@@ -23,6 +23,26 @@ export interface QueryVars {
   month: number;
   category?: string;
 }
+export interface QueryVarsGetAnn {
+  id: string;
+}
+
+export interface QueryDataGetAnn {
+  getAnnoucement: {
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    phone: string;
+    email: string;
+    costs: {
+      day: number;
+      week: number;
+      month: number;
+    };
+    images: string[];
+  };
+}
 
 export interface Initial {
   title: string;
@@ -30,7 +50,7 @@ export interface Initial {
   phone: string;
   email: string;
   description: string;
-  categoryId: string;
+  categoryId?: { id: string };
   costs: {
     day: number;
     week: number;
