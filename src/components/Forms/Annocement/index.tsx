@@ -16,6 +16,7 @@ import { CREATE_ANNOUCEMENT, EDIT_ANNOUCEMENT } from '../../../graphql/annouceme
 import DataControl from '../../DataControl/index';
 import { useAuthContextState } from '../../../context/authContext';
 import { useLocation, useParams } from 'react-router-dom';
+import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 
 const AnnoucementForm = () => {
   const { pathname } = useLocation();
@@ -54,6 +55,7 @@ const AnnoucementForm = () => {
     <Formik
       enableReinitialize
       initialValues={initialValues}
+      validationSchema={AnnoucementActionSchema}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         const formData = new FormData();

@@ -2,9 +2,12 @@ import { Field, useFormikContext } from 'formik';
 import Location from './annoucement.location';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { FieldsProps, Initial } from './types';
+import MaskedInput from '../../CustomControls/masked.control';
+import { useStyles } from './styles';
 
 const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
   const { setFieldValue, values } = useFormikContext<Initial>();
+  const classes = useStyles();
 
   return (
     <>
@@ -17,13 +20,11 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
         helperText={touched.title && errors.title}
       />
       <Location />
-      <Field
-        variant={variant}
+      <MaskedInput
+        type="tel"
+        name="phonenumber"
         label="Telefon kontaktowy"
-        name="phone"
-        as={StyledTextField}
-        error={touched.phone && Boolean(errors.phone)}
-        helperText={touched.phone && errors.phone}
+        className={classes.phoneNumberInput}
       />
       <Field
         variant={variant}
