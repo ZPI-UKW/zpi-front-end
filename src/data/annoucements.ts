@@ -19,7 +19,7 @@ export interface Annoucements {
 
 export const annoucements: Annoucements[] = [
   {
-    _id: '1',
+    _id: '60ac1c9b636d1e099197cdac',
     title: 'Wypożyczę Jelcza',
     description: 'Świetny jelcz! Niebieska sczała, śmiga jak szalony. Ładowny i szypki',
     addedBy: '2',

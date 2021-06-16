@@ -11,6 +11,7 @@ export interface QueryData {
 }
 
 export interface QueryVars {
+  id?: string;
   title: string;
   description: string;
   location: string;
@@ -20,7 +21,7 @@ export interface QueryVars {
   day: number;
   week: number;
   month: number;
-  category: string;
+  category?: string;
 }
 
 export interface Initial {
