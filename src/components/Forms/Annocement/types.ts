@@ -4,6 +4,25 @@ export interface RouteParams {
   addId: string;
 }
 
+export interface QueryData {
+  createAnnoucement: {
+    _id: string;
+  };
+}
+
+export interface QueryVars {
+  title: string;
+  description: string;
+  location: string;
+  phone: string;
+  email: string;
+  images: string[];
+  day: number;
+  week: number;
+  month: number;
+  category: string;
+}
+
 export interface Initial {
   title: string;
   location: string;
