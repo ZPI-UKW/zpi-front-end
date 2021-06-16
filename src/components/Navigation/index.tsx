@@ -5,7 +5,7 @@ import Transition from './transition';
 import { useStyles } from './styles';
 import { NavigationProps } from './types';
 
-const Navigation = ({ type = 'desktop', anchorEl, setAnchorEl }: NavigationProps) => {
+const Navigation = ({ type = 'desktop', anchorEl, setAnchorEl, logoutFun }: NavigationProps) => {
   const classes = useStyles();
   const { isAuthenticated, logout } = useAuthContextState();
 
@@ -49,6 +49,7 @@ const Navigation = ({ type = 'desktop', anchorEl, setAnchorEl }: NavigationProps
               onClick={() => {
                 handleClose();
                 logout();
+                logoutFun();
               }}
             >
               Wyloguj

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MobileContent = ({ handleDialogOpen }: NavigationProps) => {
+const MobileContent = ({ handleDialogOpen, logout }: NavigationProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { isAuthenticated } = useAuthContextState();
   const classes = useStyles();
@@ -84,7 +84,7 @@ const MobileContent = ({ handleDialogOpen }: NavigationProps) => {
           </div>
         )}
       </Container>
-      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="mobile" />
+      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="mobile" logoutFun={logout} />
     </Hidden>
   );
 };
