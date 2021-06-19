@@ -7,12 +7,13 @@ import { StyledButton, useStyles, StyledTextField } from '../styles';
 import PasswordField from '../../CustomControls/password.control';
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../../graphql/auth';
-import DataControl from './signup.datacontrol';
 import MaskedInput from '../../CustomControls/masked.control';
+import DataControl from '../../DataControl';
 
 const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown> | undefined) => {
   const classes = useStyles();
-  const [CreateUser, { data, error, loading }] = useMutation<QueryData, QueryVars>(REGISTER);
+  const [CreateUser, { data, error, loading, called }] =
+    useMutation<QueryData, QueryVars>(REGISTER);
 
   return (
     <Formik
@@ -74,7 +75,15 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
               Zaloguj się
             </Link>
           </Box>
-          <DataControl data={data} error={error} setContentType={setContentType} />
+          <DataControl
+            data={data}
+            error={error}
+            loading={loading}
+            called={called}
+            successMsg="Zalogowano pomyślnie."
+            messages={{ _401: 'Błędny email lub hasło.' }}
+            onError={(_, __, message) => console.log(message)}
+          />
         </Form>
       )}
     </Formik>
