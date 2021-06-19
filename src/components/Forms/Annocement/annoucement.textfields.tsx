@@ -1,10 +1,12 @@
 import { Field, useFormikContext } from 'formik';
+import { useCategoryContextState } from '../../../context/category/categoryContext';
 import Location from './annoucement.location';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { FieldsProps, Initial } from './types';
 
 const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
   const { setFieldValue, values } = useFormikContext<Initial>();
+  const { categories } = useCategoryContextState();
 
   return (
     <>
@@ -68,11 +70,7 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
         helperText={touched.costs?.month && errors.costs?.month}
       />
       <StyledAutocomplete
-        options={[
-          { id: '1', name: 'Samochody' },
-          { id: '2', name: 'Elektronika' },
-          { id: '3', name: 'Książki' },
-        ]}
+        options={categories || []}
         getOptionLabel={(option) => (option as { id: string; name: string }).name}
         onChange={(_, value) =>
           setFieldValue('categoryId', (value as { id: string; name: string }).id)
