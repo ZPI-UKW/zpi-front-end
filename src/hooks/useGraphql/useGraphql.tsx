@@ -4,6 +4,7 @@ import { CustomApolloError } from '../../types/global';
 import { DataControlProps } from './types';
 
 const initialMessages = {
+  _400: 'Niepoprawna wartość pól',
   _401: 'Brak autoryzacji.',
   _403: 'Dostęp do zasobu zabroniony.',
   _404: 'Nie znaleziono zasobu.',
