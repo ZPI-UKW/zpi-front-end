@@ -34,7 +34,7 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
       }}
       validationSchema={SignupSchema}
     >
-      {({ touched, errors, isSubmitting }) => (
+      {({ touched, errors, isSubmitting, setFieldError, resetForm }) => (
         <Form className={classes.form} ref={ref as React.Ref<HTMLFormElement>}>
           <Field
             label="Email"
@@ -85,9 +85,18 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
             error={error}
             loading={loading}
             called={called}
-            successMsg="Zalogowano pomyślnie."
+            successMsg="Zarejestrowano pomyślnie."
             messages={{ _401: 'Błędny email lub hasło.' }}
-            onError={(_, __, message) => console.log(message)}
+            onError={(error, __, message) => {
+              if (message === 'user exists') {
+                error.message = '';
+                setFieldError('email', 'Email already exists');
+              }
+            }}
+            onSuccess={() => {
+              setContentType('signin');
+              resetForm();
+            }}
           />
         </Form>
       )}
