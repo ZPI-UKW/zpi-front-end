@@ -48,6 +48,15 @@ export const useStyles = makeStyles((theme: Theme) =>
     buttonProgress: {
       position: 'absolute',
     },
+    button: {
+      width: '100%',
+      margin: '0 auto',
+      marginTop: '4rem',
+
+      [theme.breakpoints.up('sm')]: {
+        width: '75%',
+      },
+    },
   })
 );
 

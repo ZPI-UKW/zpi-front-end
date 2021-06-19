@@ -1,14 +1,15 @@
-import { Box, CircularProgress, Link, Typography } from '@material-ui/core';
+import { Box, Link, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { forwardRef } from 'react';
 import { SignupSchema } from '../../../validation/AuthSchema';
 import { SignUpFormProps, QueryData, QueryVars } from './types';
-import { StyledButton, useStyles, StyledTextField } from '../styles';
+import { useStyles, StyledTextField } from '../styles';
 import PasswordField from '../../CustomControls/password.control';
 import { useMutation } from '@apollo/client';
 import { REGISTER } from '../../../graphql/auth';
 import MaskedInput from '../../CustomControls/masked.control';
 import DataControl from '../../DataControl';
+import SpinnerButton from '../../SpinnerButton';
 
 const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown> | undefined) => {
   const classes = useStyles();
@@ -33,7 +34,7 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
       }}
       validationSchema={SignupSchema}
     >
-      {({ touched, errors }) => (
+      {({ touched, errors, isSubmitting }) => (
         <Form className={classes.form} ref={ref as React.Ref<HTMLFormElement>}>
           <Field
             label="Email"
@@ -63,12 +64,16 @@ const SignupForm = ({ setContentType }: SignUpFormProps, ref: React.Ref<unknown>
             helperText={touched.lastname && errors.lastname}
           />
           <MaskedInput type="tel" name="phonenumber" label="Numer telefonu" />
-          <div className={classes.buttonWrapper}>
-            <StyledButton type="submit" color="primary" variant="contained" disabled={loading}>
-              Zarejestruj się
-            </StyledButton>
-            {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
-          </div>
+          <SpinnerButton
+            wrapperClassName={classes.buttonWrapper}
+            className={classes.button}
+            variant="contained"
+            isLoading={isSubmitting}
+            color="primary"
+            type="submit"
+          >
+            Zarejestruj się
+          </SpinnerButton>
           <Box className={classes.box}>
             <Typography className={classes.message}>Masz już konto?</Typography>
             <Link component="p" className={classes.link} onClick={() => setContentType('signin')}>
