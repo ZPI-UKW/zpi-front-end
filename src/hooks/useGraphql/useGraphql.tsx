@@ -45,6 +45,7 @@ export const useGraphql = <T,>({
         return;
       } else if (error !== undefined && error?.networkError) {
         const err = new Error();
+
         const { networkError } = error as CustomApolloError;
 
         if (networkError?.result?.errors?.[0]?.status) {
@@ -55,6 +56,10 @@ export const useGraphql = <T,>({
           err.message = errorMessages[msg];
 
           if (typeof onError === 'function') onError(err, status, resMessage || 'Wystąpił błąd');
+          setIsOk(false);
+          throw err;
+        } else {
+          err.message = errorMessages._500;
           setIsOk(false);
           throw err;
         }
