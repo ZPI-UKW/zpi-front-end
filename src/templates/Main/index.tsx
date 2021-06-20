@@ -27,6 +27,7 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles();
   return (
     <ApolloProvider client={client}>
+      <GlobalStyles />
       <CategoryProvider>
         <AuthProvider>
           <LocationProvider>
@@ -34,7 +35,6 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
               <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
                 <ThemeProvider theme={theme}>
                   <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
-                    <GlobalStyles />
                     {children}
                   </SnackbarProvider>
                 </ThemeProvider>
