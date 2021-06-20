@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import { AuthRouteProps } from './types';
 
 const AuthRoute = ({ children, ...props }: AuthRouteProps) => {

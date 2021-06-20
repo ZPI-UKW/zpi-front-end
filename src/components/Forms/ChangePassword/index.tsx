@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import { CHANGE_PASSWORD } from '../../../graphql/user';
 import { QueryData, QueryVars } from './types';
 import DataControl from '../../DataControl';
-import { useAuthContextState } from '../../../context/authContext';
+import { useAuthContextState } from '../../../context/auth/authContext';
 import SpinnerButton from '../../SpinnerButton';
 
 const ChangePassword = () => {

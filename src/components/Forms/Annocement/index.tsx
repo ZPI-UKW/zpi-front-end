@@ -6,7 +6,7 @@ import { useStyles } from './styles';
 import { Initial } from './types';
 import TextFields from './annoucement.textfields';
 import { initial } from './annoucement.util';
-import { useLocationContextState } from '../../../context/locationContext/locationContext';
+import { useLocationContextState } from '../../../context/location/locationContext';
 import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
 import File from './annoucement.file';

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router';
-import { useAuthContextState } from '../../../context/authContext';
+import { useAuthContextState } from '../../../context/auth/authContext';
 import { annoucements } from '../../../data/annoucements';
 import { AnnoucementControlProps, RouteParams } from './types';
 
