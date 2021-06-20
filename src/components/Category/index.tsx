@@ -14,6 +14,7 @@ import { iconName } from './icon.types';
 import useStyle from './styles';
 import randomColor from 'randomcolor';
 import { category } from './category.interface';
+import _ from 'lodash';
 
 const icons: any = {
   cars: DirectionsCarOutlined,
@@ -41,7 +42,7 @@ const Category = ({ name, icon }: category) => {
     <Container className={classes.container}>
       <Box className={classes.box}>{getIcon(icon)}</Box>
       <Typography variant="h4" className={classes.typography}>
-        {name}
+        {_.capitalize(name)}
       </Typography>
     </Container>
   );

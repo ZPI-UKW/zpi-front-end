@@ -1,7 +1,16 @@
 export interface Category {
   _id: string;
   name: string;
-  englishName: string;
+  englishName:
+    | 'cars'
+    | 'electronics'
+    | 'tools'
+    | 'fashion'
+    | 'books'
+    | 'sport'
+    | 'music'
+    | 'estate'
+    | 'movies';
 }
 
 export interface ICategoryContext {
