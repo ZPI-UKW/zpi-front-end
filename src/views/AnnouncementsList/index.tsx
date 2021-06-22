@@ -48,10 +48,10 @@ const AnnoucementsList = () => {
       annoucements.map((el) => (
         <Card
           variant="home"
-          key={el._id}
+          key={el.id}
           title={el.title}
           price={el.costs.day}
-          _id={el._id}
+          _id={el.id}
           images={el.images}
           categoryId={el.categoryId}
           location={el.location}

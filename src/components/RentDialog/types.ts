@@ -1,5 +1,17 @@
 import { Moment } from 'moment';
 
+export interface QueryData {
+  createReservation: {
+    id: string;
+  };
+}
+
+export interface QueryVars {
+  startAt: string;
+  endAt: string;
+  annoucementId: string;
+}
+
 type Costs = {
   day: number;
   week: number;
@@ -10,6 +22,7 @@ export interface RentDialogProps {
   isOpen: boolean;
   handleClose: () => void;
   costs: Costs;
+  id: string;
 }
 
 export interface FormikProps {
