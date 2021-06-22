@@ -15,7 +15,6 @@ npm ci
 To run application locally on your machine, use:
 
 - `npm run start` - run application with locally running back-end
-- `npm run start:local:docker` - run application with locally running dockerized back-end
 
 **Application require files with local environments. Be sure, the files exists.**
 
@@ -25,7 +24,6 @@ In local environment, the application use local variables, which are stored in s
 
 - .env
 - .env.development.local
-- .env.development.docker
 
 ### Env file template
 
