@@ -13,10 +13,12 @@ import Slider from './annoucement.slider';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import { useState } from 'react';
 import RentDialog from '../RentDialog';
+import { useAuthContextState } from '../../context/authContext';
 
 const Annoucement = ({ annoucement }: AnnoucementProps) => {
   const classes = useStyles();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { userInfo } = useAuthContextState();
 
   const handleClose = () => setIsDialogOpen(false);
   const handleOpen = () => setIsDialogOpen(true);
@@ -25,7 +27,16 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
     <>
       <Hidden xsDown>
         <Typography variant="subtitle1" component="p" className={classes.category}>
-          Kategorie {'>'} Pojazdy
+          <Link className={clsx(classes.link, classes.hoveredLink)} to="/">
+            Kategorie
+          </Link>
+          &nbsp;{'>'}&nbsp;
+          <Link
+            className={clsx(classes.link, classes.hoveredLink)}
+            to={`/search/category/${annoucement.categoryId.name}`}
+          >
+            <span className={classes.capitalize}>{annoucement.categoryId.name}</span>
+          </Link>
         </Typography>
       </Hidden>
       <div className={classes.titleContainer}>
@@ -60,11 +71,13 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
               {annoucement.title}
             </Typography>
           </Hidden>
-          <div className={classes.rentContainer}>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
-              Wypożycz
-            </Button>
-          </div>
+          {userInfo._id !== annoucement.addedBy._id ? (
+            <div className={classes.rentContainer}>
+              <Button variant="contained" color="primary" onClick={handleOpen}>
+                Wypożycz
+              </Button>
+            </div>
+          ) : null}
           <Paper className={classes.paper} elevation={4}>
             <div className={classes.paperTitle}>
               <PersonOutlineOutlinedIcon />
@@ -113,7 +126,12 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
           </Hidden>
         </Grid>
       </Grid>
-      <RentDialog isOpen={isDialogOpen} handleClose={handleClose} costs={annoucement.costs} />
+      <RentDialog
+        id={annoucement.id}
+        isOpen={isDialogOpen}
+        handleClose={handleClose}
+        costs={annoucement.costs}
+      />
     </>
   );
 };

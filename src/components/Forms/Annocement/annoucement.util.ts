@@ -17,6 +17,50 @@ export const initial: Initial = {
   images: [],
 };
 
+export const routeType: RouteTypeFunc = (
+  pathname,
+  initialValues,
+  params,
+  userInfo,
+  setInitialValues,
+  history
+) => {
+  const user = {
+    email: userInfo.email,
+    name: userInfo.name,
+    phone: userInfo.phonenumber,
+  };
+
+  if (pathname === '/create-advertisement') {
+    setInitialValues({
+      ...initialValues,
+      ...user,
+    });
+  } else {
+    const { addId } = params;
+    const annoucement = annoucements.find((el) => el.id === addId);
+
+    if (annoucement === undefined) {
+      history.push('/');
+      return;
+    }
+
+    const { title, description, costs, location, email, phone, images, categoryId } = annoucement;
+
+    setInitialValues({
+      ...user,
+      title,
+      description,
+      costs,
+      location,
+      email,
+      phone,
+      images,
+      categoryId,
+    });
+  }
+};
+
 export const deleteImage = (
   index: number,
   images: string[],
