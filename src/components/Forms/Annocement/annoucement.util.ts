@@ -1,7 +1,6 @@
 import { FormikErrors } from 'formik';
 import { Area } from 'react-easy-crop/types';
-import { annoucements } from '../../../data/annoucements';
-import { RouteTypeFunc, Initial } from './types';
+import { Initial } from './types';
 
 export const initial: Initial = {
   title: '',

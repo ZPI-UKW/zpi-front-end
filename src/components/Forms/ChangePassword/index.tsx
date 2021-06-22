@@ -1,6 +1,5 @@
 import { Grid, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
-import { StylesButton } from '../../CustomControls/styles';
 import { ChangePasswordSchema } from '../../../validation/modifyuserdata.validation';
 import useStyles from './styles';
 import PasswordField from '../../CustomControls/password.control';
@@ -9,6 +8,7 @@ import { CHANGE_PASSWORD } from '../../../graphql/user';
 import { QueryData, QueryVars } from './types';
 import DataControl from '../../DataControl';
 import { useAuthContextState } from '../../../context/authContext';
+import SpinnerButton from '../../SpinnerButton';
 
 const ChangePassword = () => {
   const classes = useStyles();
@@ -57,15 +57,15 @@ const ChangePassword = () => {
               />
             </Grid>
             <Grid item container={matches} xs={12} justify="center">
-              <StylesButton
-                className={classes.button}
+              <SpinnerButton
+                wrapperClassName={classes.wrapper}
                 variant="contained"
-                disabled={isSubmitting}
+                isLoading={isSubmitting}
                 color="primary"
                 type="submit"
               >
                 Zmień
-              </StylesButton>
+              </SpinnerButton>
             </Grid>
           </Grid>
           <DataControl
@@ -75,7 +75,7 @@ const ChangePassword = () => {
             called={called}
             successMsg="Hasło zmienione pomyślnie."
             onError={(error, status, message) => {
-              if (message === 'Invalid password' && status === 401) {
+              if (message === 'Invalid password' && status === 404) {
                 error.message = '';
                 setFieldError('currentPassword', 'Błędne hasło.');
               }

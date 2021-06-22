@@ -12,6 +12,12 @@ export const useStyles = makeStyles((theme) => ({
       alignItems: 'flex-start',
     },
   },
+  buttonWrapper: {
+    marginTop: '1.5rem',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '30rem',
+    },
+  },
   imagesContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -57,6 +63,18 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: '2rem',
     },
   },
+  loaderWrapper: {
+    height: '100%',
+    display: 'grid',
+    placeItems: 'center',
+  },
+  autocompleteIcon: {
+    fontSize: '2.25rem',
+    marginRight: theme.spacing(2),
+  },
+  autocompleteTitle: {
+    fontSize: '1.5rem',
+  },
 }));
 
 export const StyledTextField = withStyles((theme) => ({
@@ -90,8 +108,15 @@ export const StyledDialogContent = withStyles(() => ({
 export const StyledAutocomplete = withStyles(() => ({
   root: {
     width: '100%',
+    maxWidth: '30rem',
   },
   option: {
+    fontSize: '1.6rem',
+  },
+  noOptions: {
+    fontSize: '1.6rem',
+  },
+  loading: {
     fontSize: '1.6rem',
   },
 }))(Autocomplete);

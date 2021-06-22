@@ -3,6 +3,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import MomentUtils from '@date-io/moment';
 import 'moment/locale/pl';
 import { AuthProvider } from '../../context/authContext';
+import LocationProvider from '../../context/locationContext/locationContext';
 import GlobalStyles from '../../theme/globalStyles';
 import theme from '../../theme/material-theme';
 import { SnackbarProvider } from 'notistack';
@@ -26,12 +27,14 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
     <ApolloProvider client={client}>
       <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
         <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
-              <GlobalStyles />
-              {children}
-            </SnackbarProvider>
-          </ThemeProvider>
+          <LocationProvider>
+            <ThemeProvider theme={theme}>
+              <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
+                <GlobalStyles />
+                {children}
+              </SnackbarProvider>
+            </ThemeProvider>
+          </LocationProvider>
         </AuthProvider>
       </MuiPickersUtilsProvider>
     </ApolloProvider>
