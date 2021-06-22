@@ -10,6 +10,8 @@ import { SnackbarProvider } from 'notistack';
 import useStyles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from 'moment';
+import CategoryProvider from '../../context/category/categoryContext';
+import FetchTemplate from '../Fetch';
 
 const link = createHttpLink({
   uri: 'http://localhost:8080/graphql',
@@ -25,18 +27,22 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles();
   return (
     <ApolloProvider client={client}>
-      <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
+      <CategoryProvider>
         <AuthProvider>
           <LocationProvider>
-            <ThemeProvider theme={theme}>
-              <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
-                <GlobalStyles />
-                {children}
-              </SnackbarProvider>
-            </ThemeProvider>
+            <FetchTemplate>
+              <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
+                <ThemeProvider theme={theme}>
+                  <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
+                    <GlobalStyles />
+                    {children}
+                  </SnackbarProvider>
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
+            </FetchTemplate>
           </LocationProvider>
         </AuthProvider>
-      </MuiPickersUtilsProvider>
+      </CategoryProvider>
     </ApolloProvider>
   );
 };
