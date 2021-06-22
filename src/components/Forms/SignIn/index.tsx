@@ -1,14 +1,15 @@
-import { Box, CircularProgress, Link, Typography } from '@material-ui/core';
+import { Box, Link, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { forwardRef } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { SigninSchema } from '../../../validation/AuthSchema';
 import PasswordField from '../../CustomControls/password.control';
-import { StyledButton, useStyles, StyledTextField } from '../styles';
+import { useStyles, StyledTextField } from '../styles';
 import { LOGIN } from '../../../graphql/auth';
 import { QueryData, QueryVars, SignInFormProps } from './types';
 import DataControl from '../../DataControl';
 import { useAuthContextState } from '../../../context/authContext';
+import SpinnerButton from '../../SpinnerButton';
 
 const SigninForm = (
   { setContentType, closeModal }: SignInFormProps,
@@ -42,12 +43,16 @@ const SigninForm = (
               error={touched.loginPassword && Boolean(errors.loginPassword)}
               helperText={touched.loginPassword && errors.loginPassword}
             />
-            <div className={classes.buttonWrapper}>
-              <StyledButton type="submit" color="primary" variant="contained" disabled={loading}>
-                Zaloguj się
-              </StyledButton>
-              {loading && <CircularProgress size={30} className={classes.buttonProgress} />}
-            </div>
+            <SpinnerButton
+              wrapperClassName={classes.buttonWrapper}
+              className={classes.button}
+              variant="contained"
+              isLoading={loading}
+              color="primary"
+              type="submit"
+            >
+              Zaloguj się
+            </SpinnerButton>
             <DataControl
               data={data}
               error={error}
