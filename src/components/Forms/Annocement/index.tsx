@@ -3,23 +3,37 @@ import Typography from '@material-ui/core/Typography';
 import { Form, Formik } from 'formik';
 import { useState } from 'react';
 import { useStyles } from './styles';
-import { Initial } from './types';
+import { Initial, QueryData, QueryVars, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
-import { initial } from './annoucement.util';
+import { dataUrlToFile, initial } from './annoucement.util';
 import { useLocationContextState } from '../../../context/locationContext/locationContext';
 import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
-import File from './annoucement.file';
+import FileHandler from './annoucement.file';
 import AnnocementControl from './annoucement.control';
+import { useMutation } from '@apollo/client';
+import { CREATE_ANNOUCEMENT, EDIT_ANNOUCEMENT } from '../../../graphql/annoucement';
+import DataControl from '../../DataControl/index';
+import { useAuthContextState } from '../../../context/authContext';
+import { useLocation, useParams } from 'react-router-dom';
+import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 
 const AnnoucementForm = () => {
+  const { pathname } = useLocation();
+  const { addId } = useParams<RouteParams>();
   const classes = useStyles();
+  const mode = pathname.includes('edit-advertisement');
   const [initialValues, setInitialValues] = useState<Initial>(initial);
   const {
     isMapLoaded,
     isMapError,
     autocomplete: { ready },
   } = useLocationContextState();
+  const { logout } = useAuthContextState();
+
+  const [AnnoucementAction, { error, data, loading, called }] = useMutation<QueryData, QueryVars>(
+    mode ? EDIT_ANNOUCEMENT : CREATE_ANNOUCEMENT
+  );
 
   if (isMapLoaded && !ready)
     return (
@@ -41,12 +55,53 @@ const AnnoucementForm = () => {
     <Formik
       enableReinitialize
       initialValues={initialValues}
-      onSubmit={(values, { setSubmitting }) => {
+      validationSchema={AnnoucementActionSchema}
+      onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
-        console.log(values);
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 2000);
+        const formData = new FormData();
+        const existingImg = values.images.filter((el) => el.includes('http'));
+        const newImgs = values.images.filter((el) => !el.includes('http'));
+        try {
+          let imagesUrl = existingImg;
+          if (newImgs.length > 0) {
+            for (let i = 0; i < newImgs.length; i++) {
+              if (newImgs[i]) {
+                const file = await dataUrlToFile(newImgs[i], `img${i}.png`);
+                formData.append('images', file);
+              }
+            }
+
+            const res = await fetch('http://localhost:8080/add-images', {
+              method: 'PUT',
+              body: formData,
+              credentials: 'include',
+            });
+
+            const data = await res.json();
+            const links = (data.files as string[]).map(
+              (el) => process.env.REACT_APP_SERVER_PATH + el
+            );
+            imagesUrl = [...existingImg, ...links];
+          }
+
+          const dataToSend: QueryVars = {
+            ...values,
+            day: parseFloat(values.costs.day.toString()),
+            week: parseFloat(values.costs.week.toString()),
+            month: parseFloat(values.costs.month.toString()),
+            images: imagesUrl,
+          };
+
+          if (mode) dataToSend.id = addId;
+          else dataToSend.category = '60ac10284fc6210a77f00076';
+
+          await AnnoucementAction({
+            variables: {
+              ...dataToSend,
+            },
+          });
+        } catch {}
+        setSubmitting(false);
       }}
     >
       {({ touched, errors, isSubmitting }) => (
@@ -62,7 +117,7 @@ const AnnoucementForm = () => {
               <Typography variant="subtitle1" component="p">
                 Maksymalny rozmiar zdjęcia to 1MB
               </Typography>
-              <File />
+              <FileHandler />
             </Grid>
           </Grid>
           <SpinnerButton
@@ -72,8 +127,21 @@ const AnnoucementForm = () => {
             isLoading={isSubmitting}
             wrapperClassName={classes.buttonWrapper}
           >
-            Dodaj ogłoszenie
+            {mode ? 'Edytuj ogłoszenie' : 'Dodaj ogłoszenie'}
           </SpinnerButton>
+          <DataControl
+            data={data}
+            error={error}
+            loading={loading}
+            called={called}
+            successMsg="Ogłoszenie utworzone pomyslnie."
+            onError={(error, status, message) => {
+              if (message.includes('validation')) {
+                error.message = 'Bląd walidacji.';
+              }
+              if (status === 401 || status === 404) logout();
+            }}
+          />
           <AnnocementControl initialValues={initialValues} setInitialValues={setInitialValues} />
         </Form>
       )}

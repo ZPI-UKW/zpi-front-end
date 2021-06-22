@@ -75,6 +75,15 @@ export const useStyles = makeStyles((theme) => ({
   autocompleteTitle: {
     fontSize: '1.5rem',
   },
+  phoneNumberInput: {
+    width: '100%',
+    maxWidth: '30rem',
+    marginBottom: theme.spacing(2.5),
+
+    '& *': {
+      fontSize: '1.7rem',
+    },
+  },
 }));
 
 export const StyledTextField = withStyles((theme) => ({

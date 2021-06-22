@@ -9,7 +9,7 @@ import { Place } from '../../../context/locationContext/types';
 import { useStyles } from './styles';
 
 const Location = () => {
-  const { values, setFieldValue } = useFormikContext<Initial>();
+  const { values, setFieldValue, errors, touched, setFieldTouched } = useFormikContext<Initial>();
   const {
     autocomplete: { loading, options, setValue },
   } = useLocationContextState();
@@ -39,6 +39,9 @@ const Location = () => {
           value={values.location}
           name="location"
           label="Lokalizacja"
+          error={touched.location && Boolean(errors.location)}
+          helperText={touched.location && errors.location}
+          onBlur={() => setFieldTouched('location', true)}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

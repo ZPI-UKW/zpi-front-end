@@ -38,3 +38,9 @@ export const GET_USER_DATA = gql`
     }
   }
 `;
+
+export const LOGOUT = gql`
+  query Logout {
+    logout
+  }
+`;
