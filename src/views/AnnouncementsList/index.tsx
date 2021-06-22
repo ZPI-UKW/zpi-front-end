@@ -68,32 +68,34 @@ const AnnoucementsList = () => {
   };
 
   return (
-    <ViewContainer>
+    <Container maxWidth={false} className={classes.wrapper}>
       <AppBar position="sticky" className={classes.header}>
         <Container className={classes.searchContainer} disableGutters>
           <Search slim={true} />
         </Container>
       </AppBar>
-      <Container className={classes.contentContainer}>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link to="/" className={classes.link}>
-            <Home />
-          </Link>
-          {pathnames &&
-            pathnames.map((path, index) => (
-              <span>
-                {path}
-                {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
-                  renderSearch(searchParam)}
-              </span>
-            ))}
-        </Breadcrumbs>
-        <ViewTitle>Wyniki wyszukiwania</ViewTitle>
-        <CardsContainer>
-          {annoucements ? renderCards(annoucements) : <CircularProgress size={60} />}
-        </CardsContainer>
-      </Container>
-    </ViewContainer>
+      <ViewContainer>
+        <Container maxWidth={false} className={classes.contentContainer}>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link to="/" className={classes.link}>
+              <Home />
+            </Link>
+            {pathnames &&
+              pathnames.map((path, index) => (
+                <span>
+                  {path}
+                  {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
+                    renderSearch(searchParam)}
+                </span>
+              ))}
+          </Breadcrumbs>
+          <ViewTitle>Wyniki wyszukiwania</ViewTitle>
+          <CardsContainer>
+            {annoucements ? renderCards(annoucements) : <CircularProgress size={60} />}
+          </CardsContainer>
+        </Container>
+      </ViewContainer>
+    </Container>
   );
 };
 
