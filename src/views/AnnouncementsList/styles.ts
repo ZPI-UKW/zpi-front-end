@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   contentContainer: {
+    padding: 0,
     paddingBlockStart: theme.spacing(1),
   },
   header: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
   illustration: {
     width: '100%',
     height: '100%',
+  },
+  wrapper: {
+    width: '100%',
+    padding: 0,
   },
 }));
 
