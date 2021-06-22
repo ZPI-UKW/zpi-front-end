@@ -12,7 +12,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from 'moment';
 
 const link = createHttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: `${process.env.REACT_APP_BACK_END_URL}/graphql`,
   credentials: 'include',
 });
 
