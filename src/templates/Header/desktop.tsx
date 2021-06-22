@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import Navigation from '../../components/Navigation';
 import { NavigationProps } from './types';
 

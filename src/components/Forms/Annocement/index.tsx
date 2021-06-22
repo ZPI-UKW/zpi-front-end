@@ -6,7 +6,7 @@ import { useStyles } from './styles';
 import { Initial, QueryData, QueryVars, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { dataUrlToFile, initial } from './annoucement.util';
-import { useLocationContextState } from '../../../context/locationContext/locationContext';
+import { useLocationContextState } from '../../../context/location/locationContext';
 import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
 import FileHandler from './annoucement.file';
@@ -14,7 +14,7 @@ import AnnocementControl from './annoucement.control';
 import { useMutation } from '@apollo/client';
 import { CREATE_ANNOUCEMENT, EDIT_ANNOUCEMENT } from '../../../graphql/annoucement';
 import DataControl from '../../DataControl/index';
-import { useAuthContextState } from '../../../context/authContext';
+import { useAuthContextState } from '../../../context/auth/authContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 

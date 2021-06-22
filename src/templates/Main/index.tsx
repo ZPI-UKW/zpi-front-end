@@ -2,8 +2,8 @@ import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@ap
 import { ThemeProvider } from '@material-ui/styles';
 import MomentUtils from '@date-io/moment';
 import 'moment/locale/pl';
-import { AuthProvider } from '../../context/authContext';
-import LocationProvider from '../../context/locationContext/locationContext';
+import { AuthProvider } from '../../context/auth/authContext';
+import LocationProvider from '../../context/location/locationContext';
 import GlobalStyles from '../../theme/globalStyles';
 import theme from '../../theme/material-theme';
 import { SnackbarProvider } from 'notistack';
@@ -27,6 +27,7 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles();
   return (
     <ApolloProvider client={client}>
+      <GlobalStyles />
       <CategoryProvider>
         <AuthProvider>
           <LocationProvider>
@@ -34,7 +35,6 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
               <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
                 <ThemeProvider theme={theme}>
                   <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
-                    <GlobalStyles />
                     {children}
                   </SnackbarProvider>
                 </ThemeProvider>

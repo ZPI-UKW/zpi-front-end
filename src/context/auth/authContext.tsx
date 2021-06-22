@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { GET_USER_DATA } from '../graphql/user';
+import { GET_USER_DATA } from '../../graphql/user';
 import { authDataNotExist } from './helpers';
 import { ContextState, QueryData, UserData } from './types';
 

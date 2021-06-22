@@ -4,8 +4,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import parse from 'autosuggest-highlight/parse';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { Initial } from './types';
-import { useLocationContextState } from '../../../context/locationContext/locationContext';
-import { Place } from '../../../context/locationContext/types';
+import { useLocationContextState } from '../../../context/location/locationContext';
+import { Place } from '../../../context/location/types';
 import { useStyles } from './styles';
 
 const Location = () => {

@@ -1,9 +1,9 @@
 import { useLazyQuery } from '@apollo/client';
 import { useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router';
-import { useAuthContextState } from '../../../context/authContext';
 import { GET_ANNOUCEMENT_BY_ID } from '../../../graphql/annoucement';
 import { AnnoucementControlProps, QueryDataGetAnn, QueryVarsGetAnn, RouteParams } from './types';
+import { useAuthContextState } from '../../../context/auth/authContext';
 
 const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementControlProps) => {
   const {

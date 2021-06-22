@@ -8,7 +8,7 @@ import { useStyles, StyledTextField } from '../styles';
 import { LOGIN } from '../../../graphql/auth';
 import { QueryData, QueryVars, SignInFormProps } from './types';
 import DataControl from '../../DataControl';
-import { useAuthContextState } from '../../../context/authContext';
+import { useAuthContextState } from '../../../context/auth/authContext';
 import SpinnerButton from '../../SpinnerButton';
 
 const SigninForm = (

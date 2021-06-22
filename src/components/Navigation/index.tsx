@@ -1,6 +1,6 @@
 import { Divider, Menu, MenuItem } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import Transition from './transition';
 import { useStyles } from './styles';
 import { NavigationProps } from './types';

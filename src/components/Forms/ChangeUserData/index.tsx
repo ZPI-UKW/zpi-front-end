@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import { StyledTextField } from '../../CustomControls/styles';
 import { ChangeUserDataSchema } from '../../../validation/modifyuserdata.validation';
 import useStyles from './styles';
-import { useAuthContextState } from '../../../context/authContext';
+import { useAuthContextState } from '../../../context/auth/authContext';
 import _ from 'lodash';
 import { useMutation } from '@apollo/client';
 import { CHANGE_USER_DATA } from '../../../graphql/user';
