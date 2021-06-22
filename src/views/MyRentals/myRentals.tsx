@@ -14,7 +14,7 @@ const MyRentals = () => {
 
   return (
     <ViewContainer>
-      <ViewTitle>Moje wypozyczenia</ViewTitle>
+      <ViewTitle>Moje wypożyczenia</ViewTitle>
       <CardsContainer>
         {annoucements.map((el) => (
           <Card
