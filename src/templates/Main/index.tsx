@@ -14,7 +14,7 @@ import CategoryProvider from '../../context/category/categoryContext';
 import FetchTemplate from '../Fetch';
 
 const link = createHttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: `${process.env.REACT_APP_BACK_END_URL}/graphql`,
   credentials: 'include',
 });
 
