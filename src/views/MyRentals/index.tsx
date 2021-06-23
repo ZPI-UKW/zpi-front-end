@@ -26,7 +26,7 @@ const MyRentals = () => {
 
   return (
     <ViewContainer>
-      <ViewTitle>Moje wypozyczenia</ViewTitle>
+      <ViewTitle>Moje wypożyczenia</ViewTitle>
       <CardsContainer>
         {data?.getAnnoucements && data?.getAnnoucements.length > 0 ? (
           data?.getAnnoucements.map((el) => (
