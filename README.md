@@ -10,17 +10,23 @@ Install all needed dependencies by using:
 npm ci
 ```
 
+`package.json` contains `fsevents` dependency, which is required only on macOS. If you use other operating systems, use the following command instead:
+
+```
+npm ci --no-optional
+```
+
 # Usage
 
-To run application locally on your machine, use:
+To run the application locally on your machine, use:
 
 - `npm run start` - run application with locally running back-end
 
-**Application require files with local environments. Be sure, the files exists.**
+**Application requires files with local environments. Be sure, the files exist.**
 
 ## Environment variables
 
-In local environment, the application use local variables, which are stored in specific files. Before run the application, you have to create and complete the files in `src/environments`. Directory must contains:
+In a local environment, the application uses local variables, which are stored in specific files. Before running the application, you have to create and complete the files in `src/environments`. The directory must contain:
 
 - .env
 - .env.development.local
