@@ -13,7 +13,7 @@ import Slider from './annoucement.slider';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import { useState } from 'react';
 import RentDialog from '../RentDialog';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 
 const Annoucement = ({ annoucement }: AnnoucementProps) => {
   const classes = useStyles();

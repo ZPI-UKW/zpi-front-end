@@ -5,7 +5,7 @@ import ViewContainer from '../../components/ViewContainer';
 import { Box, CircularProgress, Typography } from '@material-ui/core';
 import ErrorMessage from '../../components/ErrorMessage';
 import { useQuery } from '@apollo/client';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import { QueryData, QueryVars } from './types';
 import { MY_RESERVETIONS } from '../../graphql/annoucements';
 

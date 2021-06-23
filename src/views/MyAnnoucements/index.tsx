@@ -6,7 +6,7 @@ import { Box, CircularProgress, useMediaQuery, useTheme } from '@material-ui/cor
 import AddAnnoucementButton from '../../components/AddAnnouncementBtn';
 import { useQuery } from '@apollo/client';
 import { MY_ANNOUCEMENTS } from '../../graphql/annoucements';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import { QueryData, QueryVars } from './types';
 import ErrorMessage from '../../components/ErrorMessage';
 
