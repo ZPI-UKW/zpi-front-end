@@ -10,6 +10,7 @@ export interface CustomMaskedInputProps {
   label: string;
   name: string;
   mask?: string;
+  className?: string;
 }
 
 export interface DatePickerProps {

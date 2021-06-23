@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   createStyles,
   Hidden,
@@ -12,7 +11,7 @@ import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import Navigation from '../../components/Navigation';
 import { NavigationProps } from './types';
 
@@ -42,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const DesktopContent = ({ handleDialogOpen }: NavigationProps) => {
+const DesktopContent = ({ handleDialogOpen, logout }: NavigationProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
   const { isAuthenticated } = useAuthContextState();
@@ -82,7 +81,7 @@ const DesktopContent = ({ handleDialogOpen }: NavigationProps) => {
           )}
         </div>
       </div>
-      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="desktop" />
+      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="desktop" logoutFun={logout} />
     </Hidden>
   );
 };

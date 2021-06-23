@@ -8,7 +8,7 @@ export const initial: Initial = {
   phone: '',
   email: '',
   description: '',
-  categoryId: '',
+  categoryId: { id: '' },
   costs: {
     day: 0,
     week: 0,
@@ -16,6 +16,55 @@ export const initial: Initial = {
   },
   images: [],
 };
+
+export const dataUrlToFile = async (dataUrl: string, fileName: string): Promise<File> => {
+  const res: Response = await fetch(dataUrl);
+  const blob: Blob = await res.blob();
+  return new File([blob], fileName, { type: 'image/png' });
+};
+
+export const routeType: RouteTypeFunc = (
+  pathname,
+  initialValues,
+  params,
+  userInfo,
+  setInitialValues,
+  history
+) => {
+  const user = {
+    email: userInfo.email,
+    name: userInfo.name,
+    phone: userInfo.phonenumber,
+  };
+
+  if (pathname === '/create-advertisement') {
+    setInitialValues({
+      ...initialValues,
+      ...user,
+    });
+  } else {
+    const { addId } = params;
+    const annoucement = annoucements.find((el) => el.id === addId);
+
+  if (annoucement === undefined) {
+    history.push('/');
+    return;
+  }
+
+  const { title, description, costs, location, email, phone, images, categoryId } = annoucement;
+
+  setInitialValues({
+    ...user,
+    title,
+    description,
+    costs,
+    location,
+    email,
+    phone,
+    images,
+    categoryId,
+  });
+}
 
 export const deleteImage = (
   index: number,

@@ -3,7 +3,13 @@ import InputMask from 'react-input-mask';
 import { FormikHandlers, useField } from 'formik';
 import { StyledTextField } from '../Forms/styles';
 
-const MaskedInput = ({ name, label, mask = '999-999-999', type }: CustomMaskedInputProps) => {
+const MaskedInput = ({
+  name,
+  label,
+  mask = '999-999-999',
+  type,
+  className,
+}: CustomMaskedInputProps) => {
   const [field, meta] = useField({ name, type });
 
   return (
@@ -16,7 +22,8 @@ const MaskedInput = ({ name, label, mask = '999-999-999', type }: CustomMaskedIn
           label={label}
           onChange={onChange}
           error={meta.touched && Boolean(meta.error)}
-          helperText={meta.touched && Boolean(meta.error)}
+          helperText={meta.touched && meta.error}
+          className={className}
         />
       )}
     </InputMask>

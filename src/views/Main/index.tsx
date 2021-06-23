@@ -6,37 +6,28 @@ import {
   useMediaQuery,
   GridSpacing,
 } from '@material-ui/core';
-import { useEffect, useState } from 'react';
 import Category from '../../components/Category';
 import useStyles from './styles';
-import { data } from '../../components/Category/categories.data';
-import { category, categoryData } from '../../components/Category/category.interface';
 import { Link } from 'react-router-dom';
 import Search from '../../components/Search';
-
-const getData = (data: categoryData): category[] => {
-  return data.categories;
-};
+import { useCategoryContextState } from '../../context/category/categoryContext';
+import { Category as ICategory } from '../../context/category/types';
 
 const Main = () => {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
-  const [categories, setCategories] = useState<category[] | null>(null);
+  const { categories } = useCategoryContextState();
 
-  useEffect(() => setCategories(getData(data)), []);
+  const setSpacing = (matches: boolean): GridSpacing => (matches ? 2 : 4);
 
-  const setSpacing = (matches: boolean): GridSpacing => {
-    return matches ? 2 : 4;
-  };
-
-  const renderCategories = (categories: category[] | null): JSX.Element[] | null => {
+  const renderCategories = (categories: ICategory[] | null): JSX.Element[] | null => {
     return (
       categories &&
-      categories.map((item: category, index: number) => (
+      categories.map((item: ICategory, index: number) => (
         <Grid item xs={12} sm={6} md={4} key={index}>
-          <Link to={`/search/category/${item.name}`}>
-            <Category name={item.name} icon={item.icon} />
+          <Link to={`/search/category/${item.englishName}`}>
+            <Category name={item.name} icon={item.englishName} />
           </Link>
         </Grid>
       ))

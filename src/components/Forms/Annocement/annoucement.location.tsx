@@ -4,12 +4,12 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import parse from 'autosuggest-highlight/parse';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { Initial } from './types';
-import { useLocationContextState } from '../../../context/locationContext/locationContext';
-import { Place } from '../../../context/locationContext/types';
+import { useLocationContextState } from '../../../context/location/locationContext';
+import { Place } from '../../../context/location/types';
 import { useStyles } from './styles';
 
 const Location = () => {
-  const { values, setFieldValue } = useFormikContext<Initial>();
+  const { values, setFieldValue, errors, touched, setFieldTouched } = useFormikContext<Initial>();
   const {
     autocomplete: { loading, options, setValue },
   } = useLocationContextState();
@@ -39,6 +39,9 @@ const Location = () => {
           value={values.location}
           name="location"
           label="Lokalizacja"
+          error={touched.location && Boolean(errors.location)}
+          helperText={touched.location && errors.location}
+          onBlur={() => setFieldTouched('location', true)}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

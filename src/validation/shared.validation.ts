@@ -8,5 +8,9 @@ export const passwordValidation = Yup.string()
   .required(requiredMsg);
 export const phonenumberValidation = Yup.string()
   .transform((value) => value.replace(/[^\d]/g, ''))
-  .length(9, 'Niepoprawny number telefonu')
+  .length(9, 'Niepoprawny numer telefonu')
   .required(requiredMsg);
+export const stringValidation = Yup.string().required(requiredMsg);
+export const numberValidation = Yup.number()
+  .required(requiredMsg)
+  .typeError('Pole musi być liczbą');

@@ -6,7 +6,7 @@ import Navigation from '../../components/Navigation';
 import MenuIcon from '@material-ui/icons/Menu';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { useState } from 'react';
-import { useAuthContextState } from '../../context/authContext';
+import { useAuthContextState } from '../../context/auth/authContext';
 import { NavigationProps } from './types';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MobileContent = ({ handleDialogOpen }: NavigationProps) => {
+const MobileContent = ({ handleDialogOpen, logout }: NavigationProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { isAuthenticated } = useAuthContextState();
   const classes = useStyles();
@@ -84,7 +84,7 @@ const MobileContent = ({ handleDialogOpen }: NavigationProps) => {
           </div>
         )}
       </Container>
-      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="mobile" />
+      <Navigation anchorEl={anchorEl} setAnchorEl={setAnchorEl} type="mobile" logoutFun={logout} />
     </Hidden>
   );
 };

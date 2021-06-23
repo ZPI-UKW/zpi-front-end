@@ -1,7 +1,9 @@
+import { useLazyQuery } from '@apollo/client';
 import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import { useState } from 'react';
 import AuthDialog from '../../components/AuthDialog/dialog';
+import { LOGOUT } from '../../graphql/user';
 
 import DesktopContent from './desktop';
 import MobileContent from './mobile';
@@ -39,6 +41,10 @@ const Header = () => {
     setDialogOpen(true);
   };
 
+  const [Logout] = useLazyQuery(LOGOUT);
+
+  const handleLogout = () => Logout();
+
   return (
     <>
       <AppBar
@@ -46,8 +52,8 @@ const Header = () => {
         className={!matches ? classes.appBar : undefined}
       >
         <Toolbar className={classes.toolbar}>
-          <DesktopContent handleDialogOpen={handleDialogOpen} />
-          <MobileContent handleDialogOpen={handleDialogOpen} />
+          <DesktopContent handleDialogOpen={handleDialogOpen} logout={handleLogout} />
+          <MobileContent handleDialogOpen={handleDialogOpen} logout={handleLogout} />
         </Toolbar>
       </AppBar>
       <AuthDialog

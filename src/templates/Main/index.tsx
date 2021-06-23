@@ -2,17 +2,19 @@ import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@ap
 import { ThemeProvider } from '@material-ui/styles';
 import MomentUtils from '@date-io/moment';
 import 'moment/locale/pl';
-import { AuthProvider } from '../../context/authContext';
-import LocationProvider from '../../context/locationContext/locationContext';
+import { AuthProvider } from '../../context/auth/authContext';
+import LocationProvider from '../../context/location/locationContext';
 import GlobalStyles from '../../theme/globalStyles';
 import theme from '../../theme/material-theme';
 import { SnackbarProvider } from 'notistack';
 import useStyles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import moment from 'moment';
+import CategoryProvider from '../../context/category/categoryContext';
+import FetchTemplate from '../Fetch';
 
 const link = createHttpLink({
-  uri: 'http://localhost:8080/graphql',
+  uri: `${process.env.REACT_APP_BACK_END_URL}/graphql`,
   credentials: 'include',
 });
 
@@ -25,18 +27,22 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles();
   return (
     <ApolloProvider client={client}>
-      <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
+      <GlobalStyles />
+      <CategoryProvider>
         <AuthProvider>
           <LocationProvider>
-            <ThemeProvider theme={theme}>
-              <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
-                <GlobalStyles />
-                {children}
-              </SnackbarProvider>
-            </ThemeProvider>
+            <FetchTemplate>
+              <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
+                <ThemeProvider theme={theme}>
+                  <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
+                    {children}
+                  </SnackbarProvider>
+                </ThemeProvider>
+              </MuiPickersUtilsProvider>
+            </FetchTemplate>
           </LocationProvider>
         </AuthProvider>
-      </MuiPickersUtilsProvider>
+      </CategoryProvider>
     </ApolloProvider>
   );
 };

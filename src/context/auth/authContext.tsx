@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { GET_USER_DATA } from '../graphql/user';
+import { GET_USER_DATA } from '../../graphql/user';
 import { authDataNotExist } from './helpers';
 import { ContextState, QueryData, UserData } from './types';
 
@@ -50,11 +50,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setLocalStorageItem('userData', JSON.stringify(data));
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setAuthState(userData);
     removeLocalStorageItem('userData');
     history.push('/');
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const isAuthenticated = () => {
     if (authDataNotExist(authState)) {
@@ -73,7 +74,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         logout();
       }
     }
-  }, [loading, data, error]);
+  }, [loading, data, error, logout]);
 
   return (
     <Provider value={{ userInfo: authState, isAuthenticated, logout, setAuthInfo }}>
