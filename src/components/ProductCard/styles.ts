@@ -1,6 +1,9 @@
 import { fade, makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
+  card: {
+    position: 'relative',
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -13,6 +16,16 @@ export const useStyles = makeStyles((theme) => ({
     background: fade(theme.palette.grey[50], 0.75),
     backdropFilter: 'blur(4px)',
     zIndex: 10,
+  },
+  moreBtn: {
+    '& svg': {
+      transform: 'scale(1.6)',
+    },
+  },
+  listElement: {
+    '& li': {
+      fontSize: '1.75rem',
+    },
   },
   title: {
     fontWeight: 700,

@@ -9,6 +9,7 @@ import { MY_ANNOUCEMENTS } from '../../graphql/annoucements';
 import { useAuthContextState } from '../../context/auth/authContext';
 import { QueryData, QueryVars } from './types';
 import ErrorMessage from '../../components/ErrorMessage';
+import { Status } from '../../components/ProductCard/types';
 
 const MyAnnoucements = () => {
   const theme = useTheme();
@@ -42,7 +43,7 @@ const MyAnnoucements = () => {
             _id={el.id}
             images={el.images}
             location={el.location}
-            status="Wolne"
+            status={Status['free']}
           />
         ))}
       </CardsContainer>
