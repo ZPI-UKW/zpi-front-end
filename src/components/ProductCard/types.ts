@@ -6,7 +6,6 @@ export interface CardProps {
   title: string;
   images: string[];
   price: number;
-  categoryId: string;
   location: string;
   status?: string;
 }
