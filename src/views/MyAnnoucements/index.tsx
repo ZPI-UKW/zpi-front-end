@@ -43,6 +43,7 @@ const MyAnnoucements = () => {
             images={el.images}
             categoryId={el.categoryId}
             location={el.location}
+            status="Wolne"
           />
         ))}
       </CardsContainer>

@@ -16,7 +16,7 @@ import clsx from 'clsx';
 import { useHistory } from 'react-router-dom';
 import { useStyles } from './styles';
 
-const ProductCard = ({ variant, title, price, images, location, _id }: CardProps) => {
+const ProductCard = ({ variant, title, price, images, location, _id, status }: CardProps) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -71,16 +71,16 @@ const ProductCard = ({ variant, title, price, images, location, _id }: CardProps
                   </Typography>
                 </>
               ) : null}
-              {variant === 'rentals' ? (
+              {variant !== 'home' ? (
                 <Typography
                   className={classes.marginTop}
                   color="textSecondary"
                   variant="h6"
                   component="p"
                 >
-                  Wypożyczone od:
+                  {variant === 'your' ? 'Status: ' : 'Wypożyczone od: '}
                   <Typography color="primary" variant="h6" component="span" noWrap>
-                    17.06.2021 12:25
+                    {variant === 'your' && status !== undefined ? status : '17.06.2021 12:25'}
                   </Typography>
                 </Typography>
               ) : null}

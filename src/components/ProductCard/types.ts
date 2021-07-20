@@ -8,4 +8,5 @@ export interface CardProps {
   price: number;
   categoryId: string;
   location: string;
+  status?: string;
 }
