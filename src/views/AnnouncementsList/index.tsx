@@ -53,7 +53,6 @@ const AnnoucementsList = () => {
           price={el.costs.day}
           _id={el.id}
           images={el.images}
-          categoryId={el.categoryId}
           location={el.location}
         />
       ))
