@@ -14,6 +14,7 @@ export interface CardProps {
   price: number;
   location: string;
   status?: Status;
+  categoryId: string;
 }
 
 export interface CardMenuProps {

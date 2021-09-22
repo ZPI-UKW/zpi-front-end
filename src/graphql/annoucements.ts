@@ -39,6 +39,7 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
       location
       categoryId {
         name
+        englishName
       }
       addedBy {
         _id

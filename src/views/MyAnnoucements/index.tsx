@@ -44,6 +44,7 @@ const MyAnnoucements = () => {
             images={el.images}
             location={el.location}
             status={Status['free']}
+            categoryId={el.categoryId}
           />
         ))}
       </CardsContainer>

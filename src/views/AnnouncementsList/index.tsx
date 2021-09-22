@@ -87,6 +87,7 @@ const AnnoucementsList = () => {
           _id={el.id}
           images={el.images}
           location={el.location}
+          categoryId={el.categoryId}
         />
       ))
     ) : (

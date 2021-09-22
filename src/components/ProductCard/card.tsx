@@ -7,10 +7,21 @@ import clsx from 'clsx';
 import { useStyles } from './styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMenu from './cardMenu';
+import { useCategoryContextState } from '../../context/category/categoryContext';
 
-const ProductCard = ({ variant, title, price, images, location, _id, status }: CardProps) => {
+const ProductCard = ({
+  variant,
+  title,
+  price,
+  images,
+  location,
+  _id,
+  status,
+  categoryId,
+}: CardProps) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { categories } = useCategoryContextState();
 
   const handleAnchor = (el: HTMLElement | null) => {
     setAnchorEl(el);
@@ -20,6 +31,8 @@ const ProductCard = ({ variant, title, price, images, location, _id, status }: C
     setAnchorEl(event.currentTarget);
     console.log(123);
   };
+
+  if (categories === null) return null;
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
@@ -36,7 +49,11 @@ const ProductCard = ({ variant, title, price, images, location, _id, status }: C
           </IconButton>
         ) : null}
         <CardMedia image={images[0]} className={classes.media} />
-        <Link to={`/category/examplecategory/${_id}`}>
+        <Link
+          to={`/category/${
+            categories.find((el) => (el as any).id === categoryId)?.englishName
+          }/${_id}`}
+        >
           <CardContent>
             <Typography
               color="primary"
