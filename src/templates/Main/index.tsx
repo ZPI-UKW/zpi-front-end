@@ -1,15 +1,14 @@
 import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from '@material-ui/styles';
+import { SnackbarProvider } from 'notistack';
 import MomentUtils from '@date-io/moment';
+import moment from 'moment';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import 'moment/locale/pl';
 import { AuthProvider } from '../../context/auth/authContext';
-import LocationProvider from '../../context/location/locationContext';
 import GlobalStyles from '../../theme/globalStyles';
 import theme from '../../theme/material-theme';
-import { SnackbarProvider } from 'notistack';
 import useStyles from './styles';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import moment from 'moment';
 import CategoryProvider from '../../context/category/categoryContext';
 import FetchTemplate from '../Fetch';
 
@@ -30,17 +29,15 @@ const MainTemplate = ({ children }: { children: React.ReactNode }) => {
       <GlobalStyles />
       <CategoryProvider>
         <AuthProvider>
-          <LocationProvider>
-            <FetchTemplate>
-              <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
-                <ThemeProvider theme={theme}>
-                  <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
-                    {children}
-                  </SnackbarProvider>
-                </ThemeProvider>
-              </MuiPickersUtilsProvider>
-            </FetchTemplate>
-          </LocationProvider>
+          <FetchTemplate>
+            <MuiPickersUtilsProvider utils={MomentUtils} locale={moment.locale('pl')}>
+              <ThemeProvider theme={theme}>
+                <SnackbarProvider className={classes.contentRoot} maxSnack={3}>
+                  {children}
+                </SnackbarProvider>
+              </ThemeProvider>
+            </MuiPickersUtilsProvider>
+          </FetchTemplate>
         </AuthProvider>
       </CategoryProvider>
     </ApolloProvider>

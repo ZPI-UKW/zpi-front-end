@@ -1,6 +1,5 @@
 import { FormikErrors } from 'formik';
 import { Area } from 'react-easy-crop/types';
-import { annoucements } from '../../../data/annoucements';
 import { Initial } from './types';
 
 export const initial: Initial = {
