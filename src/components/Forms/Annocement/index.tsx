@@ -6,7 +6,6 @@ import { useStyles } from './styles';
 import { Initial, QueryData, QueryVars, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { dataUrlToFile, initial } from './annoucement.util';
-import { useLocationContextState } from '../../../context/location/locationContext';
 import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
 import FileHandler from './annoucement.file';
@@ -24,32 +23,11 @@ const AnnoucementForm = () => {
   const classes = useStyles();
   const mode = pathname.includes('edit-advertisement');
   const [initialValues, setInitialValues] = useState<Initial>(initial);
-  const {
-    isMapLoaded,
-    isMapError,
-    autocomplete: { ready },
-  } = useLocationContextState();
   const { logout } = useAuthContextState();
 
   const [AnnoucementAction, { error, data, loading, called }] = useMutation<QueryData, QueryVars>(
     mode ? EDIT_ANNOUCEMENT : CREATE_ANNOUCEMENT
   );
-
-  if (isMapLoaded && !ready)
-    return (
-      <div className={classes.loaderWrapper}>
-        <CircularProgress />
-      </div>
-    );
-
-  if (isMapError)
-    return (
-      <div className={classes.loaderWrapper}>
-        <Typography variant="h3">
-          Wystąpił błąd podczas dodawania ogłoszenia. Spróbuj ponownie później.
-        </Typography>
-      </div>
-    );
 
   return (
     <Formik
