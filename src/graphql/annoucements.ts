@@ -64,3 +64,33 @@ export const RESERVATION = gql`
     }
   }
 `;
+
+export const GET_ANNOUCEMENTS_BY_CATEGORY = gql`
+  query MyAnnoucements($categoryId: String!, $search: String!) {
+    getAnnoucements(categoryId: $categoryId, search: $search) {
+      id
+      title
+      images
+      costs {
+        day
+      }
+      categoryId
+      location
+    }
+  }
+`;
+
+export const GET_ANNOUCEMENTS_BY_SEARCH = gql`
+  query MyAnnoucements($search: String!) {
+    getAnnoucements(search: $search) {
+      id
+      title
+      images
+      costs {
+        day
+      }
+      categoryId
+      location
+    }
+  }
+`;

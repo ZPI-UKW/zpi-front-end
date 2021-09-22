@@ -6,7 +6,6 @@ import { useStyles } from './styles';
 import { Initial, QueryData, QueryVars, RouteParams } from './types';
 import TextFields from './annoucement.textfields';
 import { dataUrlToFile, initial } from './annoucement.util';
-import { CircularProgress } from '@material-ui/core';
 import SpinnerButton from '../../SpinnerButton';
 import FileHandler from './annoucement.file';
 import AnnocementControl from './annoucement.control';

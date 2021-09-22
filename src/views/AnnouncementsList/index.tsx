@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import Card from '../../components/ProductCard/card';
-import { Annoucements, annoucements as ann } from '../../data/annoucements';
 import CardsContainer from '../../components/CardsContainer';
 import ViewTitle from '../../components/ViewTitle';
 import ViewContainer from '../../components/ViewContainer';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import {
   AppBar,
   Breadcrumbs,
@@ -19,21 +18,55 @@ import useStyles from './styles';
 import queryString from 'query-string';
 import Search from '../../components/Search';
 import { ReactComponent as Illustration } from '../../assets/undraw_searching_p5ux.svg';
+import { useLazyQuery } from '@apollo/client';
+import { GET_ANNOUCEMENTS_BY_CATEGORY } from '../../graphql/annoucements';
+import { AnnList, Params, QueryData, QueryVars } from './types';
+import ErrorMessage from '../../components/ErrorMessage';
+import { useCategoryContextState } from '../../context/category/categoryContext';
 
 const AnnoucementsList = () => {
-  const [annoucements, setAnnoucements] = useState<Annoucements[] | null>(null);
+  const [annoucements, setAnnoucements] = useState<AnnList[] | null>(null);
   const location = useLocation();
   const classes = useStyles();
   const pathnames = location.pathname.split('/').filter((x) => x);
   const searchParam = location.search ? queryString.parse(location.search).q : '';
+  const { categoryName } = useParams<Params>();
+  const { categories } = useCategoryContextState();
+  const [loadAnnoucements, { data, error, loading }] = useLazyQuery<QueryData, QueryVars>(
+    GET_ANNOUCEMENTS_BY_CATEGORY
+  );
 
   useEffect(() => {
-    const filtered = ann.filter((item) => item.title.includes(searchParam));
-    setTimeout(() => setAnnoucements(filtered), 2000);
-    return () => {
-      setAnnoucements(null);
-    };
-  }, [searchParam]);
+    if (categories !== null && !searchParam)
+      loadAnnoucements({
+        variables: {
+          categoryId: (categories.find((el) => el.englishName === categoryName) as any).id,
+          search: '',
+        },
+      });
+    else if (searchParam)
+      loadAnnoucements({
+        variables: {
+          categoryId: '',
+          search: searchParam,
+        },
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categories, categoryName, searchParam]);
+
+  useEffect(() => {
+    if (data !== undefined) setAnnoucements(data.getAnnoucements);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error) return <ErrorMessage>Wystąpił nieznany błąd.</ErrorMessage>;
 
   const renderSearch = (search: string): string => {
     return ` - ${search}`;
@@ -43,7 +76,7 @@ const AnnoucementsList = () => {
     return index === size && search !== '';
   };
 
-  const renderCards = (annoucements: Annoucements[]): JSX.Element[] | JSX.Element => {
+  const renderCards = (annoucements: AnnList[]): JSX.Element[] | JSX.Element => {
     return annoucements.length ? (
       annoucements.map((el) => (
         <Card
@@ -81,7 +114,7 @@ const AnnoucementsList = () => {
             </Link>
             {pathnames &&
               pathnames.map((path, index) => (
-                <span>
+                <span key={path}>
                   {path}
                   {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
                     renderSearch(searchParam)}
