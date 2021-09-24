@@ -91,7 +91,7 @@ const AnnoucementsList = () => {
         />
       ))
     ) : (
-      <Box>
+      <Box className={classes.box}>
         <Illustration className={classes.illustration} />
         <Typography component="p" variant="h4" align="center">
           Przepraszamy, nie udało się wyszukać podanej frazy.
@@ -114,13 +114,22 @@ const AnnoucementsList = () => {
               <Home />
             </Link>
             {pathnames &&
-              pathnames.map((path, index) => (
-                <span key={path}>
-                  {path}
-                  {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
-                    renderSearch(searchParam)}
-                </span>
-              ))}
+              pathnames.slice(pathnames[1] === 'category' ? 1 : 0).map((path, index) => {
+                let currentElement = path;
+                const find = categories?.find((category) => category.englishName === path);
+
+                if (find !== undefined) currentElement = find.name;
+                if (path === 'search') currentElement = 'fraza';
+                if (path === 'category') currentElement = 'kategoria';
+
+                return (
+                  <span key={path}>
+                    {currentElement}
+                    {ifRenderSearch(index, pathnames.length - 1, searchParam) &&
+                      renderSearch(searchParam)}
+                  </span>
+                );
+              })}
           </Breadcrumbs>
           <ViewTitle>Wyniki wyszukiwania</ViewTitle>
           <CardsContainer>

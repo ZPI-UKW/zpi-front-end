@@ -21,6 +21,15 @@ const useStyles = makeStyles((theme) => ({
   illustration: {
     width: '100%',
     height: '100%',
+    maxWidth: 400,
+    maxHeight: 400,
+    margin: '100px 0',
+  },
+  box: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   wrapper: {
     width: '100%',
