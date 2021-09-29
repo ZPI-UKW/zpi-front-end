@@ -70,7 +70,7 @@ const AnnoucementForm = () => {
           };
 
           if (mode) dataToSend.id = addId;
-          else dataToSend.category = '60ac10284fc6210a77f00076';
+          else dataToSend.category = values?.categoryId?.id;
 
           await AnnoucementAction({
             variables: {
