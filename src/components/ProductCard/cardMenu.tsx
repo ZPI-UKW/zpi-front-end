@@ -1,15 +1,38 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import { CardMenuProps, Status } from './types';
+import { CardMenuProps, QueryDataDelete, QueryVarsDelete, Status } from './types';
 import { useStyles } from './styles';
 import { useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import DataControl from '../DataControl';
+import { CANCEL_RESERVATION } from '../../graphql/reservations';
 
-const CardMenu = ({ variant, handleAnchor, anchorEl, _id, status }: CardMenuProps) => {
+const CardMenu = ({
+  variant,
+  handleAnchor,
+  anchorEl,
+  _id,
+  status,
+  reservationId,
+  handleLoad,
+}: CardMenuProps) => {
   const open = Boolean(anchorEl);
   const classes = useStyles();
   const history = useHistory();
 
-  const handleClose = () => {
-    handleAnchor(null);
+  const [CancelReservation, { error, data, loading, called }] = useMutation<
+    QueryDataDelete,
+    QueryVarsDelete
+  >(CANCEL_RESERVATION);
+
+  const handleClose = async () => handleAnchor(null);
+
+  const handleCancel = async () => {
+    if (reservationId !== undefined)
+      await CancelReservation({
+        variables: {
+          reservationId,
+        },
+      });
   };
 
   const handleIconButton = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -28,19 +51,29 @@ const CardMenu = ({ variant, handleAnchor, anchorEl, _id, status }: CardMenuProp
         className: classes.listElement,
       }}
     >
-      {variant === 'rentals' ? <MenuItem onClick={handleClose}>Anuluj</MenuItem> : null}
+      {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
       {variant === 'your' ? (
-        <>
+        <div>
           <MenuItem onClick={handleClose}>Usuń</MenuItem>
           <MenuItem onClick={handleIconButton}>Edytuj</MenuItem>
-          {status === Status.reserved ? (
-            <MenuItem onClick={handleClose}>Zatwierdź rezerwację</MenuItem>
+          {status === Status['not free'] ? (
+            <MenuItem onClick={handleClose}>Zakończ</MenuItem>
           ) : null}
-          {status === Status.issued ? (
-            <MenuItem onClick={handleClose}>Zakończ rezerwację</MenuItem>
-          ) : null}
-        </>
+        </div>
       ) : null}
+      <DataControl
+        data={data}
+        error={error}
+        loading={loading}
+        called={called}
+        successMsg="Rezerwacja anulowana."
+        onSuccess={() => {
+          if (handleLoad !== undefined) {
+            console.log(123);
+            handleLoad();
+          }
+        }}
+      />
     </Menu>
   );
 };

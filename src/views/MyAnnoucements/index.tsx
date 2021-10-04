@@ -30,7 +30,6 @@ const MyAnnoucements = () => {
 
   return (
     <ViewContainer>
-      {console.log(data, loading)}
       <ViewTitle>Moje ogłoszenia</ViewTitle>
       <CardsContainer>
         {!matches && <AddAnnoucementButton />}
@@ -43,7 +42,7 @@ const MyAnnoucements = () => {
             _id={el.id}
             images={el.images}
             location={el.location}
-            status={Status['free']}
+            status={Status[el.status]}
             categoryId={el.categoryId}
           />
         ))}

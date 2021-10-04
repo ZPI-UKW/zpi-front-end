@@ -67,10 +67,13 @@ const AnnoucementForm = () => {
             week: parseFloat(values.costs.week.toString()),
             month: parseFloat(values.costs.month.toString()),
             images: imagesUrl,
+            phone: values.phonenumber,
           };
 
           if (mode) dataToSend.id = addId;
-          else dataToSend.category = values?.categoryId?.id;
+          else dataToSend.category = values?.categoryId;
+
+          console.log(dataToSend, values);
 
           await AnnoucementAction({
             variables: {

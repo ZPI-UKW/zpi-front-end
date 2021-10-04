@@ -23,8 +23,6 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
       phonenumber,
     };
 
-    console.log(user);
-
     if (pathname === '/create-advertisement') {
       setInitialValues({
         ...initialValues,
@@ -35,7 +33,8 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
       GetAnnoucement({ variables: { id: addId } });
 
       if (!error && data?.getAnnoucement) {
-        const { title, description, costs, location, email, phone, images } = data.getAnnoucement;
+        const { title, description, costs, location, email, phonenumber, images } =
+          data.getAnnoucement;
 
         setInitialValues({
           ...user,
@@ -44,7 +43,7 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
           costs,
           location,
           email,
-          phone,
+          phonenumber,
           images,
         });
       }

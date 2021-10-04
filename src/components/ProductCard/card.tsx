@@ -18,6 +18,8 @@ const ProductCard = ({
   _id,
   status,
   categoryId,
+  reservationId,
+  handleLoad,
 }: CardProps) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,7 +31,6 @@ const ProductCard = ({
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-    console.log(123);
   };
 
   if (categories === null) return null;
@@ -48,7 +49,7 @@ const ProductCard = ({
             <MoreVertIcon />
           </IconButton>
         ) : null}
-        <CardMedia image={images[0]} className={classes.media} />
+        <CardMedia component="div" image={images[0]} className={classes.media} />
         <Link
           to={`/category/${
             categories.find((el) => (el as any).id === categoryId)?.englishName
@@ -109,6 +110,8 @@ const ProductCard = ({
           variant={variant}
           _id={_id}
           status={status || Status.free}
+          reservationId={reservationId}
+          handleLoad={handleLoad}
         />
       </Card>
     </Grid>

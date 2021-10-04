@@ -11,6 +11,7 @@ export const MY_ANNOUCEMENTS = gql`
       }
       categoryId
       location
+      status
     }
   }
 `;
@@ -26,6 +27,7 @@ export const MY_RESERVETIONS = gql`
       }
       categoryId
       location
+      reservationId
     }
   }
 `;
