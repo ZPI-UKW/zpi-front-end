@@ -1,9 +1,8 @@
 type Variant = 'home' | 'rentals' | 'your';
 
 export enum Status {
-  reserved = 'zarezerwowane',
+  'not free' = 'zarezerwowane',
   free = 'wolne',
-  issued = 'wydane',
 }
 
 export interface CardProps {
@@ -14,6 +13,9 @@ export interface CardProps {
   price: number;
   location: string;
   status?: Status;
+  categoryId: string;
+  reservationId?: string;
+  handleLoad?: () => void;
 }
 
 export interface CardMenuProps {
@@ -22,4 +24,18 @@ export interface CardMenuProps {
   anchorEl: HTMLElement | null;
   _id: string;
   status: Status;
+  reservationId?: string;
+  handleLoad?: () => void;
+}
+
+export interface QueryDataCancel {}
+
+export interface QueryVarsCancel {
+  reservationId: string;
+}
+
+export interface QueryDataDelete {}
+
+export interface QueryVarsDelete {
+  annoucementId: string;
 }

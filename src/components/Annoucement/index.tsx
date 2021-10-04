@@ -33,14 +33,17 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
           &nbsp;{'>'}&nbsp;
           <Link
             className={clsx(classes.link, classes.hoveredLink)}
-            to={`/search/category/${annoucement.categoryId.name}`}
+            to={`/search/category/${annoucement.categoryId.englishName}`}
           >
             <span className={classes.capitalize}>{annoucement.categoryId.name}</span>
           </Link>
         </Typography>
       </Hidden>
       <div className={classes.titleContainer}>
-        <Link className={classes.link} to="/category/examplecategory">
+        <Link
+          className={classes.link}
+          to={`/search/category/${annoucement.categoryId.englishName}`}
+        >
           <ArrowBackIosIcon width={1} />
         </Link>
         <Hidden xsDown>

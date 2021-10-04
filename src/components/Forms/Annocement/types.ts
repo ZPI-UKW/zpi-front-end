@@ -33,7 +33,7 @@ export interface QueryDataGetAnn {
     title: string;
     description: string;
     location: string;
-    phone: string;
+    phonenumber: string;
     email: string;
     costs: {
       day: number;
@@ -47,10 +47,10 @@ export interface QueryDataGetAnn {
 export interface Initial {
   title: string;
   location: string;
-  phone: string;
+  phonenumber: string;
   email: string;
   description: string;
-  categoryId?: { id: string };
+  categoryId?: '';
   costs: {
     day: number;
     week: number;

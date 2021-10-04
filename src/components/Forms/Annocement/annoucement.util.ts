@@ -1,15 +1,14 @@
 import { FormikErrors } from 'formik';
 import { Area } from 'react-easy-crop/types';
-import { annoucements } from '../../../data/annoucements';
 import { Initial } from './types';
 
 export const initial: Initial = {
   title: '',
   location: '',
-  phone: '',
+  phonenumber: '',
   email: '',
   description: '',
-  categoryId: { id: '' },
+  categoryId: '',
   costs: {
     day: 0,
     week: 0,

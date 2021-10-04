@@ -1,6 +1,5 @@
 import { Field, useFormikContext } from 'formik';
 import { useCategoryContextState } from '../../../context/category/categoryContext';
-import Location from './annoucement.location';
 import { StyledAutocomplete, StyledTextField } from './styles';
 import { FieldsProps, Initial } from './types';
 import MaskedInput from '../../CustomControls/masked.control';
@@ -21,7 +20,14 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
         error={touched.title && Boolean(errors.title)}
         helperText={touched.title && errors.title}
       />
-      <Location />
+      <Field
+        variant={variant}
+        label="Lokalizacja"
+        name="location"
+        as={StyledTextField}
+        error={touched.location && Boolean(errors.location)}
+        helperText={touched.location && errors.location}
+      />
       <MaskedInput
         type="tel"
         name="phonenumber"

@@ -12,14 +12,15 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
   const { pathname } = useLocation();
   const params = useParams<RouteParams>();
   const history = useHistory();
-  const [GetAnnoucement, { data, error }] =
-    useLazyQuery<QueryDataGetAnn, QueryVarsGetAnn>(GET_ANNOUCEMENT_BY_ID);
+  const [GetAnnoucement, { data, error }] = useLazyQuery<QueryDataGetAnn, QueryVarsGetAnn>(
+    GET_ANNOUCEMENT_BY_ID
+  );
 
   useEffect(() => {
     const user = {
       email,
       name,
-      phone: phonenumber,
+      phonenumber,
     };
 
     if (pathname === '/create-advertisement') {
@@ -32,7 +33,8 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
       GetAnnoucement({ variables: { id: addId } });
 
       if (!error && data?.getAnnoucement) {
-        const { title, description, costs, location, email, phone, images } = data.getAnnoucement;
+        const { title, description, costs, location, email, phonenumber, images } =
+          data.getAnnoucement;
 
         setInitialValues({
           ...user,
@@ -41,7 +43,7 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
           costs,
           location,
           email,
-          phone,
+          phonenumber,
           images,
         });
       }

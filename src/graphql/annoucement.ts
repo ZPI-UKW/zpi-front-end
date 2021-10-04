@@ -82,3 +82,9 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
     }
   }
 `;
+
+export const DELETE_ANNOUCEMENT = gql`
+  mutation DeleteAnnoucement($annoucementId: ID!) {
+    deleteAnnoucement(annoucementId: $annoucementId)
+  }
+`;

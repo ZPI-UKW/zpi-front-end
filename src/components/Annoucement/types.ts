@@ -8,8 +8,8 @@ export interface AnnoucementProps {
     };
     location: string;
     categoryId: {
-      id: string;
       name: string;
+      englishName: string;
     };
     phone: string;
     email: string;

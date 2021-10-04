@@ -11,6 +11,7 @@ export const MY_ANNOUCEMENTS = gql`
       }
       categoryId
       location
+      status
     }
   }
 `;
@@ -26,6 +27,7 @@ export const MY_RESERVETIONS = gql`
       }
       categoryId
       location
+      reservationId
     }
   }
 `;
@@ -39,6 +41,7 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
       location
       categoryId {
         name
+        englishName
       }
       addedBy {
         _id
@@ -61,6 +64,36 @@ export const RESERVATION = gql`
       reservationInput: { startAt: $startAt, endAt: $endAt, annoucementId: $annoucementId }
     ) {
       id
+    }
+  }
+`;
+
+export const GET_ANNOUCEMENTS_BY_CATEGORY = gql`
+  query MyAnnoucements($categoryId: String!, $search: String!) {
+    getAnnoucements(categoryId: $categoryId, search: $search) {
+      id
+      title
+      images
+      costs {
+        day
+      }
+      categoryId
+      location
+    }
+  }
+`;
+
+export const GET_ANNOUCEMENTS_BY_SEARCH = gql`
+  query MyAnnoucements($search: String!) {
+    getAnnoucements(search: $search) {
+      id
+      title
+      images
+      costs {
+        day
+      }
+      categoryId
+      location
     }
   }
 `;
