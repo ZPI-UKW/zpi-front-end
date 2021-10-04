@@ -8,11 +8,10 @@ import { useLazyQuery } from '@apollo/client';
 import { useAuthContextState } from '../../context/auth/authContext';
 import { QueryData, QueryVars } from './types';
 import { MY_RESERVETIONS } from '../../graphql/annoucements';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const MyRentals = () => {
   const { userInfo } = useAuthContextState();
-  const [rentals, setRentals] = useState<QueryData | undefined>(undefined);
   const [loadRentals, { data, error, loading }] = useLazyQuery<QueryData, QueryVars>(
     MY_RESERVETIONS,
     { fetchPolicy: 'no-cache' }
@@ -23,12 +22,6 @@ const MyRentals = () => {
   useEffect(() => {
     handleLoad();
   }, []);
-
-  useEffect(() => {
-    if (data !== undefined) setRentals(data);
-  }, [data]);
-
-  console.log(data);
 
   if (loading)
     return (
@@ -43,8 +36,8 @@ const MyRentals = () => {
     <ViewContainer>
       <ViewTitle>Moje wypożyczenia</ViewTitle>
       <CardsContainer>
-        {rentals?.getAnnoucements && rentals?.getAnnoucements.length > 0 ? (
-          rentals?.getAnnoucements.map((el) => (
+        {data?.getAnnoucements && data?.getAnnoucements.length > 0 ? (
+          data?.getAnnoucements.map((el) => (
             <Card
               variant="rentals"
               key={el.id}

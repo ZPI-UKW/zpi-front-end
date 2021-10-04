@@ -1,10 +1,17 @@
 import { Menu, MenuItem } from '@material-ui/core';
-import { CardMenuProps, QueryDataDelete, QueryVarsDelete, Status } from './types';
+import {
+  CardMenuProps,
+  QueryDataCancel,
+  QueryDataDelete,
+  QueryVarsCancel,
+  QueryVarsDelete,
+} from './types';
 import { useStyles } from './styles';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import DataControl from '../DataControl';
 import { CANCEL_RESERVATION } from '../../graphql/reservations';
+import { DELETE_ANNOUCEMENT } from '../../graphql/annoucement';
 
 const CardMenu = ({
   variant,
@@ -20,9 +27,14 @@ const CardMenu = ({
   const history = useHistory();
 
   const [CancelReservation, { error, data, loading, called }] = useMutation<
-    QueryDataDelete,
-    QueryVarsDelete
+    QueryDataCancel,
+    QueryVarsCancel
   >(CANCEL_RESERVATION);
+
+  const [
+    DeleteAnnoucement,
+    { error: deleteErr, data: deleteData, loading: deleteLoa, called: deleteCal },
+  ] = useMutation<QueryDataDelete, QueryVarsDelete>(DELETE_ANNOUCEMENT);
 
   const handleClose = async () => handleAnchor(null);
 
@@ -31,6 +43,15 @@ const CardMenu = ({
       await CancelReservation({
         variables: {
           reservationId,
+        },
+      });
+  };
+
+  const handleDelete = async () => {
+    if (_id !== undefined)
+      await DeleteAnnoucement({
+        variables: {
+          annoucementId: _id,
         },
       });
   };
@@ -54,11 +75,8 @@ const CardMenu = ({
       {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
       {variant === 'your' ? (
         <div>
-          <MenuItem onClick={handleClose}>Usuń</MenuItem>
+          <MenuItem onClick={handleDelete}>Usuń</MenuItem>
           <MenuItem onClick={handleIconButton}>Edytuj</MenuItem>
-          {status === Status['not free'] ? (
-            <MenuItem onClick={handleClose}>Zakończ</MenuItem>
-          ) : null}
         </div>
       ) : null}
       <DataControl
@@ -68,10 +86,17 @@ const CardMenu = ({
         called={called}
         successMsg="Rezerwacja anulowana."
         onSuccess={() => {
-          if (handleLoad !== undefined) {
-            console.log(123);
-            handleLoad();
-          }
+          if (handleLoad !== undefined) handleLoad();
+        }}
+      />
+      <DataControl
+        data={deleteData}
+        error={deleteErr}
+        loading={deleteLoa}
+        called={deleteCal}
+        successMsg="Ogłoszenie usunięte."
+        onSuccess={() => {
+          if (handleLoad !== undefined) handleLoad();
         }}
       />
     </Menu>

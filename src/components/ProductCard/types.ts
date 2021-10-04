@@ -28,8 +28,14 @@ export interface CardMenuProps {
   handleLoad?: () => void;
 }
 
+export interface QueryDataCancel {}
+
+export interface QueryVarsCancel {
+  reservationId: string;
+}
+
 export interface QueryDataDelete {}
 
 export interface QueryVarsDelete {
-  reservationId: string;
+  annoucementId: string;
 }

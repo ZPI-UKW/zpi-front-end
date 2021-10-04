@@ -4,20 +4,27 @@ import ViewTitle from '../../components/ViewTitle';
 import ViewContainer from '../../components/ViewContainer';
 import { Box, CircularProgress, useMediaQuery, useTheme } from '@material-ui/core';
 import AddAnnoucementButton from '../../components/AddAnnouncementBtn';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { MY_ANNOUCEMENTS } from '../../graphql/annoucements';
 import { useAuthContextState } from '../../context/auth/authContext';
 import { QueryData, QueryVars } from './types';
 import ErrorMessage from '../../components/ErrorMessage';
 import { Status } from '../../components/ProductCard/types';
+import { useEffect } from 'react';
 
 const MyAnnoucements = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
   const { userInfo } = useAuthContextState();
-  const { data, error, loading } = useQuery<QueryData, QueryVars>(MY_ANNOUCEMENTS, {
-    variables: { addedBy: userInfo._id },
+  const [loadAnn, { data, error, loading }] = useLazyQuery<QueryData, QueryVars>(MY_ANNOUCEMENTS, {
+    fetchPolicy: 'no-cache',
   });
+
+  const handleLoad = () => loadAnn({ variables: { addedBy: userInfo._id } });
+
+  useEffect(() => {
+    handleLoad();
+  }, []);
 
   if (loading)
     return (
@@ -44,6 +51,7 @@ const MyAnnoucements = () => {
             location={el.location}
             status={Status[el.status]}
             categoryId={el.categoryId}
+            handleLoad={handleLoad}
           />
         ))}
       </CardsContainer>

@@ -73,8 +73,6 @@ const AnnoucementForm = () => {
           if (mode) dataToSend.id = addId;
           else dataToSend.category = values?.categoryId;
 
-          console.log(dataToSend, values);
-
           await AnnoucementAction({
             variables: {
               ...dataToSend,
