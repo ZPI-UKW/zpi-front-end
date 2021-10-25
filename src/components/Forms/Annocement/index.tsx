@@ -48,7 +48,7 @@ const AnnoucementForm = () => {
               }
             }
 
-            const res = await fetch('http://localhost:8080/add-images', {
+            const res = await fetch(`${process.env.REACT_APP_BACK_END_URL}/add-images`, {
               method: 'PUT',
               body: formData,
               credentials: 'include',
@@ -56,7 +56,7 @@ const AnnoucementForm = () => {
 
             const data = await res.json();
             const links = (data.files as string[]).map(
-              (el) => process.env.REACT_APP_SERVER_PATH + el
+              (el) => `${process.env.REACT_APP_BACK_END_URL}/${el}`
             );
             imagesUrl = [...existingImg, ...links];
           }
