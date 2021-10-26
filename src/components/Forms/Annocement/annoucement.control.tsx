@@ -33,8 +33,16 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
       GetAnnoucement({ variables: { id: addId } });
 
       if (!error && data?.getAnnoucement) {
-        const { title, description, costs, location, email, phonenumber, images } =
-          data.getAnnoucement;
+        const {
+          title,
+          description,
+          costs,
+          location,
+          email,
+          phone,
+          images,
+          categoryId: { id: getId },
+        } = data.getAnnoucement;
 
         setInitialValues({
           ...user,
@@ -43,8 +51,9 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
           costs,
           location,
           email,
-          phonenumber,
+          phonenumber: phone,
           images,
+          categoryId: getId,
         });
       }
 

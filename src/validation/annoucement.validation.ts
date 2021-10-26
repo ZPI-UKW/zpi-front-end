@@ -14,7 +14,7 @@ export const AnnoucementActionSchema = Yup.object().shape({
   email: emailValidation,
   description: stringValidation.max(200, 'Maksymalnie ${max} znaków'),
   phonenumber: phonenumberValidation,
-  categoryId: Yup.string().required(requiredMsg),
+  categoryId: Yup.string().required(requiredMsg).typeError('Invalid value'),
   costs: Yup.object().shape({
     day: numberValidation,
     week: numberValidation,

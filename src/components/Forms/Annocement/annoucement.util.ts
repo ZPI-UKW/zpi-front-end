@@ -8,7 +8,7 @@ export const initial: Initial = {
   phonenumber: '',
   email: '',
   description: '',
-  categoryId: '',
+  categoryId: undefined,
   costs: {
     day: 0,
     week: 0,

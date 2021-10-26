@@ -78,16 +78,16 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
       />
       <StyledAutocomplete
         options={categories || []}
-        getOptionLabel={(option) => (option as { id: string; name: string }).name}
+        getOptionLabel={(option) => (option as { id: string; name: string })?.name}
         onChange={(_, value) =>
-          setFieldValue('categoryId', (value as { id: string; name: string }).id)
+          setFieldValue('categoryId', (value as { id: string; name: string })?.id || null)
         }
         renderInput={(params) => (
           <StyledTextField
             {...params}
+            value={values.categoryId}
             name="categoryId"
             label="Wybierz kategorie"
-            value={values.categoryId}
             error={touched.categoryId && Boolean(errors.categoryId)}
             helperText={touched.categoryId && errors.categoryId}
           />

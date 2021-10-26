@@ -33,7 +33,7 @@ export interface QueryDataGetAnn {
     title: string;
     description: string;
     location: string;
-    phonenumber: string;
+    phone: string;
     email: string;
     costs: {
       day: number;
@@ -41,6 +41,10 @@ export interface QueryDataGetAnn {
       month: number;
     };
     images: string[];
+    categoryId: {
+      id: string;
+      name: string;
+    };
   };
 }
 
@@ -50,7 +54,7 @@ export interface Initial {
   phonenumber: string;
   email: string;
   description: string;
-  categoryId?: '';
+  categoryId?: string;
   costs: {
     day: number;
     week: number;
