@@ -88,6 +88,8 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
             name="categoryId"
             label="Wybierz kategorie"
             value={values.categoryId}
+            error={touched.categoryId && Boolean(errors.categoryId)}
+            helperText={touched.categoryId && errors.categoryId}
           />
         )}
       />

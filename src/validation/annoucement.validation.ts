@@ -4,6 +4,7 @@ import {
   emailValidation,
   numberValidation,
   phonenumberValidation,
+  requiredMsg,
   stringValidation,
 } from './shared.validation';
 
@@ -13,6 +14,7 @@ export const AnnoucementActionSchema = Yup.object().shape({
   email: emailValidation,
   description: stringValidation.max(200, 'Maksymalnie ${max} znaków'),
   phonenumber: phonenumberValidation,
+  categoryId: Yup.string().required(requiredMsg),
   costs: Yup.object().shape({
     day: numberValidation,
     week: numberValidation,
