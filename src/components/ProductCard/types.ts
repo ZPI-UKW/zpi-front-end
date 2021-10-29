@@ -15,6 +15,7 @@ export interface CardProps {
   status?: Status;
   categoryId: string;
   reservationId?: string;
+  startAt?: string;
   handleLoad?: () => void;
 }
 

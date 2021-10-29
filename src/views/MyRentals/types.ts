@@ -8,7 +8,8 @@ export interface QueryData {
     };
     categoryId: string;
     location: string;
-    reservationId?: string;
+    reservationId: string;
+    startAt: string;
   }[];
 }
 
