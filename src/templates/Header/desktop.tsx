@@ -59,6 +59,13 @@ const DesktopContent = ({ handleDialogOpen, logout }: NavigationProps) => {
           </Typography>
         </Link>
         <div>
+          {!isAuthenticated() ? (
+            <Link to="/statute">
+              <Button variant="outlined" className={clsx(classes.button, classes.secondaryBtn)}>
+                Regulamin
+              </Button>
+            </Link>
+          ) : null}
           <Link to="/create-advertisement">
             <Button variant="outlined" className={clsx(classes.button, classes.secondaryBtn)}>
               Dodaj ogłoszenie

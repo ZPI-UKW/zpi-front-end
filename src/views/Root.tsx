@@ -34,9 +34,9 @@ const Root = () => (
           <AuthRoute path="/my-rentals">
             <MyRentals />
           </AuthRoute>
-          <AuthRoute path="/statute">
+          <Route path="/statute">
             <Statute />
-          </AuthRoute>
+          </Route>
           <Route exact path={['/search', '/search/category/:categoryName']}>
             <AnnoucementsList />
           </Route>

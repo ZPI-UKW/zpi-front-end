@@ -36,6 +36,9 @@ const Navigation = ({ type = 'desktop', anchorEl, setAnchorEl, logoutFun }: Navi
       <Link to="/my-rentals">
         <MenuItem onClick={handleClose}>Wypożyczone przedmioty</MenuItem>
       </Link>
+      <Link to="/statute">
+        <MenuItem onClick={handleClose}>Regulamin</MenuItem>
+      </Link>
       {type === 'desktop' ? (
         <Link to="/profile">
           <MenuItem onClick={handleClose}>Edytuj profil</MenuItem>

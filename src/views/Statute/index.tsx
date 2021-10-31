@@ -9,7 +9,7 @@ const Statute = () => {
   return (
     <ViewContainer>
       <ViewTitle>Regulamin serwisu</ViewTitle>
-      <Typography variant="body1" className={classes.text} gutterBottom>
+      <Typography variant="body1" className={classes.text}>
         Usługodawca nie ponosi odpowiedzialności za zachowania Użytkowników w ramach aplikacji Rento
         ani za nienależyte wykonanie bądź niewykonanie umów zawartych przez Użytkowników z
         Ogłoszeniodawcami, jak również za następstwa działań podjętych przez Użytkowników oraz osoby
