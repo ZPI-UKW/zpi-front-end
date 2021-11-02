@@ -28,6 +28,7 @@ export const MY_RESERVETIONS = gql`
       categoryId
       location
       reservationId
+      startAt
     }
   }
 `;

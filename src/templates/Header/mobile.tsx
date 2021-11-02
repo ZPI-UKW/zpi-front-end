@@ -62,7 +62,7 @@ const MobileContent = ({ handleDialogOpen, logout }: NavigationProps) => {
           </IconButton>
         </Link>
         {isAuthenticated() ? (
-          <Link to="/create-advertisement" className={classes.link}>
+          <Link to="/profile" className={classes.link}>
             <IconButton
               classes={{ label: classes.iconButtonLabel, root: classes.iconButton }}
               aria-label="Przejdź do profilu"

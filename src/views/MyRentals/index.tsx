@@ -49,6 +49,7 @@ const MyRentals = () => {
               location={el.location}
               categoryId={el.categoryId}
               reservationId={el.reservationId}
+              startAt={el.startAt}
               handleLoad={handleLoad}
             />
           ))

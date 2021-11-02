@@ -15,8 +15,9 @@ const ChangePassword = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
   const { logout } = useAuthContextState();
-  const [ChangePassword, { error, data, loading, called }] =
-    useMutation<QueryData, QueryVars>(CHANGE_PASSWORD);
+  const [ChangePassword, { error, data, loading, called }] = useMutation<QueryData, QueryVars>(
+    CHANGE_PASSWORD
+  );
 
   return (
     <Formik
@@ -38,7 +39,7 @@ const ChangePassword = () => {
                 Zmień hasło
               </Typography>
             </Grid>
-            <Grid item container xs={12} sm={6} justify="center">
+            <Grid item container xs={12} sm={6}>
               <Field
                 name="currentPassword"
                 label="Nowe hasło"
@@ -47,7 +48,7 @@ const ChangePassword = () => {
                 as={PasswordField}
               />
             </Grid>
-            <Grid item container xs={12} sm={6} justify="center">
+            <Grid item container xs={12} sm={6}>
               <Field
                 name="newPassword"
                 label="Stare hasło"
@@ -56,7 +57,7 @@ const ChangePassword = () => {
                 as={PasswordField}
               />
             </Grid>
-            <Grid item container={matches} xs={12} justify="center">
+            <Grid item container={matches} xs={12}>
               <SpinnerButton
                 wrapperClassName={classes.wrapper}
                 variant="contained"

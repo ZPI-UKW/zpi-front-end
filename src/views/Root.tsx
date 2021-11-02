@@ -9,6 +9,7 @@ import AnnoucementsList from './AnnouncementsList';
 import Product from './Product';
 import Profile from './Profile';
 import AuthRoute from '../components/AuthRoute';
+import Statute from './Statute';
 
 const Root = () => (
   <Router>
@@ -33,6 +34,9 @@ const Root = () => (
           <AuthRoute path="/my-rentals">
             <MyRentals />
           </AuthRoute>
+          <Route path="/statute">
+            <Statute />
+          </Route>
           <Route exact path={['/search', '/search/category/:categoryName']}>
             <AnnoucementsList />
           </Route>

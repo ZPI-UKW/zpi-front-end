@@ -16,8 +16,9 @@ const ChangeUserData = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('xs'));
   const { userInfo, setAuthInfo, logout } = useAuthContextState();
-  const [ChangeUserData, { error, data, loading, called }] =
-    useMutation<QueryData, QueryVars>(CHANGE_USER_DATA);
+  const [ChangeUserData, { error, data, loading, called }] = useMutation<QueryData, QueryVars>(
+    CHANGE_USER_DATA
+  );
 
   return (
     <Formik
@@ -39,7 +40,7 @@ const ChangeUserData = () => {
                 Dane
               </Typography>
             </Grid>
-            <Grid item container xs={12} sm={6} direction="column" alignItems="center">
+            <Grid item container xs={12} sm={6} direction="column">
               <Field
                 name="name"
                 as={StyledTextField}
@@ -55,7 +56,7 @@ const ChangeUserData = () => {
                 helperText={touched.lastname && errors.lastname}
               />
             </Grid>
-            <Grid item container xs={12} sm={6} direction="column" alignItems="center">
+            <Grid item container xs={12} sm={6} direction="column">
               <Field
                 name="email"
                 as={StyledTextField}
@@ -71,7 +72,7 @@ const ChangeUserData = () => {
                 helperText={touched.phonenumber && errors.phonenumber}
               />
             </Grid>
-            <Grid item container={matches} xs={12} alignItems="flex-start">
+            <Grid item container={matches} xs={12}>
               <SpinnerButton
                 wrapperClassName={classes.wrapper}
                 variant="contained"

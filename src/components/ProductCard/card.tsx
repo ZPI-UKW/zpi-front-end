@@ -8,6 +8,7 @@ import { useStyles } from './styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardMenu from './cardMenu';
 import { useCategoryContextState } from '../../context/category/categoryContext';
+import moment from 'moment';
 
 const ProductCard = ({
   variant,
@@ -19,6 +20,7 @@ const ProductCard = ({
   status,
   categoryId,
   reservationId,
+  startAt,
   handleLoad,
 }: CardProps) => {
   const classes = useStyles();
@@ -98,7 +100,9 @@ const ProductCard = ({
               >
                 {variant === 'your' ? 'Status: ' : 'Wypożyczone od: '}
                 <Typography color="primary" variant="h6" component="span" noWrap>
-                  {variant === 'your' && status !== undefined ? status : '17.06.2021 12:25'}
+                  {variant === 'your' && status !== undefined
+                    ? status
+                    : moment(startAt).format('DD-MM-YY')}
                 </Typography>
               </Typography>
             ) : null}
