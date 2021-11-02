@@ -24,7 +24,6 @@ const ChangeUserData = () => {
     <Formik
       initialValues={{ ..._.omit(userInfo, '_id') }}
       onSubmit={async (values) => {
-        console.log(values);
         try {
           await ChangeUserData({
             variables: { ...values },
