@@ -40,6 +40,7 @@ export interface QueryDataGetAnn {
       week: number;
       month: number;
     };
+    condition: string,
     images: string[];
     categoryId: {
       id: string;
@@ -60,6 +61,7 @@ export interface Initial {
     week: number;
     month: number;
   };
+  condition: string;
   images: string[];
 }
 

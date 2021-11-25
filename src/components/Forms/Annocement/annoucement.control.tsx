@@ -42,6 +42,7 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
           phone,
           images,
           categoryId: { id: getId },
+          condition = '',
         } = data.getAnnoucement;
 
         setInitialValues({
@@ -54,6 +55,7 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
           phonenumber: phone,
           images,
           categoryId: getId,
+          condition
         });
       }
 

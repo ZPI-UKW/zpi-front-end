@@ -14,6 +14,7 @@ export const initial: Initial = {
     week: 0,
     month: 0,
   },
+  condition: '',
   images: [],
 };
 
