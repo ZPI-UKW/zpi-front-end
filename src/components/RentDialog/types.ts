@@ -12,7 +12,7 @@ export interface QueryVars {
   annoucementId: string;
 }
 
-type Costs = {
+export type Costs = {
   day: number;
   week: number;
   month: number;

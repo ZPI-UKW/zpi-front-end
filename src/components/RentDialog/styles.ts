@@ -52,6 +52,10 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: '3rem',
   },
   button: {
-    width: '50%',
+    fontSize: '1.5rem',
+  },
+  textfield: {
+    margin: theme.spacing(1, 0),
+    flexGrow: 1,
   },
 }));
