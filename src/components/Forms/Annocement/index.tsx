@@ -16,7 +16,7 @@ import { useAuthContextState } from '../../../context/auth/authContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 
-const AnnoucementForm = () => {
+const  AnnoucementForm = () => {
   const { pathname } = useLocation();
   const { addId } = useParams<RouteParams>();
   const classes = useStyles();
