@@ -12,8 +12,6 @@ import useStyles from './styles';
 import CategoryProvider from '../../context/category/categoryContext';
 import FetchTemplate from '../Fetch';
 
-console.log(process.env.REACT_APP_BACK_END_URL);
-
 const link = createHttpLink({
   uri: `${process.env.REACT_APP_BACK_END_URL}/graphql`,
   credentials: 'include',

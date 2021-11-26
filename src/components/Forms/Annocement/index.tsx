@@ -33,7 +33,7 @@ const AnnoucementForm = () => {
       enableReinitialize
       initialValues={initialValues}
       validationSchema={AnnoucementActionSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         const formData = new FormData();
         const existingImg = values.images.filter((el) => el.includes('http'));
@@ -76,6 +76,8 @@ const AnnoucementForm = () => {
               ...dataToSend,
             },
           });
+
+          resetForm();
         } catch {}
         setSubmitting(false);
       }}
