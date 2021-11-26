@@ -4,7 +4,7 @@ import {
   QueryDataCancel,
   QueryDataDelete,
   QueryVarsCancel,
-  QueryVarsDelete,
+  QueryVarsDelete
 } from './types';
 import { useStyles } from './styles';
 import { useHistory } from 'react-router-dom';
@@ -12,28 +12,30 @@ import { useMutation } from '@apollo/client';
 import DataControl from '../DataControl';
 import { CANCEL_RESERVATION } from '../../graphql/reservations';
 import { DELETE_ANNOUCEMENT } from '../../graphql/annoucement';
+import {
+  PDFDownloadLink
+} from '@react-pdf/renderer';
+import PDFAgreement from '../PDF';
 
 const CardMenu = ({
-  variant,
-  handleAnchor,
-  anchorEl,
-  _id,
-  status,
-  reservationId,
-  handleLoad,
-}: CardMenuProps) => {
+                    variant,
+                    handleAnchor,
+                    anchorEl,
+                    _id,
+                    status,
+                    reservationId,
+                    handleLoad
+                  }: CardMenuProps) => {
   const open = Boolean(anchorEl);
   const classes = useStyles();
   const history = useHistory();
 
-  const [CancelReservation, { error, data, loading, called }] = useMutation<
-    QueryDataCancel,
-    QueryVarsCancel
-  >(CANCEL_RESERVATION);
+  const [CancelReservation, { error, data, loading, called }] = useMutation<QueryDataCancel,
+    QueryVarsCancel>(CANCEL_RESERVATION);
 
   const [
     DeleteAnnoucement,
-    { error: deleteErr, data: deleteData, loading: deleteLoa, called: deleteCal },
+    { error: deleteErr, data: deleteData, loading: deleteLoa, called: deleteCal }
   ] = useMutation<QueryDataDelete, QueryVarsDelete>(DELETE_ANNOUCEMENT);
 
   const handleClose = async () => handleAnchor(null);
@@ -42,8 +44,8 @@ const CardMenu = ({
     if (reservationId !== undefined)
       await CancelReservation({
         variables: {
-          reservationId,
-        },
+          reservationId
+        }
       });
   };
 
@@ -51,8 +53,8 @@ const CardMenu = ({
     if (_id !== undefined)
       await DeleteAnnoucement({
         variables: {
-          annoucementId: _id,
-        },
+          annoucementId: _id
+        }
       });
   };
 
@@ -63,16 +65,21 @@ const CardMenu = ({
 
   return (
     <Menu
-      id="action-menu"
+      id='action-menu'
       anchorEl={anchorEl}
       keepMounted
       open={open}
       onClose={handleClose}
       PaperProps={{
-        className: classes.listElement,
+        className: classes.listElement
       }}
     >
       {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
+      {variant === 'rentals' ?
+        <MenuItem><PDFDownloadLink document={<PDFAgreement />} fileName='umowa.pdf'>{({ blob, url, loading, error }) =>
+          loading ? 'Ladowanie' : 'Pobierz umowę'
+        }
+        </PDFDownloadLink></MenuItem> : null}
       {variant === 'your' ? (
         <div>
           <MenuItem onClick={handleDelete}>Usuń</MenuItem>
@@ -84,7 +91,7 @@ const CardMenu = ({
         error={error}
         loading={loading}
         called={called}
-        successMsg="Rezerwacja anulowana."
+        successMsg='Rezerwacja anulowana.'
         onSuccess={() => {
           if (handleLoad !== undefined) handleLoad();
         }}
@@ -94,7 +101,7 @@ const CardMenu = ({
         error={deleteErr}
         loading={deleteLoa}
         called={deleteCal}
-        successMsg="Ogłoszenie usunięte."
+        successMsg='Ogłoszenie usunięte.'
         onSuccess={() => {
           if (handleLoad !== undefined) handleLoad();
         }}
