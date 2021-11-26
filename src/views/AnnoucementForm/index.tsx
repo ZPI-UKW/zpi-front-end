@@ -5,7 +5,6 @@ import ViewTitle from '../../components/ViewTitle';
 
 const CreateAnnoucements = () => {
   const location = useLocation();
-  console.log(location);
 
   return (
     <ViewContainer>

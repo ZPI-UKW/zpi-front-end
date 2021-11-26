@@ -13,7 +13,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_ANNOUCEMENT, EDIT_ANNOUCEMENT } from '../../../graphql/annoucement';
 import DataControl from '../../DataControl/index';
 import { useAuthContextState } from '../../../context/auth/authContext';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 
 const  AnnoucementForm = () => {
@@ -23,6 +23,7 @@ const  AnnoucementForm = () => {
   const mode = pathname.includes('edit-advertisement');
   const [initialValues, setInitialValues] = useState<Initial>(initial);
   const { logout } = useAuthContextState();
+  const history = useHistory();
 
   const [AnnoucementAction, { error, data, loading, called }] = useMutation<QueryData, QueryVars>(
     mode ? EDIT_ANNOUCEMENT : CREATE_ANNOUCEMENT
@@ -77,7 +78,9 @@ const  AnnoucementForm = () => {
             },
           });
 
-          resetForm();
+          console.log(mode)
+          if(mode) history.push('/my-advertisements');
+          else resetForm();
         } catch {}
         setSubmitting(false);
       }}
@@ -112,7 +115,7 @@ const  AnnoucementForm = () => {
             error={error}
             loading={loading}
             called={called}
-            successMsg="Ogłoszenie utworzone pomyslnie."
+            successMsg={mode ? "Ogłoszenie zaktualizowane pomyslnie." : "Ogłoszenie utworzone pomyslnie."}
             onError={(error, status, message) => {
               if (message.includes('validation')) {
                 error.message = 'Bląd walidacji.';
