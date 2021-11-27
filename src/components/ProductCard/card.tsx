@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardMedia, Grid, IconButton, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, CardMedia, Grid, IconButton, Typography, Link as MuiLink } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { CardProps, Status } from './types';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -22,6 +22,7 @@ const ProductCard = ({
   reservationId,
   startAt,
   handleLoad,
+  agreement
 }: CardProps) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -40,7 +41,7 @@ const ProductCard = ({
   return (
     <Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridItem}>
       <Card elevation={8} className={clsx(classes.card, classes.moreBtn)}>
-        {variant !== 'home' ? (
+        {variant !== 'home' && variant !== 'myReservedByUsers' ? (
           <IconButton
             className={classes.editIcon}
             aria-label="Więcej"
@@ -52,21 +53,22 @@ const ProductCard = ({
           </IconButton>
         ) : null}
         <CardMedia component="div" image={images[0]} className={classes.media} />
-        <Link
-          to={`/category/${
-            categories.find((el) => (el as any).id === categoryId)?.englishName
-          }/${_id}`}
-        >
           <CardContent>
-            <Typography
-              color="primary"
-              className={classes.title}
-              variant="h5"
-              component="h2"
-              noWrap
+            <Link
+              to={`/category/${
+                categories.find((el) => (el as any).id === categoryId)?.englishName
+              }/${_id}`}
             >
-              {title}
-            </Typography>
+              <Typography
+                color="primary"
+                className={classes.title}
+                variant="h5"
+                component="h2"
+                noWrap
+              >
+                {title}
+              </Typography>
+            </Link>
             {variant === 'home' ? (
               <>
                 <Typography
@@ -91,7 +93,7 @@ const ProductCard = ({
                 </Typography>
               </>
             ) : null}
-            {variant !== 'home' ? (
+            {variant !== 'home' && variant !== 'myReservedByUsers' ? (
               <Typography
                 className={classes.marginTop}
                 color="textSecondary"
@@ -106,8 +108,12 @@ const ProductCard = ({
                 </Typography>
               </Typography>
             ) : null}
+            {variant === 'myReservedByUsers' &&
+            <>
+              <Typography gutterBottom variant="h5" component="span" >Status umowy: {agreement ? 'przesłana - ' : 'nieprzesłana'}</Typography>
+              {agreement && <MuiLink href={agreement} target="_blank"><Typography variant="h5" component="span">podgląd</Typography></MuiLink>}
+            </>}
           </CardContent>
-        </Link>
         <CardMenu
           anchorEl={anchorEl}
           handleAnchor={handleAnchor}

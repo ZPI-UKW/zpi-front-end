@@ -1,4 +1,4 @@
-type Variant = 'home' | 'rentals' | 'your';
+type Variant = 'home' | 'rentals' | 'your' | 'myReservedByUsers';
 
 export enum Status {
   'not free' = 'zarezerwowane',
@@ -17,6 +17,7 @@ export interface CardProps {
   reservationId?: string;
   startAt?: string;
   handleLoad?: () => void;
+  agreement?: string | null;
 }
 
 export interface CardMenuProps {
