@@ -25,7 +25,7 @@ export interface CardMenuProps {
   anchorEl: HTMLElement | null;
   _id: string;
   status: Status;
-  reservationId?: string;
+  reservationId: string;
   handleLoad?: () => void;
 }
 
@@ -39,4 +39,10 @@ export interface QueryDataDelete {}
 
 export interface QueryVarsDelete {
   annoucementId: string;
+}
+
+export interface AgreementProps {
+  open: boolean;
+  handleClose: () => void;
+  reservationId: string
 }

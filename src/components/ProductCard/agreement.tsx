@@ -1,10 +1,11 @@
 import { Dialog, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
 import Files from 'react-files'
 import { useState } from 'react';
-import { useStyles } from './styles';
 import { useSnackbar } from 'notistack';
+import { useStyles } from './styles';
+import { AgreementProps } from './types';
 
-const Agreement = ({handleClose,open}: {open: boolean; handleClose: () => void}) => {
+const Agreement = ({handleClose, open, reservationId}: AgreementProps) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [pdf, setPdf] = useState<any>(null);
@@ -17,8 +18,7 @@ const Agreement = ({handleClose,open}: {open: boolean; handleClose: () => void})
       try {
         const formData = new FormData();
         formData.append('agreement', new Blob([pdf], { type: pdf.type }), pdf.name || 'file');
-        formData.append('reservationId', "61a226e53daee90520e0d38a");
-        await fetch(`${process.env.REACT_APP_BACK_END_URL}/upload-pdf/61a226e53daee90520e0d38a`, {
+        await fetch(`${process.env.REACT_APP_BACK_END_URL}/upload-pdf/${reservationId}`, {
           method: 'POST',
           body: formData,
           credentials: 'include'

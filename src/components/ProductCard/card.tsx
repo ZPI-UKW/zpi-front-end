@@ -114,7 +114,7 @@ const ProductCard = ({
           variant={variant}
           _id={_id}
           status={status || Status.free}
-          reservationId={reservationId}
+          reservationId={reservationId || ''}
           handleLoad={handleLoad}
         />
       </Card>

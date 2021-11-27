@@ -69,7 +69,7 @@ const CardMenu = ({
 
   return (
     <>
-      <Agreement open={isUploadOpen} handleClose={handleUploadClose} />
+      <Agreement open={isUploadOpen} handleClose={handleUploadClose} reservationId={reservationId} />
       <Menu
         id='action-menu'
         anchorEl={anchorEl}
