@@ -9,12 +9,14 @@ const Agreement = ({handleClose, open, reservationId}: AgreementProps) => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [pdf, setPdf] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   const handleChangeImg = (file: any) => {
     if (file[0] && file[0]?.extension && file[0]?.extension === 'pdf') setPdf(file[0]);
   };
 
   const uploadImg = async () => {
     if(pdf !== null) {
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append('agreement', new Blob([pdf], { type: pdf.type }), pdf.name || 'file');
@@ -24,8 +26,11 @@ const Agreement = ({handleClose, open, reservationId}: AgreementProps) => {
           credentials: 'include'
         });
         enqueueSnackbar('Umowa przesłana pomyślnie!', {variant: 'success'});
+        handleClose();
       } catch (e) {
         enqueueSnackbar('Wystąpił błąd podczas przesyłania umowy!', {variant: 'error'});
+      } finally {
+        setLoading(false);
       }
     }
   }
@@ -63,8 +68,8 @@ const Agreement = ({handleClose, open, reservationId}: AgreementProps) => {
         <Button onClick={handleClose} color="primary">
           <Typography variant="h5" component="p" >Anuluj</Typography>
         </Button>
-        <Button onClick={uploadImg} color="primary">
-          <Typography variant="h5" component="p" >Prześlij</Typography>
+        <Button onClick={uploadImg} color="primary" disabled={loading}>
+          <Typography variant="h5" component="p">Prześlij</Typography>
         </Button>
       </DialogActions>
     </Dialog>
