@@ -15,7 +15,9 @@ import { DELETE_ANNOUCEMENT } from '../../graphql/annoucement';
 import {
   PDFDownloadLink
 } from '@react-pdf/renderer';
+import { useState } from 'react';
 import PDFAgreement from '../PDF';
+import Agreement from './agreement';
 
 const CardMenu = ({
                     variant,
@@ -29,6 +31,7 @@ const CardMenu = ({
   const open = Boolean(anchorEl);
   const classes = useStyles();
   const history = useHistory();
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   const [CancelReservation, { error, data, loading, called }] = useMutation<QueryDataCancel,
     QueryVarsCancel>(CANCEL_RESERVATION);
@@ -38,6 +41,7 @@ const CardMenu = ({
     { error: deleteErr, data: deleteData, loading: deleteLoa, called: deleteCal }
   ] = useMutation<QueryDataDelete, QueryVarsDelete>(DELETE_ANNOUCEMENT);
 
+  const handleUploadClose = () => setIsUploadOpen(false);
   const handleClose = async () => handleAnchor(null);
 
   const handleCancel = async () => {
@@ -64,49 +68,53 @@ const CardMenu = ({
   };
 
   return (
-    <Menu
-      id='action-menu'
-      anchorEl={anchorEl}
-      keepMounted
-      open={open}
-      onClose={handleClose}
-      PaperProps={{
-        className: classes.listElement
-      }}
-    >
-      {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
-      {variant === 'rentals' ?
-        <MenuItem><PDFDownloadLink document={<PDFAgreement />} fileName='umowa.pdf'>{({ blob, url, loading, error }) =>
-          loading ? 'Ladowanie' : 'Pobierz umowę'
-        }
-        </PDFDownloadLink></MenuItem> : null}
-      {variant === 'your' ? (
-        <div>
-          <MenuItem onClick={handleDelete}>Usuń</MenuItem>
-          <MenuItem onClick={handleIconButton}>Edytuj</MenuItem>
-        </div>
-      ) : null}
-      <DataControl
-        data={data}
-        error={error}
-        loading={loading}
-        called={called}
-        successMsg='Rezerwacja anulowana.'
-        onSuccess={() => {
-          if (handleLoad !== undefined) handleLoad();
+    <>
+      <Agreement open={isUploadOpen} handleClose={handleUploadClose} />
+      <Menu
+        id='action-menu'
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          className: classes.listElement
         }}
-      />
-      <DataControl
-        data={deleteData}
-        error={deleteErr}
-        loading={deleteLoa}
-        called={deleteCal}
-        successMsg='Ogłoszenie usunięte.'
-        onSuccess={() => {
-          if (handleLoad !== undefined) handleLoad();
-        }}
-      />
-    </Menu>
+      >
+        {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
+        {variant === 'rentals' ?
+          <MenuItem><PDFDownloadLink document={<PDFAgreement />} fileName='umowa.pdf'>{({ blob, url, loading, error }) =>
+            loading ? 'Ladowanie' : 'Pobierz umowę'
+          }
+          </PDFDownloadLink></MenuItem> : null}
+        {variant === 'rentals' ? <MenuItem onClick={() => setIsUploadOpen(true)}>Prześlij umowę</MenuItem> : null}
+        {variant === 'your' ? (
+          <div>
+            <MenuItem onClick={handleDelete}>Usuń</MenuItem>
+            <MenuItem onClick={handleIconButton}>Edytuj</MenuItem>
+          </div>
+        ) : null}
+        <DataControl
+          data={data}
+          error={error}
+          loading={loading}
+          called={called}
+          successMsg='Rezerwacja anulowana.'
+          onSuccess={() => {
+            if (handleLoad !== undefined) handleLoad();
+          }}
+        />
+        <DataControl
+          data={deleteData}
+          error={deleteErr}
+          loading={deleteLoa}
+          called={deleteCal}
+          successMsg='Ogłoszenie usunięte.'
+          onSuccess={() => {
+            if (handleLoad !== undefined) handleLoad();
+          }}
+        />
+      </Menu>
+    </>
   );
 };
 
