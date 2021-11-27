@@ -1,4 +1,4 @@
-import { Menu, MenuItem } from '@material-ui/core';
+import { Menu, MenuItem, Typography } from '@material-ui/core';
 import {
   CardMenuProps,
   QueryDataCancel,
@@ -82,10 +82,11 @@ const CardMenu = ({
       >
         {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
         {variant === 'rentals' ?
-          <MenuItem><PDFDownloadLink document={<PDFAgreement />} fileName='umowa.pdf'>{({ blob, url, loading, error }) =>
-            loading ? 'Ladowanie' : 'Pobierz umowę'
-          }
-          </PDFDownloadLink></MenuItem> : null}
+          <MenuItem>
+            <PDFDownloadLink document={<PDFAgreement />} fileName='umowa.pdf' style={{color: 'black'}}>
+              {({ blob, url, loading, error }) => loading ? 'Ladowanie' : 'Pobierz umowę'}
+            </PDFDownloadLink>
+          </MenuItem> : null}
         {variant === 'rentals' ? <MenuItem onClick={() => setIsUploadOpen(true)}>Prześlij umowę</MenuItem> : null}
         {variant === 'your' ? (
           <div>
