@@ -1,37 +1,39 @@
 import { Dialog, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
 import Files from 'react-files'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useStyles } from './styles';
+import { useSnackbar } from 'notistack';
 
 const Agreement = ({handleClose,open}: {open: boolean; handleClose: () => void}) => {
-  const [img, setImg] = useState<any>(null);
+  const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
+  const [pdf, setPdf] = useState<any>(null);
   const handleChangeImg = (file: any) => {
-    console.log(file[0].extension, file[0])
-    if (file[0] && file[0].extension === 'pdf' && file[0].type === "application/pdf") setImg(file[0]);
-
+    if (file[0] && file[0]?.extension && file[0]?.extension === 'pdf') setPdf(file[0]);
   };
 
   const uploadImg = async () => {
-    if(img !== null) {
+    if(pdf !== null) {
       try {
         const formData = new FormData();
-        formData.append('agreement', new Blob([img], { type: img.type }), img.name || 'file');
+        formData.append('agreement', new Blob([pdf], { type: pdf.type }), pdf.name || 'file');
         formData.append('reservationId', "61a226e53daee90520e0d38a");
-        const res = await fetch(`${process.env.REACT_APP_BACK_END_URL}/upload-pdf/61a226e53daee90520e0d38a`, {
+        await fetch(`${process.env.REACT_APP_BACK_END_URL}/upload-pdf/61a226e53daee90520e0d38a`, {
           method: 'POST',
           body: formData,
           credentials: 'include'
         });
-
-        console.log(res);
+        enqueueSnackbar('Umowa przesłana pomyślnie!', {variant: 'success'});
       } catch (e) {
-        console.log(e);
+        enqueueSnackbar('Wystąpił błąd podczas przesyłania umowy!', {variant: 'error'});
       }
     }
   }
 
-  useEffect(() => {
-    console.log("File: ", img);
-  }, [img])
+  const handleError = (error: any) => {
+    if(error.code === 2) enqueueSnackbar('Plik jest za duży! Maksymalnie 3MB!', {variant: 'error'});
+    else enqueueSnackbar('Wystąpił nieznany błąd!', {variant: 'error'});
+  }
 
   return (
     <Dialog
@@ -45,12 +47,14 @@ const Agreement = ({handleClose,open}: {open: boolean; handleClose: () => void})
         <div>
           <Files
             accepts={['application/pdf']}
+            maxFiles={1}
             multiple={false}
-            maxFileSize={10000000}
+            maxFileSize={3000000}
             onChange={handleChangeImg}
+            onError={handleError}
           >
-            <div style={{background: 'red'}}>
-              Upload file
+            <div className={classes.fileUpload}>
+              <Typography variant="h5" component="span" className={classes.fileUploadTitle}>{pdf !== null && pdf.name ? pdf.name : "Dodaj plik pdf"}</Typography>
             </div>
           </Files>
         </div>

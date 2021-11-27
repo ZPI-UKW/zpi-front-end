@@ -20,14 +20,14 @@ import PDFAgreement from '../PDF';
 import Agreement from './agreement';
 
 const CardMenu = ({
-                    variant,
-                    handleAnchor,
-                    anchorEl,
-                    _id,
-                    status,
-                    reservationId,
-                    handleLoad
-                  }: CardMenuProps) => {
+  variant,
+  handleAnchor,
+  anchorEl,
+  _id,
+  status,
+  reservationId,
+  handleLoad
+}: CardMenuProps) => {
   const open = Boolean(anchorEl);
   const classes = useStyles();
   const history = useHistory();

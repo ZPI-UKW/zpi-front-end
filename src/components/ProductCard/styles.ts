@@ -45,4 +45,16 @@ export const useStyles = makeStyles((theme) => ({
   gridItem: {
     padding: theme.spacing(2),
   },
+  fileUpload: {
+    height: 80,
+    width: 400,
+    border: `1px solid ${theme.palette.grey[500]}`,
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  fileUploadTitle: {
+    height: 'fit-content'
+  }
 }));
