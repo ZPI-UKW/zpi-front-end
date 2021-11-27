@@ -49,6 +49,8 @@ export const MY_RESERVETIONS = gql`
       location
       reservationId
       startAt
+      endAt
+      condition
     }
   }
 `;

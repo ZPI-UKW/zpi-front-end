@@ -26,7 +26,10 @@ const CardMenu = ({
   _id,
   status,
   reservationId,
-  handleLoad
+  handleLoad,
+  endAt,
+  startAt,
+  condition
 }: CardMenuProps) => {
   const open = Boolean(anchorEl);
   const classes = useStyles();
@@ -83,7 +86,9 @@ const CardMenu = ({
         {variant === 'rentals' ? <MenuItem onClick={handleCancel}>Anuluj</MenuItem> : null}
         {variant === 'rentals' ?
           <MenuItem>
-            <PDFDownloadLink document={<PDFAgreement />} fileName='umowa.pdf' style={{color: 'black'}}>
+            <PDFDownloadLink document={
+              <PDFAgreement reservationId={reservationId} condition={condition} startAt={startAt} endAt={endAt} />
+            } fileName='umowa.pdf' style={{color: 'black'}}>
               {({ blob, url, loading, error }) => loading ? 'Ladowanie' : 'Pobierz umowę'}
             </PDFDownloadLink>
           </MenuItem> : null}

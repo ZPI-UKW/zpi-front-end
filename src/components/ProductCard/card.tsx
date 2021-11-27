@@ -21,6 +21,8 @@ const ProductCard = ({
   categoryId,
   reservationId,
   startAt,
+  endAt,
+  condition,
   handleLoad,
   agreement
 }: CardProps) => {
@@ -122,6 +124,9 @@ const ProductCard = ({
           status={status || Status.free}
           reservationId={reservationId || ''}
           handleLoad={handleLoad}
+          startAt={startAt!}
+          endAt={endAt!}
+          condition={condition!}
         />
       </Card>
     </Grid>

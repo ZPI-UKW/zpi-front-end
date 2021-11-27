@@ -16,6 +16,8 @@ export interface CardProps {
   categoryId: string;
   reservationId?: string;
   startAt?: string;
+  endAt?: string;
+  condition?: string;
   handleLoad?: () => void;
   agreement?: string | null;
 }
@@ -28,6 +30,9 @@ export interface CardMenuProps {
   status: Status;
   reservationId: string;
   handleLoad?: () => void;
+  startAt: string;
+  endAt: string;
+  condition: string;
 }
 
 export interface QueryDataCancel {}

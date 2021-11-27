@@ -10,6 +10,8 @@ export interface QueryData {
     location: string;
     reservationId: string;
     startAt: string;
+    endAt: string;
+    condition: string;
   }[];
 }
 
