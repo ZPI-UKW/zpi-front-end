@@ -13,7 +13,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_ANNOUCEMENT, EDIT_ANNOUCEMENT } from '../../../graphql/annoucement';
 import DataControl from '../../DataControl/index';
 import { useAuthContextState } from '../../../context/auth/authContext';
-import { useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 
 const AnnoucementForm = () => {
@@ -23,6 +23,7 @@ const AnnoucementForm = () => {
   const mode = pathname.includes('edit-advertisement');
   const [initialValues, setInitialValues] = useState<Initial>(initial);
   const { logout } = useAuthContextState();
+  const history = useHistory();
 
   const [AnnoucementAction, { error, data, loading, called }] = useMutation<QueryData, QueryVars>(
     mode ? EDIT_ANNOUCEMENT : CREATE_ANNOUCEMENT
@@ -33,7 +34,7 @@ const AnnoucementForm = () => {
       enableReinitialize
       initialValues={initialValues}
       validationSchema={AnnoucementActionSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
         const formData = new FormData();
         const existingImg = values.images.filter((el) => el.includes('http'));
@@ -49,15 +50,13 @@ const AnnoucementForm = () => {
             }
 
             const res = await fetch(`${process.env.REACT_APP_BACK_END_URL}/add-images`, {
-              method: 'PUT',
+              method: 'POST',
               body: formData,
-              credentials: 'include',
+              credentials: 'include'
             });
 
             const data = await res.json();
-            const links = (data.files as string[]).map(
-              (el) => `${process.env.REACT_APP_BACK_END_URL}/${el}`
-            );
+            const links = data.files;
             imagesUrl = [...existingImg, ...links];
           }
 
@@ -67,7 +66,7 @@ const AnnoucementForm = () => {
             week: parseFloat(values.costs.week.toString()),
             month: parseFloat(values.costs.month.toString()),
             images: imagesUrl,
-            phone: values.phonenumber,
+            phone: values.phonenumber
           };
 
           if (mode) dataToSend.id = addId;
@@ -75,10 +74,14 @@ const AnnoucementForm = () => {
 
           await AnnoucementAction({
             variables: {
-              ...dataToSend,
-            },
+              ...dataToSend
+            }
           });
-        } catch {}
+
+          if (mode) history.push('/my-advertisements');
+          else resetForm();
+        } catch {
+        }
         setSubmitting(false);
       }}
     >
@@ -89,19 +92,19 @@ const AnnoucementForm = () => {
               <TextFields touched={touched} errors={errors} />
             </Grid>
             <Grid item xs={12} md={6} className={classes.flexWrapper}>
-              <Typography variant="h4" component="h3">
+              <Typography variant='h4' component='h3'>
                 Galeria zdjęć (max 3)
               </Typography>
-              <Typography variant="subtitle1" component="p">
+              <Typography variant='subtitle1' component='p'>
                 Maksymalny rozmiar zdjęcia to 1MB
               </Typography>
               <FileHandler />
             </Grid>
           </Grid>
           <SpinnerButton
-            type="submit"
-            variant="contained"
-            color="primary"
+            type='submit'
+            variant='contained'
+            color='primary'
             isLoading={isSubmitting}
             wrapperClassName={classes.buttonWrapper}
           >
@@ -112,7 +115,7 @@ const AnnoucementForm = () => {
             error={error}
             loading={loading}
             called={called}
-            successMsg="Ogłoszenie utworzone pomyslnie."
+            successMsg={mode ? 'Ogłoszenie zaktualizowane pomyslnie.' : 'Ogłoszenie utworzone pomyslnie.'}
             onError={(error, status, message) => {
               if (message.includes('validation')) {
                 error.message = 'Bląd walidacji.';

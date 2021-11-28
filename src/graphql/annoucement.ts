@@ -12,6 +12,7 @@ export const CREATE_ANNOUCEMENT = gql`
     $week: Float!
     $month: Float!
     $category: ID!
+    $condition: String!
   ) {
     createAnnoucement(
       annoucementInput: {
@@ -23,6 +24,7 @@ export const CREATE_ANNOUCEMENT = gql`
         images: $images
         costs: { day: $day, week: $week, month: $month }
         category: $category
+        condition: $condition
       }
     ) {
       id
@@ -42,6 +44,7 @@ export const EDIT_ANNOUCEMENT = gql`
     $day: Float!
     $week: Float!
     $month: Float!
+    $condition: String!
   ) {
     editAnnoucement(
       annoucementInput: {
@@ -53,6 +56,7 @@ export const EDIT_ANNOUCEMENT = gql`
         email: $email
         images: $images
         costs: { day: $day, week: $week, month: $month }
+        condition: $condition
       }
     ) {
       id
@@ -79,6 +83,7 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
         month
       }
       images
+      condition
     }
   }
 `;

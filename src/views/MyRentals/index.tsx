@@ -50,6 +50,8 @@ const MyRentals = () => {
               categoryId={el.categoryId}
               reservationId={el.reservationId}
               startAt={el.startAt}
+              condition={el.condition}
+              endAt={el.endAt}
               handleLoad={handleLoad}
             />
           ))

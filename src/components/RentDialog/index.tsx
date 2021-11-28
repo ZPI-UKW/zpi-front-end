@@ -14,7 +14,6 @@ import {
   useTheme,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { render } from '@testing-library/react';
 import { Form, Formik } from 'formik';
 import moment, { Moment } from 'moment';
 import { useState } from 'react';
@@ -25,7 +24,7 @@ import DialogTitle from '../DialogTitle';
 import SpinnerButton from '../SpinnerButton';
 import Pricing from './pricing.rentmodal';
 import { useStyles } from './styles';
-import { Costs, PricingProps, QueryData, QueryVars, RentDialogProps } from './types';
+import { Costs, QueryData, QueryVars, RentDialogProps } from './types';
 
 const RentVariables = (startDate: moment.Moment, endDate: moment.Moment, id: string) => {
   return {

@@ -34,10 +34,13 @@ const Navigation = ({ type = 'desktop', anchorEl, setAnchorEl, logoutFun }: Navi
         <MenuItem onClick={handleClose}>Moje ogłoszenia</MenuItem>
       </Link>
       <Link to="/my-rentals">
-        <MenuItem onClick={handleClose}>Wypożyczone przedmioty</MenuItem>
+        <MenuItem onClick={handleClose}>Moje wypożyczenia</MenuItem>
       </Link>
       <Link to="/statute">
         <MenuItem onClick={handleClose}>Regulamin</MenuItem>
+      </Link>
+      <Link to="/users-reservations">
+        <MenuItem onClick={handleClose}>Rezerwacje użytkowników</MenuItem>
       </Link>
       {type === 'desktop' ? (
         <Link to="/profile">

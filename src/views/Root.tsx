@@ -10,6 +10,7 @@ import Product from './Product';
 import Profile from './Profile';
 import AuthRoute from '../components/AuthRoute';
 import Statute from './Statute';
+import UserReservations from './UserReservations';
 
 const Root = () => (
   <Router>
@@ -30,6 +31,9 @@ const Root = () => (
           </AuthRoute>
           <AuthRoute path="/my-advertisements">
             <MyAnnoucements />
+          </AuthRoute>
+          <AuthRoute path="/users-reservations">
+            <UserReservations />
           </AuthRoute>
           <AuthRoute path="/my-rentals">
             <MyRentals />

@@ -54,6 +54,16 @@ const TextFields = ({ touched, errors, variant = 'standard' }: FieldsProps) => {
       />
       <Field
         variant={variant}
+        label="Kondycja"
+        name="condition"
+        multiline
+        rows={4}
+        as={StyledTextField}
+        error={touched.condition && Boolean(errors.condition)}
+        helperText={touched.condition && errors.condition}
+      />
+      <Field
+        variant={variant}
         label="Cena za 1 dzień"
         name="costs.day"
         as={StyledTextField}

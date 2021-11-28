@@ -1,4 +1,4 @@
-type Variant = 'home' | 'rentals' | 'your';
+type Variant = 'home' | 'rentals' | 'your' | 'myReservedByUsers';
 
 export enum Status {
   'not free' = 'zarezerwowane',
@@ -16,7 +16,10 @@ export interface CardProps {
   categoryId: string;
   reservationId?: string;
   startAt?: string;
+  endAt?: string;
+  condition?: string;
   handleLoad?: () => void;
+  agreement?: string | null;
 }
 
 export interface CardMenuProps {
@@ -25,8 +28,11 @@ export interface CardMenuProps {
   anchorEl: HTMLElement | null;
   _id: string;
   status: Status;
-  reservationId?: string;
+  reservationId: string;
   handleLoad?: () => void;
+  startAt: string;
+  endAt: string;
+  condition: string;
 }
 
 export interface QueryDataCancel {}
@@ -39,4 +45,10 @@ export interface QueryDataDelete {}
 
 export interface QueryVarsDelete {
   annoucementId: string;
+}
+
+export interface AgreementProps {
+  open: boolean;
+  handleClose: () => void;
+  reservationId: string
 }

@@ -14,12 +14,22 @@ import FetchTemplate from '../Fetch';
 
 const link = createHttpLink({
   uri: `${process.env.REACT_APP_BACK_END_URL}/graphql`,
-  credentials: 'include',
+  credentials: 'include'
 });
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    }
+  }
 });
 
 const MainTemplate = ({ children }: { children: React.ReactNode }) => {

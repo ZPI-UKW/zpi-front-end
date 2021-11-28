@@ -16,6 +16,26 @@ export const MY_ANNOUCEMENTS = gql`
   }
 `;
 
+export const USER_RESERVED_ANNOUCEMENTS = gql`
+  query UserReservedAnnoucements {
+    getUserReservedAnnoucements {
+      id
+      agreement
+      annoucementId {
+        id
+        title
+        costs {
+          day
+        }
+        images
+        location
+        categoryId
+      }
+      startAt
+    }
+  }
+`;
+
 export const MY_RESERVETIONS = gql`
   query MyAnnoucements($reservedBy: String!) {
     getAnnoucements(reservedBy: $reservedBy) {
@@ -29,6 +49,8 @@ export const MY_RESERVETIONS = gql`
       location
       reservationId
       startAt
+      endAt
+      condition
     }
   }
 `;
