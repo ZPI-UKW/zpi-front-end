@@ -16,7 +16,7 @@ import { useAuthContextState } from '../../../context/auth/authContext';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { AnnoucementActionSchema } from '../../../validation/annoucement.validation';
 
-const  AnnoucementForm = () => {
+const AnnoucementForm = () => {
   const { pathname } = useLocation();
   const { addId } = useParams<RouteParams>();
   const classes = useStyles();
@@ -52,7 +52,7 @@ const  AnnoucementForm = () => {
             const res = await fetch(`${process.env.REACT_APP_BACK_END_URL}/add-images`, {
               method: 'POST',
               body: formData,
-              credentials: 'include',
+              credentials: 'include'
             });
 
             const data = await res.json();
@@ -66,7 +66,7 @@ const  AnnoucementForm = () => {
             week: parseFloat(values.costs.week.toString()),
             month: parseFloat(values.costs.month.toString()),
             images: imagesUrl,
-            phone: values.phonenumber,
+            phone: values.phonenumber
           };
 
           if (mode) dataToSend.id = addId;
@@ -74,14 +74,14 @@ const  AnnoucementForm = () => {
 
           await AnnoucementAction({
             variables: {
-              ...dataToSend,
-            },
+              ...dataToSend
+            }
           });
 
-          console.log(mode)
-          if(mode) history.push('/my-advertisements');
+          if (mode) history.push('/my-advertisements');
           else resetForm();
-        } catch {}
+        } catch {
+        }
         setSubmitting(false);
       }}
     >
@@ -92,19 +92,19 @@ const  AnnoucementForm = () => {
               <TextFields touched={touched} errors={errors} />
             </Grid>
             <Grid item xs={12} md={6} className={classes.flexWrapper}>
-              <Typography variant="h4" component="h3">
+              <Typography variant='h4' component='h3'>
                 Galeria zdjęć (max 3)
               </Typography>
-              <Typography variant="subtitle1" component="p">
+              <Typography variant='subtitle1' component='p'>
                 Maksymalny rozmiar zdjęcia to 1MB
               </Typography>
               <FileHandler />
             </Grid>
           </Grid>
           <SpinnerButton
-            type="submit"
-            variant="contained"
-            color="primary"
+            type='submit'
+            variant='contained'
+            color='primary'
             isLoading={isSubmitting}
             wrapperClassName={classes.buttonWrapper}
           >
@@ -115,7 +115,7 @@ const  AnnoucementForm = () => {
             error={error}
             loading={loading}
             called={called}
-            successMsg={mode ? "Ogłoszenie zaktualizowane pomyslnie." : "Ogłoszenie utworzone pomyslnie."}
+            successMsg={mode ? 'Ogłoszenie zaktualizowane pomyslnie.' : 'Ogłoszenie utworzone pomyslnie.'}
             onError={(error, status, message) => {
               if (message.includes('validation')) {
                 error.message = 'Bląd walidacji.';

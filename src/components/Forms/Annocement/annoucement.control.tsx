@@ -7,7 +7,7 @@ import { useAuthContextState } from '../../../context/auth/authContext';
 
 const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementControlProps) => {
   const {
-    userInfo: { email, name, phonenumber },
+    userInfo: { email, name, phonenumber }
   } = useAuthContextState();
   const { pathname } = useLocation();
   const params = useParams<RouteParams>();
@@ -20,52 +20,60 @@ const AnnocementControl = ({ initialValues, setInitialValues }: AnnoucementContr
     const user = {
       email,
       name,
-      phonenumber,
+      phonenumber
     };
 
     if (pathname === '/create-advertisement') {
       setInitialValues({
         ...initialValues,
-        ...user,
+        ...user
       });
     } else {
       const { addId } = params;
       GetAnnoucement({ variables: { id: addId } });
-
-      if (!error && data?.getAnnoucement) {
-        const {
-          title,
-          description,
-          costs,
-          location,
-          email,
-          phone,
-          images,
-          categoryId: { id: getId },
-          condition = '',
-        } = data.getAnnoucement;
-
-        setInitialValues({
-          ...user,
-          title,
-          description,
-          costs,
-          location,
-          email,
-          phonenumber: phone,
-          images,
-          categoryId: getId,
-          condition
-        });
-      }
-
-      if (error !== undefined) {
-        history.push('/');
-        return;
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, data]);
+  }, []);
+
+  useEffect(() => {
+    const user = {
+      email,
+      name,
+      phonenumber
+    };
+
+    if (!error && data?.getAnnoucement) {
+      const {
+        title,
+        description,
+        costs,
+        location,
+        email,
+        phone,
+        images,
+        categoryId: { id: getId },
+        condition = ''
+      } = data.getAnnoucement;
+
+      setInitialValues({
+        ...user,
+        title,
+        description,
+        costs,
+        location,
+        email,
+        phonenumber: phone,
+        images,
+        categoryId: getId,
+        condition
+      });
+    }
+
+    if (error !== undefined) {
+      history.push('/');
+      return;
+    }
+  }, [data, error]);
 
   return null;
 };
