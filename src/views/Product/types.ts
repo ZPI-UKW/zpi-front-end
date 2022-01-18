@@ -9,6 +9,7 @@ export interface QueryData {
     description: string;
     addedBy: {
       _id: string;
+      name: string;
     };
     location: string;
     categoryId: {

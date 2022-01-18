@@ -68,6 +68,7 @@ export const GET_ANNOUCEMENT_BY_ID = gql`
       }
       addedBy {
         _id
+        name
       }
       phone
       email

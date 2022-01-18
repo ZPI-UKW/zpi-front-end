@@ -5,6 +5,7 @@ export interface AnnoucementProps {
     description: string;
     addedBy: {
       _id: string;
+      name: string;
     };
     location: string;
     categoryId: {

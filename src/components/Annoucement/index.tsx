@@ -86,7 +86,7 @@ const Annoucement = ({ annoucement }: AnnoucementProps) => {
               <PersonOutlineOutlinedIcon />
               <Typography variant="h4">Dodane przez</Typography>
             </div>
-            <Typography>Irek</Typography>
+            <Typography>{annoucement.addedBy.name}</Typography>
           </Paper>
           <Paper className={classes.paper} elevation={4}>
             <div className={classes.paperTitle}>
